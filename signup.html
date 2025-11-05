@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <title>Sign Up</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .background {
+      background-image: url("assets/background.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      /* background-position: center ; */
+      background-size: contain; /* ← for SVG this keeps aspect ratio PERFECT */
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .bgimg {
+      width: 100%;
+      height: auto;
+    }
+    .box {
+      background-color: white;
+      width: 380px;
+    }
+    .box-parent {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .login {
+      border: 2px solid yellow;
+      width: 100%;
+      text-align: center;
+    }
+    .login p {
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .logo {
+      
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    margin-block-end: 8px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    width: 400px;
+    height: 530px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 1;
+    text-align: left;
+  }
+  
+  .box h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  /* Inputs */
+  .box label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .box input[type="text"],
+  .box input[type="email"],
+  .box input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    margin: 2px 0 8px;
+    box-sizing: border-box;
+
+  }
+  
+  .box input:focus {
+    border-color: #3b82f6;
+  }
+  
+  /* Button */
+  .box button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .box button:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Links */
+  .box .link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .box .link a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
+  
+  .box .link a:hover {
+    text-decoration: underline;
+  }
+  
+  .box small {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #3b82f6;
+    font-size: 15px;
+  }
+  
+  .box .terms {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .box .terms a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
+
+  #a a{
+     color: #858a91;
+    text-decoration: none;
+  }
+  
+  </style>
+<body>
+     <section class="background">
+<div class="box-parent">
+        <div class="box">
+          <div class="logo">
+            <img src="assets/logo.svg" alt="" />
+          </div>
+           <h1>Signup</h1>
+    <form action="#" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="" required>
+
+      <label for="confirm">Confirm Password:</label>
+      <input type="password" id="confirm" placeholder="" required>
+
+      <button type="submit">Login</button>
+
+      <div class="terms">
+        <input type="checkbox" required>
+        <label>I agree to all the terms and conditions</label>
+      </div>
+    </form>
+    <script>
+        const form = document.getElementById('signupForm');
+    
+        form.addEventListener('submit', function(event) {
+          event.preventDefault(); // Stop page refresh
+    
+          // Optional: simple password match check
+          const password = document.getElementById('password').value;
+          const confirm = document.getElementById('confirm').value;
+    
+          if (password !== confirm) {
+            alert("Passwords do not match!");
+            return;
+          }
+    
+          // Redirect to login page
+          window.location.href = "login.html"; // Make sure login.html exists
+        });
+      </script>  
+      </section> 
+</body>
+</html>
