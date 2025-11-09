@@ -10,6 +10,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon app.js -e ejs,js,css,html,scss",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
