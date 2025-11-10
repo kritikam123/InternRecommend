@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #111;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 50px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* .logo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #86e7d4;
+} */
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+}
+
+.nav-links a.login {
+  padding: 8px 25px;
+  border: 2px solid #9ce7cf;
+  border-radius: 10px;
+  color: #111;
+  font-weight: 600;
+}
+
+.nav-links a.signup {
+  padding: 8px 25px;
+  background-color: #3b82f6;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.nav-links a.employers {
+  border-left: 1px solid #ddd;
+  padding-left: 15px;
+  font-weight: 500;
+}
+
+/* ABOUT SECTION */
+.about-section {
+  text-align: center;
+  padding: 250px 20px 280px;
+}
+
+.about-section h1 {
+  font-size: 80px;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 0%;
+}
+
+.about-section p {
+  font-size: 28px;
+  color: #333;
+  max-width: 910px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* OUR STORY */
+.story-section {
+  background-color: #3b82f6;
+  color: white;
+  
+  padding: 80px 20px;
+}
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: white; 
+  margin: 0;              /* remove all default margins */
+  padding: 0; 
+  line-height: 1;       /* tighten line spacing */
+  display: block;
+}
+
+.underline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* margin-bottom: 30px; */
+  margin-top: 4px;        /* control space between heading and underline */
+  margin-bottom: 25px; 
+  margin-bottom: 20px;  /* space below underline */
+  transform: translateY(-6px); /* pull underline closer to text */
+}
+
+.underline span {
+  width: 150px;
+  height: 3px;
+  background-color: #9ce7cf;
+}
+
+.underline .dot {
+  width: 12px;
+  height: 12px;
+  background-color: #9ce7cf;
+  border-radius: 50%;
+}
+
+
+.story-section h2 {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.story-section p {
+    display: flex;
+    justify-content: left;
+  max-width: 5000px;
+  margin: 0 right;
+  padding: 20px 20px 20px;
+  line-height: 1.7;
+  font-size: 27px;
+  
+  
+}
+
+/* OUR VALUES */
+.value-section {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 80px 20px;
+}
+.value-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: black; 
+  margin: 0 auto;              /* remove all default margins */
+  padding: 10; 
+  line-height: 1;       /* tighten line spacing */
+  display: block;
+  margin-bottom: 20px;
+}
+
+.underline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* margin-bottom: 30px; */
+  margin-top: 4px;        /* control space between heading and underline */
+  margin-bottom: 25px; 
+  margin-bottom: 20px;  /* space below underline */
+  transform: translateY(-6px); /* pull underline closer to text */
+}
+
+.underline span {
+  width: 150px;
+  height: 3px;
+  background-color: #9ce7cf;
+}
+
+.underline .dot {
+  width: 12px;
+  height: 12px;
+  background-color: #9ce7cf;
+  border-radius: 50%;
+  align-content: center;
+}
+
+.title{
+    text-align: center;
+    display: block;
+}
+
+.principles {
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #111;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 60px;
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 150px;
+  margin: auto;
+  padding-bottom: 90px;
+}
+
+.card {
+  background-color: #f9f8f8;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: left;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.cta-btn {
+  padding: 15px 40px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}
+/* FOOTER */
+.footer {
+ background-color: #3b82f6;
+  color: white;
+  text-align: center;
+  padding: 50px 4px 50px; /* reduced side padding for responsiveness */
+  width: 100vw; /* make sure it spans the entire viewport width */
+  margin: 0; /* remove auto margin */
+  position: relative; /* ensure full-width behavior */
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -55vw;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 5000px;
+  padding: 20px 20px 20px;
+  line-height: 1.7;
+  font-size: 27px;
+  
+}
+
+.footer-left, .footer-right {
+  flex: 10;
+  min-width: 250px;
+}
+
+.footer-left h3, .footer-right h3 {
+  font-size: 23px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: left;
+  
+}
+
+.footer-left p, .footer-right ul li a {
+  color: #eaeaea;
+  display: flex;
+  justify-content: left;
+  font-size: 20px;
+  line-height: 2;
+  
+}
+
+.footer-right ul {
+  list-style: none;
+}
+
+.footer-right ul li a {
+  text-decoration: none;
+  color: #eaeaea;
+}
+
+.footer-right ul li a:hover {
+  text-decoration: underline;
+}
