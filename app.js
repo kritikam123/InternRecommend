@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-
+const db = require("./model/model.js")
 const app = express();
 
 app.use(express.static("public"));
