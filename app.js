@@ -28,6 +28,14 @@ app.get("/internship", (req, res) => {
   res.render("internship");
 });
 
+app.get("/viewdetails", (req, res) => {
+  res.render("viewdetails");
+});
+
+app.get("/UserDashboard", (req, res) => {
+  res.render("UserDashboard");
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
