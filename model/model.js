@@ -37,6 +37,8 @@ const User = db.define("User", {
   certifications: { type: DataTypes.JSON },
   resume: { type: DataTypes.BLOB },
   social_media: { type: DataTypes.JSON },
+  location: { type: DataTypes.STRING },
+  gender: { type: DataTypes.ENUM("Male", "Female", "Others") },
 });
 
 //Organnization
