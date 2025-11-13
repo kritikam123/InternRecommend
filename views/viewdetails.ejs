@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Details</title>
+  <link rel="stylesheet" href="/styles/footer.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Owl Carousel -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <link rel="stylesheet" href="/public/styles/view.css" />
+</head>
+<body>
+   <!-- Nav Bar -->
+    <%-include("nav.ejs")%>
+
+    <!-- View Details -->
+     
+  <div class="container">
+    <!-- Top Image -->
+    <div class="banner">
+      <img src="/public/images/view.svg" alt="Internship Image">
+    </div>
+
+    <!-- Title and Buttons -->
+    <div class="header">
+      <h2>Internship</h2>
+      <div class="buttons">
+        <button class="save-btn">save</button>
+        <button class="apply-btn">Apply</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Information Boxes -->
+    <div class="info-section">
+      <div class="info-box">
+        <h3>Employment information</h3>
+        <hr>
+        <p><!-- Add job details here --></p>
+      </div>
+
+      <div class="info-box">
+        <h3><!-- Add another section title if needed --></h3>
+      </div>
+    </div>
+  </div>
+
+ 
+
+    <!-- Footer -->
+
+  <%-include("footer.ejs")%>
+</body>
+</html>

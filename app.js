@@ -24,8 +24,8 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/interndetails", (req, res) => {
-  res.render("interndetails");
+app.get("/internship", (req, res) => {
+  res.render("internship");
 });
 
 const PORT = process.env.PORT || 3000;
