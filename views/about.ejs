@@ -1,0 +1,127 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
+  />
+
+  <title>About Us | Career Match</title>
+  <link rel="stylesheet" href="/styles/about.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+
+  <%-include("nav.ejs") %>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="aobut-text">
+      <p class="about-title">About Us</p>
+      <p>
+        We're on a mission to revolutionize how students discover and <br>secure
+        internships that align with their skills, interests, and career<br>
+        aspirations.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- Our Story Section -->
+  <section class="story-section">
+    <p class="our-story">Our Story</p>
+    <div class="underline">
+      <span></span>
+      <div class="dot"></div>
+      <span></span>
+    </div>
+    <p>
+      InternMatch was born from a simple observation: finding the right
+      internship shouldn't be like searching for a needle in a haystack.
+      Students deserve a smarter, more personalized approach to discovering
+      opportunities that truly match their potential.
+      <br /><br />
+      Founded in 2024, we've helped thousands of students connect with
+      internships that kickstart their careers. Our AI-powered platform analyzes
+      your unique profile, preferences, and goals to deliver recommendations
+      that matter.
+      <br /><br />
+      Today, we're proud to partner with leading companies across industries,
+      creating a thriving ecosystem where talent meets opportunity.
+    </p>
+  </section>
+
+  <!-- Our Values Section -->
+  <section class="value-section">
+    <h2 class="value-title">Our Values</h2>
+    <div class="underline">
+      <span></span>
+      <div class="dot"></div>
+      <span></span>
+    </div>
+
+    <p class="title">The principles that guide everything we do</p>
+
+    <div class="how-container">
+      <div class="how-grid">
+        <div class="box1">
+          <div class="profile">
+            <div class="profile-img">
+              <img src="/images/profile-img.svg" alt="profile" />
+            </div>
+            <p class="head">Create Your Profile</p>
+            <p class="text">
+              Sign up and tell us about your skills, interests, education
+              background, and career goals. The more detailed your profile, the
+              better our recommendations.
+            </p>
+          </div>
+
+          <div class="profile">
+            <div class="ai-img">
+              <img src="/images/ai.svg" alt="profile" />
+            </div>
+            <p class="head">AI-Powered Matching</p>
+            <p class="text">
+              Our intelligent algorithm analyzes your profile and preferences
+              against thousands of internship opportunities, considering factors
+              like skill alignment, company culture, and growth potential.
+            </p>
+          </div>
+        </div>
+        <div class="box2">
+          <div class="profile">
+            <div class="profile-img">
+              <img src="/images/pref.svg" alt="profile" />
+            </div>
+            <p class="head">Set Your Preferences</p>
+            <p class="text">
+              Specify your preferred industries, roles, locations, and
+              internship duration. Our system will use this information to
+              filter opportunities that match your criteria.
+            </p>
+          </div>
+
+          <div class="profile">
+            <div class="ai-img">
+              <img src="/images/personalize.svg" alt="profile" />
+            </div>
+            <p class="head">Get Personalized Recommendations</p>
+            <p class="text">
+              Receive a curated list of internships ranked by compatibility
+              score. Review detailed insights about why each opportunity is
+              recommended and apply directly through our platform.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="started">
+      <div class="get-box">
+        <p><a href="">Get Started Now</a></p>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <%- include("footer.ejs") %>
+</body>

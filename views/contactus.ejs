@@ -1,0 +1,71 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
+  />
+
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="/styles/contact.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+
+  <%-include("nav.ejs") %>
+
+  <!-- Contact Section -->
+  <section class="about-section">
+    <p class="get">Get In Touch</p>
+    <p>
+      Have questions about our internship recommenation system?<br />
+      We're here to help you find the perfect opportunity.
+    </p>
+  </section>
+
+
+  <!-- Message Section -->
+  <section class="message-section">
+    <h2 class="section-title">Send us a Message</h2>
+    <div class="underline">
+      <span></span>
+      <div class="dot"></div>
+      <span></span>
+    </div>
+
+   
+      <div class="box-parent">
+        <div class="box">
+          <div class="logo1">
+            <img src="/images/logo.svg" alt="" />
+          </div>
+
+          <h2 class="form-title">Message</h2>
+
+          <form action="#" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder=" " required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder=" " required />
+
+            <label for="message">Message:</label>
+            <input type="message" id="message" placeholder=" " required />
+
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- Contact Info Section -->
+  <section class="info-section">
+    <p>Contact Information</p>
+    <p>📧 support@internmatch.com</p>
+    <p>📞 01-5570190 | 9876589908</p>
+    <p>📍 Durbarmarg, Kathmandu</p>
+  </section>
+  <!-- Footer -->
+  <%- include("footer.ejs") %>
+</body>
