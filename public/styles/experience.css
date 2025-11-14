@@ -154,13 +154,13 @@ body {
     margin-bottom: 20px;
 }
 
-.input,
+/* .input,
 .textarea {
   background: #e4e4e4;
   border-radius: 6px;
   height: 50px;
   margin-bottom: 15px;
-}
+} */
 .input1,
 .textarea {
   background: #e4e4e4;

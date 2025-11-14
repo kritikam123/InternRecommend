@@ -36,6 +36,34 @@ app.get("/UserDashboard", (req, res) => {
   res.render("UserDashboard");
 });
 
+app.get("/sidebar", (req, res) => {
+  res.render("sidebar");
+});
+
+app.get("/UserExperience", (req, res) => {
+  res.render("UserExperience");
+});
+
+app.get("/UserEducation", (req, res) => {
+  res.render("UserEducation");
+});
+
+app.get("/AdditionalInfo", (req, res) => {
+  res.render("AdditionalInfo");
+});
+
+app.get("/UserSavedjobs", (req, res) => {
+  res.render("UserSavedjobs");
+});
+
+app.get("/UserRecommended", (req, res) => {
+  res.render("UserRecommended");
+});
+
+app.get("/Settings", (req, res) => {
+  res.render("Settings");
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
