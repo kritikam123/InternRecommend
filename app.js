@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const db = require("./model/model.js")
+const db = require("./model/model.js");
 const app = express();
 
 app.use(express.static("public"));
@@ -12,9 +12,16 @@ app.use("/public", express.static("public", { type: "text/css" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.use(
+  express.static("public", {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".js")) {
+        res.setHeader("Content-Type", "text/javascript ");
+      }
+    },
+  })
+);
+
 
 app.get("/contactus", (req, res) => {
   res.render("contactus");
@@ -27,7 +34,8 @@ app.get("/about", (req, res) => {
 app.get("/internship", (req, res) => {
   res.render("internship");
 });
-
+const indexRoute = require("./routes/index.js");
+app.use("/", indexRoute);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

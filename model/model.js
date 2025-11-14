@@ -11,16 +11,17 @@ const User = db.define("User", {
     defaultValue: UUIDV4,
     allowNull: false,
   },
-  full_name: { type: DataTypes.STRING, allowNull: false },
+  username: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, allowNull: false },
   password: { type: DataTypes.STRING, allowNull: false },
-  skills: { type: DataTypes.JSON },
+  skills: { type: DataTypes.JSON, allowNull: true },
   phone: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
-  dateOfBirth: { type: DataTypes.STRING },
+  dateOfBirth: { type: DataTypes.STRING, allowNull: true },
   photo: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
     defaultValue: "/images/default.jpg",
   },
   role: {
@@ -28,19 +29,19 @@ const User = db.define("User", {
     defaultValue: "jobseeker",
   },
   suspend: { type: DataTypes.BOOLEAN, defaultValue: false },
-  code: { type: DataTypes.STRING },
-  otherDetails: { type: DataTypes.JSON },
-  experience: { type: DataTypes.JSON },
-  education: { type: DataTypes.JSON },
-  language: { type: DataTypes.JSON },
-  awards: { type: DataTypes.JSON },
-  certifications: { type: DataTypes.JSON },
-  resume: { type: DataTypes.BLOB },
-  social_media: { type: DataTypes.JSON },
-  location: { type: DataTypes.STRING },
-  gender: { type: DataTypes.ENUM("Male", "Female", "Others") },
+  code: { type: DataTypes.STRING, allowNull: true },
+  otherDetails: { type: DataTypes.JSON, allowNull: true },
+  experience: { type: DataTypes.JSON, allowNull: true },
+  education: { type: DataTypes.JSON, allowNull: true },
+  language: { type: DataTypes.JSON, allowNull: true },
+  awards: { type: DataTypes.JSON, allowNull: true },
+  certifications: { type: DataTypes.JSON, allowNull: true },
+  resume: { type: DataTypes.BLOB, allowNull: true },
+  social_media: { type: DataTypes.JSON, allowNull: true },
+  location: { type: DataTypes.STRING, allowNull: true },
+  gender: { type: DataTypes.ENUM("Male", "Female", "Others"), allowNull: true },
 });
-
+  
 //Organnization
 const Organization = db.define("Organization", {
   id: {
@@ -314,4 +315,4 @@ module.exports = {
   Admin,
 };
 
-// db.sync({ alter: true });
+db.sync({ alter: true });
