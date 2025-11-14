@@ -1,113 +1,131 @@
- * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins',sans-serif;
-    }
-    .background {
-      background-image: url("/images/background.svg");
-      background-repeat: no-repeat;
-      background-position: center center;
-      /* background-position: center ; */
-      background-size: contain; /* ← for SVG this keeps aspect ratio PERFECT */
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+.background {
+  background-image: url("/images/background.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-position: center ; */
+  background-size: contain; /* ← for SVG this keeps aspect ratio PERFECT */
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
 
-    .bgimg {
-      width: 100%;
-      height: auto;
-    }
-    .box {
-      /* border: 2px solid rebeccapurple; */
-      background-color: white;
-      width: 368px;
-      height: 440px;
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
-      border-radius: 20px;
-    }
-    .box-parent {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* border: 2px solid red; */
-      height: 100vh;
-    }
-    .login {
-      /* border: 2px solid yellow; */
-      width: 100%;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .login p {
-      font-size: 32px;
-      font-weight: bold;
-    }
-    .logo {
-      /* border: 2px solid yellow; */
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .username {
-      width: 100%;
-    }
-    .password {
-      width: 100%;
-    }
-    .password p {
-      margin-top: 5px;
-    }
-    .login-contents {
-      margin-left: 50px;
-      margin-right: 50px;
-    }
+.bgimg {
+  width: 100%;
+  height: auto;
+}
+.box {
+  /* border: 2px solid rebeccapurple; */
+  background-color: white;
+  width: 368px;
+  height: 500px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+.box-parent {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red; */
+  height: 100vh;
+}
+.login {
+  /* border: 2px solid yellow; */
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.login p {
+  font-size: 32px;
+  font-weight: bold;
+}
+.logo {
+  /* border: 2px solid yellow; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.username {
+  width: 100%;
+}
+.password {
+  width: 100%;
+}
+.password p {
+  margin-top: 5px;
+}
+.login-contents {
+  margin-left: 50px;
+  margin-right: 50px;
+}
 
-    .login-contents input {
-      width: 100%; /* adjust as you want */
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+.username input {
+  width: 100%; /* adjust as you want */
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-    .btn {
-      width: 100%;
-      /* border: 2px solid red; */
-    }
+.password input {
+  width: 100%; /* adjust as you want */
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-    .signup {
-      width: 100%;
-      margin-top: 15px;
-    }
-    .signup p {
-      text-align: center;
-      color: #447df0;
-    }
+.checkbox {
+  margin-top: 20px;
+}
 
-    .forgot {
-      width: 100%;
-      margin-top: 15px;
-    }
-    .forgot p {
-      text-align: center;
-      color: #8a909c;
-    }
+.checkbox-child {
+  display: flex;
+  align-items: center;
 
-    .btn .lbtn {
-      width: 100%;
-      padding: 10px 0;
-      border: none;
-      outline: none;
-      background: #447df0;
-      color: white;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      box-sizing: border-box;
-      font-weight: bold;
-      margin-top: 25px;
-    }
+  gap: 20px;
+}
+.btn {
+  width: 100%;
+  /* border: 2px solid red; */
+}
+
+.signup {
+  width: 100%;
+  margin-top: 15px;
+}
+.signup p {
+  text-align: center;
+  color: #447df0;
+}
+
+.forgot {
+  width: 100%;
+  margin-top: 15px;
+}
+.forgot p {
+  text-align: center;
+  color: #8a909c;
+}
+
+.btn .lbtn {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  outline: none;
+  background: #447df0;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-weight: bold;
+  margin-top: 25px;
+}

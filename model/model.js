@@ -41,7 +41,7 @@ const User = db.define("User", {
   location: { type: DataTypes.STRING, allowNull: true },
   gender: { type: DataTypes.ENUM("Male", "Female", "Others"), allowNull: true },
 });
-  
+
 //Organnization
 const Organization = db.define("Organization", {
   id: {
@@ -138,7 +138,6 @@ const Admin = db.define("admin", {
   },
   role: {
     type: DataTypes.STRING,
-    defaultValue: "admin",
   },
   logo: {
     type: DataTypes.BLOB,
@@ -315,4 +314,4 @@ module.exports = {
   Admin,
 };
 
-db.sync({ alter: true });
+// db.sync({ alter: true });

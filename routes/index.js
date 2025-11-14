@@ -13,6 +13,47 @@ router.get("/users/login", (req, res) => {
   res.render("users/login");
 });
 
+router.post("/users/login", async (req, res,next) => {
+  console.log("user login route");
+  const { email, password, remember } = req.body;
+  // console.log("jobseeker user email and password", email, password);
+  const user = await User.findOne({ where: { email: email } });
+  if (!user) {
+    return res.json({
+      status: 400,
+      title: "Invalid Credentials",
+      message: "User does not exist",
+    });
+  }
+  const passwordValidation = await bcrypt.compare(password, user.password);
+  if (passwordValidation == false) {
+    return res.json({
+      status: 400,
+      title: "Wrong password",
+      message: "Incorrect Password",
+    });
+  } else {
+    passport.authenticate("users", (error, user) => {
+      // console.log("USERRRRRSSSSSSS", user);
+      if (error) {
+        return next(error);
+      }
+      if (req.body.remember) {
+        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+      } else {
+        req.session.cookie.expires = false;
+      }
+      res.json({
+        status: 200,
+        message: "You have successfully logged in as a user",
+        title: "login successful",
+      });
+    })(req, res, next);
+    console.log("login successful")
+  }
+
+});
+
 router.get("/users/registration", (req, res) => {
   res.render("users/registration");
 });

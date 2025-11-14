@@ -1,7 +1,11 @@
 const express = require("express");
 const path = require("path");
 const db = require("./model/model.js");
+const session = require("express-session");
+var MySQLStore = require("express-mysql-session")(session);
+const passport = require("passport");
 const app = express();
+require("./config/passport")(passport);
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -21,6 +25,29 @@ app.use(
     },
   })
 );
+
+var options = {
+  host: process.env.HOST,
+  port: 3306,
+  user: process.env.USER,
+  password: process.env.PASS,
+  database: process.env.DATABASE,
+};
+var sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    secret: "krishtina",
+    store: sessionStore,
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.get("/contactus", (req, res) => {
