@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education</title>
+  <!-- <link rel="stylesheet" href="/styles/user.css"> -->
+    <link rel="stylesheet" href="/styles/sidebar.css">
+    <link rel="stylesheet" href="/styles/education.css">
+
+
+</head>
+<body>
+  <div class="dashboard-container">
+    
+      <%- include("sidebar.ejs") %>
+      <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <h2 class="h2">Dashboard</h2>
+        <button class="logout-btn">log out</button>
+      </header>
+
+      <section class="profile-section">
+        <h3>Edit Profile</h3>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab">Personal Information</button>
+          <button class="tab">Experience</button>
+          <button class="tab active">Education</button>
+          <button class="tab">Additional Information</button>
+        </div>
+        <h1 class="h1">Add Education</h1>
+
+        <!-- Profile Form -->
+        <div class="profile-box">
+          <div class="photo-section">
+            <div class="photo-placeholder"></div>
+            <button class="select-btn">Select</button>
+            
+          </div>
+
+          <div class="form-section"> 
+            
+             <div class="input-row">
+              <div>
+                <label>Degree</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Field of study</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>University</label>
+                <div class="input1"></div>
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>College</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Joined Year</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Passed Year</label>
+                <div class="input1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+   
+
+  </div>
+
+
+</body>
+</html>

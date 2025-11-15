@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Additional Information</title>
+  <!-- <link rel="stylesheet" href="/styles/user.css"> -->
+    <link rel="stylesheet" href="/styles/sidebar.css">
+    <link rel="stylesheet" href="/styles/additionalInfo.css">
+
+
+</head>
+<body>
+  <div class="dashboard-container">
+    
+      <%- include("sidebar.ejs") %>
+      <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <h2 class="h2">Dashboard</h2>
+        <button class="logout-btn">log out</button>
+      </header>
+
+      <section class="profile-section">
+        <h3>Edit Profile</h3>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab">Personal Information</button>
+          <button class="tab">Experience</button>
+          <button class="tab">Education</button>
+          <button class="tab active">Additional Information</button>
+        </div>
+        <h1 class="h1">Additional Information</h1>
+
+        <!-- Profile Form -->
+        <div class="profile-box">
+          <div class="photo-section">
+            <div class="photo-placeholder"></div>
+            <button class="select-btn">Select</button>
+            
+          </div>
+
+          <div class="form-section"> 
+
+            <label>Skills</label>
+            <div class="textarea"></div>
+
+            <label>Award & Certification</label>
+            
+             <div class="input-row">
+              <div>
+                <label>Award Title</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Associated Institution</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Date</label>
+                <div class="input1"></div>
+              </div>
+            </div>
+            <label>Socails</label>
+
+            <div class="input-row">
+              <div>
+                <label>Social Media Name</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Linkedin URL</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Github URL</label>
+                <div class="input1"></div>
+              </div>
+            </div>
+
+            <button class="select-btn">Add Certification</button>
+
+            
+          </div>
+        </div>
+    
+    </section>
+    <div class="input-row">
+    <button class="save-btn">Save</button>
+    <button class="cancel-btn">Cancel</button>
+    </div>
+    </main>
+
+   
+
+  </div>
+
+
+
+
+
+</body>
+</html>

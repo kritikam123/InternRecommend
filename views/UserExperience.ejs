@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience</title>
+  <!-- <link rel="stylesheet" href="/styles/user.css"> -->
+    <link rel="stylesheet" href="/styles/sidebar.css">
+    <link rel="stylesheet" href="/styles/experience.css">
+
+
+</head>
+<body>
+  <div class="dashboard-container">
+    
+      <%- include("sidebar.ejs") %>
+      <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <h2 class="h2">Dashboard</h2>
+        <button class="logout-btn">log out</button>
+      </header>
+
+      <section class="profile-section">
+        <h3>Edit Profile</h3>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab">Personal Information</button>
+          <button class="tab active">Experience</button>
+          <button class="tab">Education</button>
+          <button class="tab">Additional Information</button>
+        </div>
+        <h1 class="h1">Add Experience</h1>
+
+        <!-- Profile Form -->
+        <div class="profile-box">
+          <div class="photo-section">
+            <div class="photo-placeholder"></div>
+            <button class="select-btn">Select</button>
+            
+          </div>
+
+          <div class="form-section"> 
+            
+             <div class="input-row">
+              <div>
+                <label>Position</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Organization Name</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Industry</label>
+                <div class="input1"></div>
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>Job Level</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>Start Date</label>
+                <div class="input1"></div>
+              </div>
+              <div>
+                <label>End Date</label>
+                <div class="input1"></div>
+              </div>
+            </div>
+
+            <label>Roles and Responsibility</label>
+            <div class="textarea"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+   
+
+  </div>
+
+
+</body>
+</html>
