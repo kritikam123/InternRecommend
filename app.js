@@ -49,7 +49,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.get("/contactus", (req, res) => {
   res.render("contactus");
 });
@@ -61,6 +60,12 @@ app.get("/about", (req, res) => {
 app.get("/internship", (req, res) => {
   res.render("internship");
 });
+
+// app.get("/sidebar", (req, res) => {
+//   res.render("sidebar");
+// });
+
+
 const indexRoute = require("./routes/index.js");
 app.use("/", indexRoute);
 const PORT = process.env.PORT || 3000;

@@ -9,11 +9,40 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
+router.get("/forgotpassword", (req, res) => {
+  res.render("forgotpassword");
+});
+
+router.get("/verify", (req, res) => {
+  res.render("verify");
+});
+
+router.get("/users/userIndex",(req,res)=>{
+  res.render("users/userIndex")
+})
+
 router.get("/users/login", (req, res) => {
   res.render("users/login");
 });
 
-router.post("/users/login", async (req, res,next) => {
+router.get("/users/UserDashboard", (req, res) => {
+  res.render("users/UserDashboard");
+});
+
+
+router.get("/users/UserEducation", (req, res) => {
+  res.render("users/UserEducation");
+});
+
+router.get("/users/UserExperience", (req, res) => {
+  res.render("users/UserExperience");
+});
+
+router.get("/users/AdditionalInfo", (req, res) => {
+  res.render("users/AdditionalInfo");
+});
+
+router.post("/users/login", async (req, res, next) => {
   console.log("user login route");
   const { email, password, remember } = req.body;
   // console.log("jobseeker user email and password", email, password);
@@ -33,6 +62,7 @@ router.post("/users/login", async (req, res,next) => {
       message: "Incorrect Password",
     });
   } else {
+    //authentication part
     passport.authenticate("users", (error, user) => {
       // console.log("USERRRRRSSSSSSS", user);
       if (error) {
@@ -49,9 +79,8 @@ router.post("/users/login", async (req, res,next) => {
         title: "login successful",
       });
     })(req, res, next);
-    console.log("login successful")
+    console.log("login successful");
   }
-
 });
 
 router.get("/users/registration", (req, res) => {

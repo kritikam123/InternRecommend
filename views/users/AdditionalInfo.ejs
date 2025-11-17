@@ -1,0 +1,99 @@
+<%-include("../head.ejs")%>
+  
+    <link rel="stylesheet" href="/styles/additionalInfo.css">
+
+
+<body>
+  <div class="dashboard-container">
+    
+      <div class="box">
+        <%-include("../sidebar.ejs")%>
+      </div>
+
+      <div class="box1">
+         <%-include("../topbar.ejs")%>
+         <main class="main-contents">
+             <div class="edit">
+                 <p>Edit Profile</p>
+                 <div class="tabs">
+                    <a href="/users/UserDashboard" class="tab">Personal Information</a>
+              <a href="/users/UserExperience" class="tab">Experience</a>
+              <a href="/users/UserEducation" class="tab">Education</a>
+              <a href="/users/AdditionalInfo" class="tab  active">Additional Information</a>
+                 </div>
+     
+               </div>
+     
+               <div class="info-section">
+                  <p>Additional Information</p>
+                 <div class="photo">
+                   <img src="/images/default.jpg" alt="img">
+                   <button class="profilebtn">Select</button>
+                 </div>
+     
+               <div class="form-section"> 
+     
+                 <label>Skills</label>
+                 <input type="text" id="skills" name="skills">
+     
+                 <label>Award & Certification</label>
+                 
+                  <div class="input-row">
+                   <div>
+                     <label>Award Title</label>
+                     <input type="text" class="input1" id="award" name="award">
+                   </div>
+                   <div>
+                     <label>Associated Institution</label>
+                     <input type="text" class="input1" id="institute" name="institute">
+     
+                   </div>
+                   <div>
+                     <label>Date</label>
+                     <input type="date" class="input1" id="completedate" name="completedate">
+     
+                   </div>
+                 </div>
+                 <label>Socails</label>
+     
+                 <div class="input-row">
+                   <div>
+                     <label>Social Media Name</label>
+                     <input type="date" class="input1" id="social" name="socail">
+                   </div>
+                   <div>
+                     <label>Linkedin URL</label>
+                     <input type="date" class="input1" id="linkedin" name="linkedin">
+                   </div>
+                   <div>
+                     <label>Github URL</label>
+                     <input type="date" class="input1" id="git" name="git">
+                   </div>
+                 </div>
+     
+                 <button class="select-btn">Add Certification</button>
+     
+                 
+               </div>
+               </div>
+           
+       
+         </main>
+         <div class="btn-row">
+         <button class="save-btn">Save</button>
+         <button class="cancel-btn">Cancel</button>
+      </div>
+      </div>
+     
+      <!-- Main Content -->
+
+   
+
+  </div>
+
+
+
+
+
+</body>
+</html>

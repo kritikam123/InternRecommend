@@ -1,0 +1,77 @@
+<%-include("../head.ejs")%>
+    <link rel="stylesheet" href="/styles/experience.css">
+<body>
+  <div class="dashboard-container">
+    <div class="box">
+      <%-include("../sidebar.ejs")%>
+    </div>
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+
+      <div class="main-contents">
+      <div class="edit">
+            <p>Edit Profile</p>
+            <div class="tabs">
+             <a href="/users/UserDashboard" class="tab">Personal Information</a>
+              <a href="/users/UserExperience" class="tab  active">Experience</a>
+              <a href="/users/UserEducation" class="tab">Education</a>
+              <a href="/users/AdditionalInfo" class="tab">Additional Information</a>
+            </div>
+
+      </div>
+
+      <div class="info-section">
+         <p>Profile Photo</p>
+            <div class="photo">
+              <img src="/images/default.jpg" alt="img">
+              <button class="profilebtn">Select</button>
+            </div>
+           <div class="form-section"> 
+            
+             <div class="input-row">
+              <div>
+                <label>Position</label>
+                <input type="text" class="input1" name="position" id="position">
+              </div>
+              <div>
+                <label>Organization Name</label>
+                <input type="text" class="input1" name="org" id="org">
+              </div>
+              <div>
+                <label>Industry</label>
+                <input type="text" class="input1" name="ind" id="ind">
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>Job Level</label>
+                <input type="text" class="input1" name="level" id="level">
+              </div>
+              <div>
+                <label>Start Date</label>
+                <input type="date" class="input1" name="start" id="start">
+              </div>
+              <div>
+                <label>End Date</label>
+                <input type="text" class="input1" name="end" id="end">
+              </div>
+            </div>
+
+            <label>Roles and Responsibility</label>
+            <textarea name="roles" id="roles" class="input1"></textarea>
+          </div>
+      </div>
+      
+    </div>
+    </div>
+      <!-- Main Content -->
+    
+
+   
+
+  </div>
+
+
+</body>
+</html>

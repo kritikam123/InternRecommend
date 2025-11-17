@@ -1,0 +1,73 @@
+<%-include("../head.ejs")%>
+<link rel="stylesheet" href="/styles/education.css">
+<body>
+  <div class="dashboard-container">
+    <div class="box">
+      <%-include("../sidebar.ejs")%>
+    </div>
+    <div class="box1">
+       <%-include("../topbar.ejs")%>
+       <main class="main-contents">
+            <div class="edit">
+               <p>Edit Profile</p>
+               <div class="tabs">
+            <a href="/users/UserDashboard" class="tab">Personal Information</a>
+              <a href="/users/UserExperience" class="tab">Experience</a>
+              <a href="/users/UserEducation" class="tab  active">Education</a>
+              <a href="/users/AdditionalInfo" class="tab">Additional Information</a>
+               </div>
+   
+             </div>
+         <div class="info-section">
+           <p>Add Education</p>
+            <div class="photo">
+                 <img src="/images/default.jpg" alt="img">
+                 <button class="profilebtn">Select</button>
+               </div>
+           <!-- Profile Form -->
+         
+             <div class="form-section"> 
+               
+                <div class="input-row">
+                 <div>
+                   <label>Degree</label>
+                   <input type="text" class="input1" name="degree" id="degree">
+                 </div>
+                 <div>
+                   <label>Field of study</label>
+                   <input type="text" class="input1" name="fos" id="fos">
+                 </div>
+                 <div>
+                   <label>University</label>
+                   <input type="text" class="input1" name="university" id="university">
+                 </div>
+               </div>
+   
+               <div class="input-row">
+                 <div>
+                   <label>College</label>
+                   <input type="text" class="input1" name="college" id="college">
+                 </div>
+                 <div>
+                   <label>Joined Year</label>
+                   <input type="date" class="input1" name="joined" id="joined">
+                 </div>
+                 <div>
+                   <label>Passed Year</label>
+                   <input type="date" class="input1" name="passed" id="passed">
+                 </div>
+               </div>
+             </div>
+           
+         </div>
+       </main>
+    </div>
+      <!-- Main Content -->
+
+   
+
+  </div>
+
+
+</body>
+</html>
