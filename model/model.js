@@ -324,6 +324,7 @@ module.exports = {
   User,
   Organization,
   Job,
+  VerificationCode,
   AppliedJobs,
   SavedJobs,
   Contact,
