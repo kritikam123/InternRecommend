@@ -3,7 +3,7 @@ const db = require("../connection.js");
 const { type } = require("os");
 
 // **MODELS
-//USER MODEL
+//USER MODEL------------------------------------------------------------------------------
 const User = db.define("User", {
   user_id: {
     type: DataTypes.UUID,
@@ -41,6 +41,22 @@ const User = db.define("User", {
   location: { type: DataTypes.STRING, allowNull: true },
   gender: { type: DataTypes.ENUM("Male", "Female", "Others"), allowNull: true },
 });
+//-------------------------------------------------------------------------------------------
+
+
+
+//verification codes---------------------------------------------------------------------
+const VerificationCode = db.define(
+  "VerificationCode",
+  {
+    code: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false },
+  },
+  { tableName: "verification_codes" }
+);
+//----------------------------------------------------------------------------------------
+
+
 
 //Organnization
 const Organization = db.define("Organization", {
