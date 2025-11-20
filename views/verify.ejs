@@ -1,22 +1,81 @@
 <%-include("head.ejs")%>
-<link rel="stylesheet" href="/styles/forgotpassword.css">
+<link rel="stylesheet" href="/styles/forgotpassword.css" />
 <body>
-    <%-include("nav.ejs")%>
+  <%-include("nav.ejs")%>
 
-    <section>
-        <div class="main-container">
-            <div class="text-conents">
-                <p class="forgot">Please Check Your Email</p>
-                <p>Enter OTP sent to your mail</p>
-                <input type="text" placeholder="otp" id="femail" name="femail">
-                <div class="btn">
-                    <a href="">Verify</a>
-                </div>
-            </div>
-            <div class="image">
-                <img src="/images/forgotpassword.svg" alt="">
-            </div>
+  <section>
+    <div class="main-container">
+      <div class="text-conents">
+        <p class="forgot">Please Check Your Email</p>
+        <p>Enter OTP sent to your mail</p>
+        <input type="text" placeholder="otp" id="code" name="code" />
+        <div class="btn">
+          <a href="" id="otpverify">Verify</a>
         </div>
-    </section>
-    <%-include("footer.ejs")%>
+      </div>
+      <div class="image">
+        <img src="/images/forgotpassword.svg" alt="" />
+      </div>
+    </div>
+  </section>
+  <%-include("footer.ejs")%> <%-include("components/foot.ejs")%>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const email = urlParams.get("email");
+      console.log("EMAIL FROM URL:", email);
+      document
+        .getElementById("otpverify")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const code = document.getElementById("code").value;
+          console.log(code);
+          if (!code) {
+            Toast.fire({
+              icon: "error",
+              message: "Enter verification code",
+            });
+          }
+          return fetch("/verify", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, code }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data.title == "success") {
+                Toast.fire({
+                  icon: "success",
+                  title: data.message,
+                });
+                return setTimeout(
+                  () => (window.location.href = "/users/userIndex"),
+                  2000
+                );
+              } else {
+                Toast.fire({
+                  icon: "error",
+                  title: data.message,
+                });
+              }
+            });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occurred during verification",
+          });
+        });
+    });
+  </script>
 </body>

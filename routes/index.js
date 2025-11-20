@@ -4,7 +4,7 @@ const { User, VerificationCode } = require("../model/model.js");
 
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const nodemailer = require("nodemailer");
 
 //mailer credentials:
@@ -37,6 +37,18 @@ function generateCode() {
   return Math.floor(Math.random() * 100000).toString();
 }
 
+async function updateVerification(code, email) {
+  try {
+    await VerificationCode.update(
+      { code, updatedAt: new Date() }, 
+      { where: { email } }
+    );
+    console.log("Verification code updated for email:", email);
+  } catch (error) {
+    console.log("Error updating verification code", error);
+  }
+}
+
 router.get("/", (req, res) => {
   res.render("index");
 });
@@ -47,16 +59,27 @@ router.get("/forgotpassword", ensureAuthenticated, (req, res) => {
 
 router.post("/forgotpassword", async (req, res) => {
   try {
-    const email = req.body.femail;
-    console.log(email);
+    const email = req.body.email.trim().toLowerCase();
+    console.log("email iss:  ", email);
 
     const verification = generateCode();
     console.log("verification code is: ", verification);
-    const verification_code = await VerificationCode.create({
-      email: email,
-      code: verification,
+
+    const existing_code = await VerificationCode.findOne({
+      where: { email: email },
     });
 
+    if (existing_code) {
+      await updateVerification(verification, email);
+    } else {
+      const verification_code = await VerificationCode.create({
+        email: email,
+        code: verification,
+      });
+
+      console.log("verificated code insterted to database", verification_code);
+    }
+    //mail sending part:
     if (!mailer.mail || !mailer.pass) {
       console.log(
         "Verification code cant be generated: SMTP credentials missing"
@@ -99,19 +122,79 @@ router.post("/forgotpassword", async (req, res) => {
     })();
 
     console.log("EMAIL SENTTTTTTTTTTTTTTTTTTTTTTTT");
-
-    return res.json({
-      message: "Received email",
-      email: req.body.femail,
-      verificationCode: verification,
-    });
+    const data = {
+      status: 200,
+      message: "Verification Code Sent Suucesfully",
+      title: "success",
+    };
+    return res.json(data);
   } catch (error) {
-    console.error(`Error sending mail: ${error.message}`);
+    console.error("Error in forgotpassword:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      title: "error",
+    });
   }
 });
 
-router.get("/verify", ensureAuthenticated, (req, res) => {
+router.get("/verify", async (req, res) => {
+  const email = req.query.email;
+  console.log(email);
+
+  if (!email) {
+    console.log("invalidd");
+  }
+
+  const user = await User.findOne({ where: { email: email } });
+
+  if (!user) {
+    console.log("user does not exist");
+  }
   res.render("verify");
+});
+
+router.post("/verify", async (req, res) => {
+  console.log(req.body);
+  let code = req.body.code.trim();
+  let email = req.body.email.trim();
+  try {
+    const allCodes = await VerificationCode.findAll({ where: { email } });
+    console.log("All codes for email:", allCodes);
+
+    const vcode = await VerificationCode.findOne({
+      where: {
+        email: email,
+        code: code,
+      },
+    });
+
+    console.log("Found verification code:", vcode);
+
+    if (!vcode) {
+      console.log("No matching verification code found");
+      return res.status(400).json({
+        message: "Invalid verification code",
+        title: "error",
+      });
+    }
+
+    //delete and update
+    console.log("testtesstttt");
+    await VerificationCode.destroy({ where: { id: vcode.id } });
+    const data = {
+      status: 200,
+      message: "You have been verified as a user, you can login back",
+      title: "success",
+    };
+
+    return res.json(data);
+  } catch (error) {
+    console.log("Verification error: ", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      title: "error",
+    });
+  }
 });
 
 router.get("/users/userIndex", (req, res) => {
