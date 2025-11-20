@@ -40,7 +40,7 @@ module.exports = function (passport) {
 
   //organization login
   passport.use(
-    "user-login",
+    "organizationn",
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {

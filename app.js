@@ -65,9 +65,12 @@ app.get("/internship", (req, res) => {
 //   res.render("sidebar");
 // });
 
-
 const indexRoute = require("./routes/index.js");
 app.use("/", indexRoute);
+
+const employersRoute = require("./routes/employers.js");
+app.use("/employers", employersRoute);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -36,14 +36,12 @@ const User = db.define("User", {
   language: { type: DataTypes.JSON, allowNull: true },
   awards: { type: DataTypes.JSON, allowNull: true },
   certifications: { type: DataTypes.JSON, allowNull: true },
-  resume: { type: DataTypes.BLOB, allowNull: true },
+  resume: { type: DataTypes.STRING, allowNull: true },
   social_media: { type: DataTypes.JSON, allowNull: true },
   location: { type: DataTypes.STRING, allowNull: true },
   gender: { type: DataTypes.ENUM("Male", "Female", "Others"), allowNull: true },
 });
 //-------------------------------------------------------------------------------------------
-
-
 
 //verification codes---------------------------------------------------------------------
 const VerificationCode = db.define(
@@ -56,8 +54,6 @@ const VerificationCode = db.define(
 );
 //----------------------------------------------------------------------------------------
 
-
-
 //Organnization
 const Organization = db.define("Organization", {
   id: {
@@ -66,16 +62,18 @@ const Organization = db.define("Organization", {
     allowNull: false,
     defaultValue: DataTypes.UUIDV4,
   },
-  name: { type: DataTypes.STRING },
+  name: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, allowNull: false },
   password: { type: DataTypes.STRING, allowNull: false },
-  phone: { type: DataTypes.STRING },
+  phone: { type: DataTypes.STRING, allowNull: true },
   location: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   logo: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
     defaultValue: "/images/default.jpg",
+    allowNull: true,
   },
   role: {
     type: DataTypes.STRING,
@@ -84,6 +82,7 @@ const Organization = db.define("Organization", {
   verified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
+    allowNull: true,
   },
   rejected: {
     type: DataTypes.BOOLEAN,
@@ -99,33 +98,43 @@ const Organization = db.define("Organization", {
   },
   code: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   size: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   category: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   website: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   facebookLink: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   linkedin: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   contactPerson: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   contactPersonNum: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   info: {
     type: DataTypes.TEXT,
+    allowNull: true,
   },
   intro: {
     type: DataTypes.TEXT,
+    allowNull: true,
   },
 });
 

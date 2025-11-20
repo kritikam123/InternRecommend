@@ -1,0 +1,161 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Story+Script&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/styles/registration.css" />
+  <title>Document</title>
+</head>
+<body>
+  <section class="background">
+    <!-- <img src="img.svg" alt="" class="bgimg"> -->
+    <div class="box-parent">
+      <div class="box">
+        <div class="logo">
+          <img src="/images/logo.svg" alt="" />
+        </div>
+        <div class="login">
+          <p>Employers Register</p>
+        </div>
+        <form action="" id="registration-form">
+          <div class="login-contents">
+            <div class="username">
+              <p>Company Name</p>
+              <input type="text" name="username" id="username" />
+            </div>
+
+            <div class="username">
+              <p>Company Email</p>
+              <input type="email" name="email" id="email" />
+            </div>
+
+            <div class="password">
+              <p>Password</p>
+              <input type="text" name="password" id="password" />
+            </div>
+
+            <div class="password">
+              <p>Confirm Password</p>
+              <input type="text" name="cpassword" id="cpassword" />
+            </div>
+
+            <div class="btn">
+              <button class="lbtn">Sign up</button>
+            </div>
+          </div>
+
+          <div class="forgot">
+            <div class="forgot-child">
+              <input type="checkbox" id="tac" />
+              <p>I agree to all the terms and conditions</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>
+<%-include("../components/foot")%>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document
+      .getElementById("registration-form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+        // Add your form submission logic here
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const cpassword = document.getElementById("cpassword").value;
+        const tac = document.getElementById("tac").checked;
+
+        console.log({
+          username: username,
+          email: email,
+          password: password,
+          cpassword: cpassword,
+          tac: tac,
+        });
+
+        if (
+          username === "" ||
+          email === "" ||
+          password === "" ||
+          cpassword === ""
+        ) {
+          Toast.fire({
+            icon: "error",
+            title: "Please fill all the fields",
+          });
+          return;
+        }
+
+        if (password !== cpassword) {
+          Toast.fire({
+            icon: "error",
+            title: "Passwords do not match",
+          });
+          return;
+        }
+        if (!tac) {
+          Toast.fire({
+            icon: "error",
+            title: "You must agree to terms and conditions before signing up",
+          });
+          return;
+        }
+        console.log("form subnitted", {
+          username: username,
+          email: email,
+          password: password,
+          cpassword: cpassword,
+          tac: tac,
+        });
+
+        return fetch("/employers/employersRegister", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password,
+            cpassword: cpassword,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.title == "Existing Email") {
+              console.log("existing email");
+              Toast.fire({
+                icon: "error",
+                title: data.message,
+              });
+            }
+
+            if (data.title == "Registration Successful") {
+              console.log("registration successful");
+              Toast.fire({
+                icon: "success",
+                title: data.message,
+              });
+              setTimeout(() => {
+                window.location.href = "/users/login";
+              }, 1500);
+            }
+          })
+          .catch((error) => {
+            console.log("registration unsuccessful", error);
+            Toast.fire({
+              icon: "error",
+              title: "Something went wrong while registration",
+            });
+          });
+      });
+  });
+</script>
