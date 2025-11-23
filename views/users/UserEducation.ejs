@@ -18,7 +18,7 @@
                </div>
    
              </div>
-         <div class="info-section">
+         <div class="info-section" id="info-section">
            <p>Add Education</p>
             <div class="photo">
                  <img src="/images/default.jpg" alt="img">
@@ -57,10 +57,21 @@
                    <input type="date" class="input1" name="passed" id="passed">
                  </div>
                </div>
-             </div>
+
+              </div>
+              
            
          </div>
+
+         <div class="btn-row" id="add-more-btn">
+               <button class="cancel-btn">Add Education</button>
+              </div>
        </main>
+
+         <div class="btn-row">
+         <button class="save-btn">Save</button>
+         <button class="cancel-btn">Cancel</button>
+         </div>
     </div>
       <!-- Main Content -->
 
@@ -71,3 +82,53 @@
 
 </body>
 </html>
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    const addMoreBtn = document.getElementById("add-more-btn");
+    const infoSection=document.getElementById("info-section")
+    addMoreBtn.addEventListener("click",function(){
+      console.log("add more button clicked")
+      const addMoreGroup = document.createElement("div")
+      addMoreGroup.className="link-input-group";
+      addMoreGroup.innerHTML=`
+        <div class="form-section"> 
+               
+                <div class="input-row">
+                 <div>
+                   <label>Degree</label>
+                   <input type="text" class="input1" name="degree" id="degree">
+                 </div>
+                 <div>
+                   <label>Field of study</label>
+                   <input type="text" class="input1" name="fos" id="fos">
+                 </div>
+                 <div>
+                   <label>University</label>
+                   <input type="text" class="input1" name="university" id="university">
+                 </div>
+               </div>
+   
+               <div class="input-row">
+                 <div>
+                   <label>College</label>
+                   <input type="text" class="input1" name="college" id="college">
+                 </div>
+                 <div>
+                   <label>Joined Year</label>
+                   <input type="date" class="input1" name="joined" id="joined">
+                 </div>
+                 <div>
+                   <label>Passed Year</label>
+                   <input type="date" class="input1" name="passed" id="passed">
+                 </div>
+               </div>
+
+              </div>
+      
+      
+      
+      `;
+      infoSection.appendChild(addMoreGroup)
+    })
+  })
+</script>

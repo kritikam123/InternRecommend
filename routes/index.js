@@ -33,6 +33,14 @@ const ensureAuthenticated = function (req, res, next) {
   next();
 };
 
+const checkuser = (req, res, next) => {
+  console.log("req.user:", req.user);
+  console.log("req.isAuthenticated():", req.isAuthenticated());
+  if (req.isAuthenticated()) return next();
+  res.redirect("/users/login");
+};
+
+
 function generateCode() {
   return Math.floor(Math.random() * 100000).toString();
 }
@@ -40,7 +48,7 @@ function generateCode() {
 async function updateVerification(code, email) {
   try {
     await VerificationCode.update(
-      { code, updatedAt: new Date() }, 
+      { code, updatedAt: new Date() },
       { where: { email } }
     );
     console.log("Verification code updated for email:", email);
@@ -53,7 +61,7 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/forgotpassword", ensureAuthenticated, (req, res) => {
+router.get("/forgotpassword", (req, res) => {
   res.render("forgotpassword");
 });
 
@@ -205,7 +213,7 @@ router.get("/users/login", (req, res) => {
   res.render("users/login");
 });
 
-router.get("/users/UserDashboard", (req, res) => {
+router.get("/users/UserDashboard", checkuser, (req, res) => {
   res.render("users/UserDashboard");
 });
 
@@ -221,7 +229,7 @@ router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
 
-router.post("/users/login", ensureAuthenticated, async (req, res, next) => {
+router.post("/users/login",ensureAuthenticated, async (req, res, next) => {
   console.log("user login route");
   const { email, password, remember } = req.body;
   // console.log("jobseeker user email and password", email, password);

@@ -24,7 +24,7 @@
      
                </div>
      
-               <div class="info-section">
+               <div class="info-section" id="info-section">
                   <p>Additional Information</p>
                  <div class="photo">
                    <img src="/images/default.jpg" alt="img">
@@ -71,17 +71,20 @@
                    </div>
                  </div>
      
-                 <button class="select-btn">Add Certification</button>
-     
+                
                  
                </div>
                </div>
+
+                <button class="select-btn" id="add-more-btn">Add Additional Information</button>
+     
            
        
          </main>
          <div class="btn-row">
          <button class="save-btn">Save</button>
          <button class="cancel-btn">Cancel</button>
+         </div>
       </div>
       </div>
      
@@ -97,3 +100,64 @@
 
 </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    const addMoreBtn = document.getElementById("add-more-btn");
+    const infoSection=document.getElementById("info-section")
+    addMoreBtn.addEventListener("click",function(){
+      console.log("add more button clicked")
+      const addMoreGroup = document.createElement("div")
+      addMoreGroup.className="link-input-group";
+      addMoreGroup.innerHTML=`
+       <div class="form-section"> 
+     
+                 <label>Skills</label>
+                 <input type="text" id="skills" name="skills">
+     
+                 <label>Award & Certification</label>
+                 
+                  <div class="input-row">
+                   <div>
+                     <label>Award Title</label>
+                     <input type="text" class="input1" id="award" name="award">
+                   </div>
+                   <div>
+                     <label>Associated Institution</label>
+                     <input type="text" class="input1" id="institute" name="institute">
+     
+                   </div>
+                   <div>
+                     <label>Date</label>
+                     <input type="date" class="input1" id="completedate" name="completedate">
+     
+                   </div>
+                 </div>
+                 <label>Socails</label>
+     
+                 <div class="input-row">
+                   <div>
+                     <label>Social Media Name</label>
+                     <input type="date" class="input1" id="social" name="socail">
+                   </div>
+                   <div>
+                     <label>Linkedin URL</label>
+                     <input type="date" class="input1" id="linkedin" name="linkedin">
+                   </div>
+                   <div>
+                     <label>Github URL</label>
+                     <input type="date" class="input1" id="git" name="git">
+                   </div>
+                 </div>
+     
+                
+                 
+               </div>
+      
+      
+      
+      `;
+      infoSection.appendChild(addMoreGroup)
+    })
+  })
+</script>

@@ -286,3 +286,11 @@ body {
   margin-left: 25px;
 
 }
+
+.link-input-group {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fafafa;
+}
