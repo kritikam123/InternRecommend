@@ -49,6 +49,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+app.use((req, res, next) => {
+  console.log("=== DEBUG MIDDLEWARE ===");
+  console.log("Session ID:", req.sessionID);
+  console.log("Session:", req.session);
+  console.log("User:", req.user);
+  console.log("Is Authenticated:", req.isAuthenticated());
+  console.log("=== END DEBUG ===");
+  next();
+});
 app.get("/contactus", (req, res) => {
   res.render("contactus");
 });

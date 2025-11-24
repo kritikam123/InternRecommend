@@ -40,7 +40,6 @@ const checkuser = (req, res, next) => {
   res.redirect("/users/login");
 };
 
-
 function generateCode() {
   return Math.floor(Math.random() * 100000).toString();
 }
@@ -213,7 +212,7 @@ router.get("/users/login", (req, res) => {
   res.render("users/login");
 });
 
-router.get("/users/UserDashboard", checkuser, (req, res) => {
+router.get("/users/UserDashboard", (req, res) => {
   res.render("users/UserDashboard");
 });
 
@@ -229,7 +228,7 @@ router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
 
-router.post("/users/login",ensureAuthenticated, async (req, res, next) => {
+router.post("/users/login", async (req, res, next) => {
   console.log("user login route");
   const { email, password, remember } = req.body;
   // console.log("jobseeker user email and password", email, password);
@@ -252,18 +251,49 @@ router.post("/users/login",ensureAuthenticated, async (req, res, next) => {
     //authentication part
     passport.authenticate("users", (error, user) => {
       // console.log("USERRRRRSSSSSSS", user);
+
       if (error) {
         return next(error);
       }
-      if (req.body.remember) {
-        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-      } else {
-        req.session.cookie.expires = false;
+
+      if (!user) {
+        return res.json({
+          status: 400,
+          title: "Login Failed",
+          message: "Invalid email or password",
+        });
       }
-      res.json({
-        status: 200,
-        message: "You have successfully logged in as a user",
-        title: "login successful",
+
+      req.login(user, (loginErr) => {
+        if (loginErr) {
+          console.log("Login Error", loginErr);
+          return res.json({
+            status: 500,
+            title: "Server Error",
+            message: "Failed to log in",
+          });
+        }
+
+        if (req.body.remember) {
+          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+        } else {
+          req.session.cookie.expires = false;
+        }
+
+        console.log("Login successful, user ID:", user.user_id);
+
+        // Debug: check what's in session immediately after login
+        console.log("Session after login:", req.session);
+        console.log("User after login:", req.user);
+        res.json({
+          status: 200,
+          message: "You have successfully logged in as a user",
+          title: "login successful",
+          user: {
+            id: user.user_id,
+            email: user.email,
+          },
+        });
       });
     })(req, res, next);
     console.log("login successful");

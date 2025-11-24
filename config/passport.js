@@ -114,30 +114,44 @@ module.exports = function (passport) {
 
   //serelization and deserelization
   passport.serializeUser(function (user, done) {
-    return done(null, user);
+    const userInfo = {
+      id: user.id || user.user_id,
+      type: user.constructor.name, // 'User', 'Organization', or 'Admin'
+    };
+    return done(null, userInfo);
   });
 
-  passport.deserializeUser(async function (user, done) {
-    try {
-      const desereuser = await User.findByPk(user.user_id);
-      if (desereuser) {
-        return done(null, desereuser);
-      }
+ passport.deserializeUser(async function (user, done) {
+   try {
+     // If no user data exists, return false (no error)
+     if (!user) {
+       return done(null, false);
+     }
 
-      const desereorg = await Organization.findByPk(user.id);
-      if (desereorg) {
-        return done(null, desereorg);
-      }
+     // Try to find user in each table
+     let foundUser = await User.findByPk(user.id || user.user_id);
+     if (foundUser) {
+       return done(null, foundUser);
+     }
 
-      const desereadmin = await Admin.findByPk(user.id);
-      if (desereadmin) {
-        return done(null, desereadmin);
-      }
+     foundUser = await Organization.findByPk(user.id || user.org_id);
+     if (foundUser) {
+       return done(null, foundUser);
+     }
 
-      return done(new Error("User not found"));
-    } catch (error) {
-      console.log("deserelization error", error);
-      return done(error);
-    }
-  });
+     foundUser = await Admin.findByPk(user.id || user.admin_id);
+     if (foundUser) {
+       return done(null, foundUser);
+     }
+
+     // If no user found in any table, return false (not an error)
+     console.log(
+       "No user found during deserialization, but this is normal for unauthenticated users"
+     );
+     return done(null, false);
+   } catch (error) {
+     console.log("Deserialization error:", error);
+     return done(error);
+   }
+ });
 };
