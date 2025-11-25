@@ -40,6 +40,10 @@ app.get("/sidebar", (req, res) => {
   res.render("sidebar");
 });
 
+app.get("/OrgSidebar", (req, res) => {
+  res.render("OrgSidebar");
+});
+
 app.get("/UserExperience", (req, res) => {
   res.render("UserExperience");
 });
@@ -63,6 +67,15 @@ app.get("/UserRecommended", (req, res) => {
 app.get("/Settings", (req, res) => {
   res.render("Settings");
 });
+
+app.get("/OrgDashboard", (req, res) => {
+  res.render("OrgDashboard");
+});
+
+app.get("/OrgEditprofile", (req, res) => {
+  res.render("OrgEditprofile");
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
