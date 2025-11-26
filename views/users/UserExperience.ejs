@@ -1,139 +1,269 @@
 <%-include("../head.ejs")%>
-    <link rel="stylesheet" href="/styles/experience.css">
+<link rel="stylesheet" href="/styles/experience.css" />
 <body>
   <div class="dashboard-container">
-    <div class="box">
-      <%-include("../sidebar.ejs")%>
-    </div>
+    <div class="box"><%-include("../sidebar.ejs")%></div>
     <div class="box1">
       <%-include("../topbar.ejs")%>
 
       <div class="main-contents">
-      <div class="edit">
-            <p>Edit Profile</p>
-            <div class="tabs">
-             <a href="/users/UserDashboard" class="tab">Personal Information</a>
-              <a href="/users/UserExperience" class="tab  active">Experience</a>
-              <a href="/users/UserEducation" class="tab">Education</a>
-              <a href="/users/AdditionalInfo" class="tab">Additional Information</a>
-            </div>
+        <div class="edit">
+          <p>Edit Profile</p>
+          <div class="tabs">
+            <a href="/users/UserDashboard" class="tab">Personal Information</a>
+            <a href="/users/UserExperience" class="tab active">Experience</a>
+            <a href="/users/UserEducation" class="tab">Education</a>
+            <a href="/users/AdditionalInfo" class="tab"
+              >Additional Information</a
+            >
+          </div>
+        </div>
 
-      </div>
-
-      <div class="info-section" id="info-section">
-         <p>Profile Photo</p>
-            <div class="photo">
-              <img src="/images/default.jpg" alt="img">
-              <button class="profilebtn">Select</button>
-            </div>
-           <div class="form-section"> 
-            
-             <div class="input-row">
+        <div class="info-section" id="info-section">
+          <p>Profile Photo</p>
+          <div class="photo">
+            <img src="/images/default.jpg" alt="img" />
+            <button class="profilebtn">Select</button>
+          </div>
+          <div class="form-section">
+            <div class="input-row">
               <div>
                 <label>Position</label>
-                <input type="text" class="input1" name="position" id="position">
+                <input
+                  type="text"
+                  class="input1 position"
+                  name="position[]"
+                  id="position"
+                />
               </div>
               <div>
                 <label>Organization Name</label>
-                <input type="text" class="input1" name="org" id="org">
+                <input type="text" class="input1 org" name="org[]" id="org" />
               </div>
               <div>
                 <label>Industry</label>
-                <input type="text" class="input1" name="ind" id="ind">
+                <input type="text" class="input1 ind" name="ind[]" id="ind" />
               </div>
             </div>
 
             <div class="input-row">
               <div>
-                <label>Job Level</label>
-                <input type="text" class="input1" name="level" id="level">
+                <label>Job Type</label>
+                <input
+                  type="text"
+                  class="input1 type"
+                  name="type[]"
+                  id="level"
+                />
               </div>
               <div>
                 <label>Start Date</label>
-                <input type="date" class="input1" name="start" id="start">
+                <input
+                  type="date"
+                  class="input1 stdate"
+                  name="start[]"
+                  id="start"
+                />
               </div>
               <div>
                 <label>End Date</label>
-                <input type="text" class="input1" name="end" id="end">
+                <input type="date" class="input1 edate" name="end[]" id="end" />
               </div>
             </div>
 
             <label>Roles and Responsibility</label>
-            <textarea name="roles" id="roles" class="input1"></textarea>
+            <textarea name="roles[]" id="roles" class="input1 roles"></textarea>
           </div>
-      </div>
-      <div class="btn-row">
-                <button class="cancel-btn" id="add-more-btn">Add Experience</button>
-      </div>
-      </div>
+        </div>
+        <div class="btn-row">
+          <button class="cancel-btn" id="add-more-btn">Add Experience</button>
+        </div>
 
-       <div class="btn-row">
-         <button class="save-btn">Save</button>
-         <button class="cancel-btn">Cancel</button>
-         </div>
-      
+        <div class="btn-row">
+          <button class="save-btn" id="save-btn">Save</button>
+          <button class="cancel-btn">Cancel</button>
+        </div>
+      </div>
     </div>
 
-    </div>
-      <!-- Main Content -->
-    
-
-   
-
+    <!-- Main Content -->
   </div>
-
-
 </body>
-</html>
+<%-include("../components/foot")%>
 <script>
-  document.addEventListener("DOMContentLoaded",function(){
+  document.addEventListener("DOMContentLoaded", function () {
     const addMoreBtn = document.getElementById("add-more-btn");
-    const infoSection=document.getElementById("info-section")
-    addMoreBtn.addEventListener("click",function(){
-      console.log("add more button clicked")
-      const addMoreGroup = document.createElement("div")
-      addMoreGroup.className="link-input-group";
-      addMoreGroup.innerHTML=`
-       <div class="form-section"> 
-            
-             <div class="input-row">
-              <div>
-                <label>Position</label>
-                <input type="text" class="input1" name="position" id="position">
-              </div>
-              <div>
-                <label>Organization Name</label>
-                <input type="text" class="input1" name="org" id="org">
-              </div>
-              <div>
-                <label>Industry</label>
-                <input type="text" class="input1" name="ind" id="ind">
-              </div>
-            </div>
+    const infoSection = document.getElementById("info-section");
+    const saveBtn = document.getElementById("save-btn");
 
-            <div class="input-row">
-              <div>
-                <label>Job Level</label>
-                <input type="text" class="input1" name="level" id="level">
-              </div>
-              <div>
-                <label>Start Date</label>
-                <input type="date" class="input1" name="start" id="start">
-              </div>
-              <div>
-                <label>End Date</label>
-                <input type="text" class="input1" name="end" id="end">
-              </div>
+    // Add more experience fields
+    addMoreBtn.addEventListener("click", function () {
+      console.log("add more button clicked");
+      const addMoreGroup = document.createElement("div");
+      addMoreGroup.className = "experience-group";
+      addMoreGroup.innerHTML = `
+        <div class="form-section">
+          <div class="input-row">
+            <div>
+              <label>Position</label>
+              <input type="text" class="input1 position" name="position[]">
             </div>
-
-            <label>Roles and Responsibility</label>
-            <textarea name="roles" id="roles" class="input1"></textarea>
+            <div>
+              <label>Organization Name</label>
+              <input type="text" class="input1 org" name="org[]">
+            </div>
+            <div>
+              <label>Industry</label>
+              <input type="text" class="input1 ind" name="ind[]">
+            </div>
           </div>
-      
-      
-      
+
+          <div class="input-row">
+            <div>
+              <label>Job Type</label>
+              <input type="text" class="input1 type" name="type[]">
+            </div>
+            <div>
+              <label>Start Date</label>
+              <input type="date" class="input1 stdate" name="start[]">
+            </div>
+            <div>
+              <label>End Date</label>
+              <input type="date" class="input1 edate" name="end[]">
+            </div>
+          </div>
+
+          <label>Roles and Responsibility</label>
+          <textarea name="roles[]" id="roles" class="input1 roles"></textarea>
+        </div>
+        <hr style="margin: 20px 0; border: 1px solid #eee;">
       `;
-      infoSection.appendChild(addMoreGroup)
-    })
-  })
+      infoSection.appendChild(addMoreGroup);
+    });
+
+    // Save experiences
+    saveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("Save button clicked");
+
+      // Get all form sections
+      const formSections = document.querySelectorAll(".form-section");
+      const experiences = [];
+      let hasError = false;
+
+      formSections.forEach((section, index) => {
+        const positionEl = section.querySelector(".position");
+        const orgEl = section.querySelector(".org");
+        const indEl = section.querySelector(".ind");
+        const typeEl = section.querySelector(".type");
+        const sdateEl = section.querySelector(".stdate");
+        const edateEl = section.querySelector(".edate");
+        const rolesEl = section.querySelector(".roles");
+
+        if (
+          !positionEl ||
+          !orgEl ||
+          !indEl ||
+          !typeEl ||
+          !sdateEl ||
+          !edateEl ||
+          !rolesEl
+        ) {
+          console.error(`Missing form elements in section ${index + 1}`);
+          hasError = true;
+          return;
+        }
+
+        const position = positionEl.value ? positionEl.value.trim() : "";
+        const org = orgEl.value ? orgEl.value.trim() : "";
+        const ind = indEl.value ? indEl.value.trim() : "";
+        const type = typeEl.value ? typeEl.value.trim() : "";
+        const sdate = sdateEl.value;
+        const edate = edateEl.value;
+        const roles = rolesEl.value ? rolesEl.value.trim() : "";
+
+        if (!position || !org || !ind || !type || !sdate || !edate || !roles) {
+          hasError = true;
+
+          if (!position && positionEl) positionEl.style.borderColor = "red";
+          if (!org && orgEl) orgEl.style.borderColor = "red";
+          if (!ind && indEl) indEl.style.borderColor = "red";
+          if (!type && typeEl) typeEl.style.borderColor = "red";
+          if (!sdate && sdateEl) sdateEl.style.borderColor = "red";
+          if (!edate && edateEl) edateEl.style.borderColor = "red";
+          if (!roles && rolesEl) rolesEl.style.borderColor = "red";
+        } else {
+          const inputs = section.querySelectorAll(".input1");
+          inputs.forEach((input) => {
+            if (input) input.style.borderColor = "";
+          });
+        }
+
+        // Add to experiences array
+        experiences.push({
+          position,
+          organization: org,
+          industry: ind,
+          jobType: type,
+          startDate: sdate,
+          endDate: edate,
+          roles,
+        });
+      });
+
+      if (hasError) {
+        Toast.fire({
+          icon: "error",
+          title: "Please fill all the fields in all experience sections",
+        });
+        return;
+      }
+
+      // If validation passes, send data to server
+      console.log("Sending data:", experiences);
+
+      fetch("/users/UserExperience", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ experiences }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.success === false || data.title === "Failed") {
+            Toast.fire({
+              icon: "error",
+              title: data.message || "Failed to save experiences",
+            });
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: data.message || "Experiences saved successfully!",
+            });
+
+            // Optional: Redirect after success
+          }
+        })
+        .catch((error) => {
+          console.error("Error while saving experiences:", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occurred while saving",
+          });
+        });
+    });
+
+    // Real-time validation to remove red borders when user starts typing
+    infoSection.addEventListener("input", function (e) {
+      if (e.target.classList.contains("input1")) {
+        e.target.style.borderColor = "";
+      }
+    });
+  });
 </script>

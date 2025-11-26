@@ -1,125 +1,142 @@
 <%-include("../head.ejs")%>
-<link rel="stylesheet" href="/styles/education.css">
+<link rel="stylesheet" href="/styles/education.css" />
 <body>
   <div class="dashboard-container">
-    <div class="box">
-      <%-include("../sidebar.ejs")%>
-    </div>
+    <div class="box"><%-include("../sidebar.ejs")%></div>
     <div class="box1">
-       <%-include("../topbar.ejs")%>
-       <main class="main-contents">
-            <div class="edit">
-               <p>Edit Profile</p>
-               <div class="tabs">
+      <%-include("../topbar.ejs")%>
+      <main class="main-contents">
+        <div class="edit">
+          <p>Edit Profile</p>
+          <div class="tabs">
             <a href="/users/UserDashboard" class="tab">Personal Information</a>
-              <a href="/users/UserExperience" class="tab">Experience</a>
-              <a href="/users/UserEducation" class="tab  active">Education</a>
-              <a href="/users/AdditionalInfo" class="tab">Additional Information</a>
-               </div>
-   
-             </div>
-         <div class="info-section" id="info-section">
-           <p>Add Education</p>
-            <div class="photo">
-                 <img src="/images/default.jpg" alt="img">
-                 <button class="profilebtn">Select</button>
-               </div>
-           <!-- Profile Form -->
-         
-             <div class="form-section"> 
-               
-                <div class="input-row">
-                 <div>
-                   <label>Degree</label>
-                   <input type="text" class="input1" name="degree" id="degree">
-                 </div>
-                 <div>
-                   <label>Field of study</label>
-                   <input type="text" class="input1" name="fos" id="fos">
-                 </div>
-                 <div>
-                   <label>University</label>
-                   <input type="text" class="input1" name="university" id="university">
-                 </div>
-               </div>
-   
-               <div class="input-row">
-                 <div>
-                   <label>College</label>
-                   <input type="text" class="input1" name="college" id="college">
-                 </div>
-                 <div>
-                   <label>Joined Year</label>
-                   <input type="date" class="input1" name="joined" id="joined">
-                 </div>
-                 <div>
-                   <label>Passed Year</label>
-                   <input type="date" class="input1" name="passed" id="passed">
-                 </div>
-               </div>
+            <a href="/users/UserExperience" class="tab">Experience</a>
+            <a href="/users/UserEducation" class="tab active">Education</a>
+            <a href="/users/AdditionalInfo" class="tab"
+              >Additional Information</a
+            >
+          </div>
+        </div>
+        <div class="info-section" id="info-section">
+          <p>Add Education</p>
+          <div class="photo">
+            <img src="/images/default.jpg" alt="img" />
+            <button class="profilebtn">Select</button>
+          </div>
+          <!-- Profile Form -->
 
+          <div class="form-section">
+            <div class="input-row">
+              <div>
+                <label>Degree</label>
+                <input
+                  type="text"
+                  class="input1 degree"
+                  name="degree[]"
+                  id="degree"
+                />
               </div>
-              
-           
-         </div>
-
-         <div class="btn-row" id="add-more-btn">
-               <button class="cancel-btn">Add Education</button>
+              <div>
+                <label>Field of study</label>
+                <input type="text" class="input1 fos" name="fos[]" id="fos" />
               </div>
-       </main>
+              <div>
+                <label>University</label>
+                <input
+                  type="text"
+                  class="input1 uni"
+                  name="university[]"
+                  id="university"
+                />
+              </div>
+            </div>
 
-         <div class="btn-row">
-         <button class="save-btn">Save</button>
-         <button class="cancel-btn">Cancel</button>
-         </div>
+            <div class="input-row">
+              <div>
+                <label>College</label>
+                <input
+                  type="text"
+                  class="input1 college"
+                  name="college[]"
+                  id="college"
+                />
+              </div>
+              <div>
+                <label>Joined Year</label>
+                <input
+                  type="date"
+                  class="input1 joined"
+                  name="joined[]"
+                  id="joined"
+                />
+              </div>
+              <div>
+                <label>Passed Year</label>
+                <input
+                  type="date"
+                  class="input1 passed"
+                  name="passed[]"
+                  id="passed"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row" id="add-more-btn">
+          <button class="cancel-btn">Add Education</button>
+        </div>
+      </main>
+
+      <div class="btn-row">
+        <button class="save-btn" id="saveBtn">Save</button>
+        <button class="cancel-btn">Cancel</button>
+      </div>
     </div>
-      <!-- Main Content -->
-
-   
-
+    <!-- Main Content -->
   </div>
-
-
 </body>
-</html>
+<%-include("../components/foot")%>
 <script>
-  document.addEventListener("DOMContentLoaded",function(){
+  document.addEventListener("DOMContentLoaded", function () {
     const addMoreBtn = document.getElementById("add-more-btn");
-    const infoSection=document.getElementById("info-section")
-    addMoreBtn.addEventListener("click",function(){
-      console.log("add more button clicked")
-      const addMoreGroup = document.createElement("div")
-      addMoreGroup.className="link-input-group";
-      addMoreGroup.innerHTML=`
+    const infoSection = document.getElementById("info-section");
+    const saveBtn = document.getElementById("saveBtn");
+
+    addMoreBtn.addEventListener("click", function () {
+      console.log("add more button clicked");
+      const addMoreGroup = document.createElement("div");
+      addMoreGroup.className = "link-input-group";
+      addMoreGroup.innerHTML = `
         <div class="form-section"> 
                
                 <div class="input-row">
                  <div>
                    <label>Degree</label>
-                   <input type="text" class="input1" name="degree" id="degree">
+                   <input type="text" class="input1 degree" name="degree[]" id="degree">
                  </div>
                  <div>
                    <label>Field of study</label>
-                   <input type="text" class="input1" name="fos" id="fos">
+                   <input type="text" class="input1 fos" name="fos[]" id="fos">
                  </div>
                  <div>
                    <label>University</label>
-                   <input type="text" class="input1" name="university" id="university">
+                   <input type="text" class="input1 uni" name="university[]" id="university">
                  </div>
                </div>
    
                <div class="input-row">
                  <div>
                    <label>College</label>
-                   <input type="text" class="input1" name="college" id="college">
+                   <input type="text" class="input1 college" name="college[]" id="college">
                  </div>
                  <div>
                    <label>Joined Year</label>
-                   <input type="date" class="input1" name="joined" id="joined">
+                   <input type="date" class="input1 joined" name="joined[]" id="joined">
                  </div>
                  <div>
                    <label>Passed Year</label>
-                   <input type="date" class="input1" name="passed" id="passed">
+                   <input type="date" class="input1 passed" name="passed[]" id="passed">
                  </div>
                </div>
 
@@ -128,7 +145,120 @@
       
       
       `;
-      infoSection.appendChild(addMoreGroup)
-    })
-  })
+      infoSection.appendChild(addMoreGroup);
+    });
+
+    //save education
+    saveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("save button clicked");
+
+      const formSections = document.querySelectorAll(".form-section");
+      const education = [];
+      let hasError = false;
+
+      formSections.forEach((section, index) => {
+        const degreeEdu = section.querySelector(".degree");
+        const fosEdu = section.querySelector(".fos");
+        const uniEdu = section.querySelector(".uni");
+        const collegeEdu = section.querySelector(".college");
+        const joinedEdu = section.querySelector(".joined");
+        const passedEdu = section.querySelector(".passed");
+
+        if (
+          !degreeEdu ||
+          !fosEdu ||
+          !uniEdu ||
+          !collegeEdu ||
+          !joinedEdu ||
+          !passedEdu
+        ) {
+          console.error(`Missing form elements in section ${index + 1}`);
+          hasError = true;
+          return;
+        }
+
+        const degree = degreeEdu.value ? degreeEdu.value.trim() : "";
+        const fos = fosEdu.value ? fosEdu.value.trim() : "";
+        const uni = uniEdu.value ? uniEdu.value.trim() : "";
+        const college = collegeEdu.value ? collegeEdu.value.trim() : "";
+        const joined = joinedEdu.value ? joinedEdu.value.trim() : "";
+        const passed = passedEdu.value ? passedEdu.value.trim() : "";
+
+        if (!degree || !fos || !uni || !college || !joined || !passed) {
+          hasError = true;
+          if (!degree && degreeEdu) degreeEdu.style.borderColor = "red";
+          if (!fos && fosEdu) fosEdu.style.borderColor = "red";
+          if (!uni && uniEdu) uniEdu.style.borderColor = "red";
+          if (!college && collegeEdu) collegeEdu.style.borderColor = "red";
+          if (!joined && joinedEdu) joinedEdu.style.borderColor = "red";
+          if (!passed && passed) passedEdu.style.borderColor = "red";
+        } else {
+          const inputs = section.querySelectorAll(".input1");
+          inputs.forEach((input) => {
+            if (input) input.style.borderColor = "";
+          });
+        }
+
+        education.push({
+          degree: degree,
+          fieldOfStudy: fos,
+          university: uni,
+          college: college,
+          joined: joined,
+          passed: passed,
+        });
+      });
+
+      if (hasError) {
+        Toast.fire({
+          icon: "error",
+          title: "Please fill all the fields in all experience sections",
+        });
+        return;
+      }
+
+      console.log("Sending data:", education);
+
+      fetch("/users/UserEducation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ education }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Response was not 200 ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.success === false || data.title === "failed") {
+            Toast.fire({
+              icon: "error",
+              title: data.message || "Failed to save experiences",
+            });
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: data.message || "Experiences saved successfully!",
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("Error while saving experience: ", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occuered while saving",
+          });
+        });
+    });
+
+    infoSection.addEventListener("input", function (e) {
+      if (e.target.classList.contains("input1")) {
+        e.target.style.borderColor = "";
+      }
+    });
+  });
 </script>

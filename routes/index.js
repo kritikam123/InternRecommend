@@ -212,18 +212,110 @@ router.get("/users/login", (req, res) => {
   res.render("users/login");
 });
 
-router.get("/users/UserDashboard", (req, res) => {
-  res.render("users/UserDashboard");
+router.get("/users/userdashboard", checkuser, async (req, res) => {
+  const email = req.user.email;
+  console.log(
+    "The email for dashboard isssssssssssssssssssssssssssssssssss: ",
+    email
+  );
+
+  const user = await User.findOne({ where: { email: email } });
+  data = {
+    user: user,
+  };
+
+  console.log("DASHBOARD DATTAAA", data);
+  // console.log("DASHBOARD USERRRRRRRRRRRRRR", user);
+  res.render("users/UserDashboard", { data: data });
 });
 
-router.get("/users/UserEducation", (req, res) => {
+router.get("/users/UserEducation", checkuser, (req, res) => {
+  console.log(
+    "user id educationnnnnnnnnn isssssssssssssssssssssssssssss",
+    req.user.user_id
+  );
   res.render("users/UserEducation");
 });
 
-router.get("/users/UserExperience", (req, res) => {
+router.post("/users/UserEducation", checkuser, async (req, res) => {
+  const education = req.body.education;
+  const email = req.user.email;
+
+  console.log("The data for education are: ", education, email);
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    console.log("user data for user education: ", user);
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+
+    const existingEdu = user.education || [];
+
+    const updatedEdu = [...existingEdu, ...education];
+
+    console.log("updated user education", updatedEdu);
+    await user.update({ education: updatedEdu });
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Education updated successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+});
+
+router.get("/users/UserExperience", checkuser, (req, res) => {
+  console.log("user id isssssssssssssssssssssssssssss", req.user.user_id);
   res.render("users/UserExperience");
 });
 
+router.post("/users/UserExperience", checkuser, async (req, res) => {
+  const experiences = req.body.experiences;
+  const email = req.user.email;
+  console.log(email);
+  console.log(experiences);
+  try {
+    const user = await User.findOne({ where: { email } });
+    // console.log("user data for user experiences", user);
+
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+
+    const existing = user.experience || [];
+
+    const updatedExp = [...existing, ...experiences];
+
+    //update query
+    await user.update({ experience: updatedExp });
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Experience updated successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+
+  res.json({ success: true, message: "Experiences saved successfully" });
+});
 router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
