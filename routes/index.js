@@ -22,22 +22,17 @@ console.log(
 var auth;
 var data;
 
-const ensureAuthenticated = function (req, res, next) {
+const checkuser = function (req, res, next) {
   if (req.isAuthenticated()) {
     auth = true;
     data = req.user;
+    if (req.user.role == "jobseeker") return next();
+    res.redirect("/users/UserDashboard");
   } else {
     auth = false;
     data = "";
+    res.redirect("/users/login");
   }
-  next();
-};
-
-const checkuser = (req, res, next) => {
-  console.log("req.user:", req.user);
-  console.log("req.isAuthenticated():", req.isAuthenticated());
-  if (req.isAuthenticated()) return next();
-  res.redirect("/users/login");
 };
 
 function generateCode() {
@@ -229,6 +224,53 @@ router.get("/users/userdashboard", checkuser, async (req, res) => {
   res.render("users/UserDashboard", { data: data });
 });
 
+router.post("/users/userdashboard", checkuser, async (req, res) => {
+  console.log("post requesstttttttttt hittttttttttttttttttttt");
+  const email = req.user.email;
+  const location = req.body.location;
+  const phone = req.body.phone;
+  const gender = req.body.gender;
+  const objective = req.body.objective;
+
+  const skills = req.body["skills"];
+  const parsedSkills = Array.isArray(skills) ? skills : skills ? [skills] : [];
+
+  console.log(email, location, phone, gender, objective, parsedSkills);
+
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    // console.log("user data for user education: ", user);
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+    await user.update({
+      location: location,
+      phone: phone,
+      gender: gender,
+      objective: objective,
+      skills: parsedSkills,
+    });
+
+    console.log("userr updated successfullyyyyy");
+
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "User profile updated successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+});
+
 router.get("/users/UserEducation", checkuser, (req, res) => {
   console.log(
     "user id educationnnnnnnnnn isssssssssssssssssssssssssssss",
@@ -244,11 +286,11 @@ router.post("/users/UserEducation", checkuser, async (req, res) => {
   console.log("The data for education are: ", education, email);
   try {
     const user = await User.findOne({ where: { email: email } });
-    console.log("user data for user education: ", user);
+    // console.log("user data for user education: ", user);
     if (!user) {
       return res.json({
         status: 400,
-        title: failed,
+        title: "failed",
         message: "user not found",
       });
     }

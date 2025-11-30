@@ -39,6 +39,7 @@ const User = db.define("User", {
   resume: { type: DataTypes.STRING, allowNull: true },
   social_media: { type: DataTypes.JSON, allowNull: true },
   location: { type: DataTypes.STRING, allowNull: true },
+  objective: { type: DataTypes.STRING, allowNull: true },
   gender: { type: DataTypes.ENUM("Male", "Female", "Others"), allowNull: true },
 });
 //-------------------------------------------------------------------------------------------

@@ -268,3 +268,10 @@ body {
 .cancel-btn:hover {
   background: #9ce7cf;
 }
+
+
+.skillul{
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}

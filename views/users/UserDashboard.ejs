@@ -1,75 +1,299 @@
 <%-include("../head.ejs")%>
 
-    <link rel="stylesheet" href="/styles/user.css" />
+<link rel="stylesheet" href="/styles/user.css" />
 
-  <body>
-    <div class="dashboard-container">
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
 
-      <div class="box">
-        <%-include("../sidebar.ejs")%>
-      </div>
-
-      <div class="box1">
-        <%-include("../topbar.ejs")%>
-        <div class="main-contents">
-          <div class="edit">
-            <p>Edit Profile</p>
-            <div class="tabs" >
-              <a href="/users/UserDashboard" class="tab active">Personal Information</a>
-              <a href="/users/UserExperience" class="tab">Experience</a>
-              <a href="/users/UserEducation" class="tab">Education</a>
-              <a href="/users/AdditionalInfo" class="tab">Additional Information</a>
-             
-            </div>
-
-          </div>
-          
-          <div class="info-section">
-            <p>Profile Photo</p>
-            <div class="photo">
-              <img src="/images/default.jpg" alt="img">
-              <button class="profilebtn">Select</button>
-            </div>
-           <div class="form-section">
-              <label>Full Name</label>
-              <input type="text" class="input" name="full_name" id="full_name" value="<%=data.user.username%>" disabled>
-
-              <label>Email</label>
-              <input type="email" class="input" name="email" id="email" value="<%=data.user.email%>" disabled>
-
-              <div class="input-row">
-                <div>
-                  <label>Location</label>
-                  <input type="text" class="input" name="location" id="location">
-                </div>
-                <div>
-                  <label>Phone</label>
-                  <input type="text" class="input" name="phone" id="phone">
-                </div>
-                <div>
-                  <label>Gender</label>
-                  <input type="text" class="input" name="gender" id="gender">
-                </div>
-              </div>
-
-              <label>Objective</label>
-              <textarea name="objective" id="objective" class="input"></textarea>
-            </div>
-
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="edit">
+          <p>Edit Profile</p>
+          <div class="tabs">
+            <a href="/users/UserDashboard" class="tab active"
+              >Personal Information</a
+            >
+            <a href="/users/UserExperience" class="tab">Experience</a>
+            <a href="/users/UserEducation" class="tab">Education</a>
+            <a href="/users/AdditionalInfo" class="tab"
+              >Additional Information</a
+            >
           </div>
         </div>
 
-         <div class="btn-row">
-         <button class="save-btn">Save</button>
-         <button class="cancel-btn">Cancel</button>
-         </div>
-      </div>
- 
-     
-    </div>
-  </body>
-</html>
-<script>
-  
-</script>
+        <div class="info-section">
+          <p>Profile Photo</p>
+          <div class="photo">
+            <img src="/images/default.jpg" alt="img" />
+            <button class="profilebtn">Select</button>
+          </div>
+          <div class="form-section" id="info-section">
+            <label>Full Name</label>
+            <input
+              type="text"
+              class="input"
+              name="full_name"
+              id="full_name"
+              value="<%=data.user.username%>"
+              disabled
+            />
 
+            <label>Email</label>
+            <input
+              type="email"
+              class="input"
+              name="email"
+              id="email"
+              value="<%=data.user.email%>"
+              disabled
+            />
+
+            <div class="input-row">
+              <div>
+                <label>Location</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="location"
+                  id="location"
+                  value="<%=data.user.location%>"
+                />
+              </div>
+              <div>
+                <label>Phone</label>
+                <input type="text" class="input" name="phone" id="phone" value="<%=data.user.phone%>"/>
+              </div>
+              <div>
+                <label>Gender</label>
+                <input type="text" class="input" name="gender" id="gender" value="<%=data.user.gender%>"/>
+              </div>
+            </div>
+
+            <label>Objective</label>
+            <input name="objective" id="objective" class="input" value="<%=data.user.objective%>"></input>
+
+
+            <input
+              type="text"
+              value="<%= JSON.stringify(data.user.skills) %>"
+              id="alreadySkills"
+              hidden
+            />
+            <label>Skills <span>(Press Enter After Each Tag)</span></label>
+            <div name="skills" id="skills" class="input tags-wrapper">
+              <% if(data.user.skills !== null &&
+              JSON.stringify(data.user.skills) !='[]' &&
+              data.user.skills.length>0){%>
+              <ul id="edit-profile-skills" class="skillul">
+                <%for(let i=0; i<data.user.skills.length; i++){%>
+
+                  <li>
+                    <%= data.user.skills[i] %><button type="button" onclick="removeSkill(this, '<%=data.user.skills[i]%>')">X</button>
+                  </li>
+                <%}%>
+                </ul>
+                <input type="text" id="tags" class="input">
+
+              <% } else{ %>
+               
+                 <input type="text" id="tags" class="input">
+                <%}%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="save-btn" id="saveBtn">Save</button>
+        <button class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let tags=[]
+
+    let ul = document.querySelector(".tags-wrapper ul");
+
+// Create ul if user has no existing skills
+  if (!ul) {
+    ul = document.createElement("ul");
+    ul.id = "edit-profile-skills";
+    ul.classList.add("skillul");
+
+    const wrapper = document.querySelector(".tags-wrapper");
+    wrapper.insertBefore(ul, wrapper.querySelector("#tags"));
+  }
+
+    const input = document.querySelector(".tags-wrapper input");
+    const infoSection = document.getElementById("info-section");
+    const saveBtn = document.getElementById("saveBtn");
+    const alreadySkills = document.getElementById("alreadySkills");
+
+
+    //TO ADD SKILLS TO DATABASE IN JSON FORMAT:
+    //CHECK IF USER ALREADY HAS SKILLS OR NOT
+    if(alreadySkills == "null" || alreadySkills.length==0){
+      window.createTag = function(){
+        ul.querySelectorAll("li").forEach((li)=>li.remove());
+        tags.slice().reverse().forEach((tag)=>{
+          let liTag = `<li>${tag}<button type="button" onClick = "remove(this,'${tag}')">X</button></li>`;
+          ul.insertAdjacentHTML("afterbegin", liTag);
+        })
+      }
+    } else{ //if not then user must be able to insert skills
+      window.createTag = function(newTag){
+        newTag.forEach((tag) => {
+        let liTag = `<li>${tag}<button onClick="remove(this, '${tag}')">X</button></li>`;
+        ul.insertAdjacentHTML("afterbegin", liTag);
+      });
+      }
+    }
+
+    if (alreadySkills == "null" || alreadySkills.length == 0) {
+      createTag();
+    }
+
+    //removes already existing list only
+    window.removeSkill = function (button, skillName) {
+      console.log("function clickeddd")
+      const li = button.closest("li");
+      if (li) {
+        li.remove();
+      }
+    }
+
+
+    //-------------START OF METHOD REMOVE-----------------------
+    //removes skills from both list and array:
+    window.remove = function(element, tag){
+      let index = tags.indexOf(tag);
+      tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+      element.parentElement.remove();
+    }
+    //-------------END OF METHOD REMOVE-----------------------------------------------------------
+
+    if(alreadySkills == "null" || alreadySkills.length < 0){
+      window.addTag = function(e){
+        if (e.key == "Enter") {
+        let tag = e.target.value.replace(/\s+/g, " ");
+        if (tag.length > 1 && !tags.includes(tag)) {
+          if (tags.length < 10) {
+            tag.split(",").forEach((tag) => {
+              tags.push(tag);
+              createTag();
+            });
+          }
+        }
+        e.target.value = "";
+      }
+      }
+    } else {
+    window.addTag = function (e) {
+      if (e.key == "Enter") {
+        let tag = e.target.value.replace(/\s+/g, " ");
+        if (tag.length > 1 && !tags.includes(tag)) {
+          if (tags.length < 10) {
+            tag.split(",").forEach((tag) => {
+              tags.push(tag);
+            });
+            createTag(tag.split(","));
+          }
+        }
+        e.target.value = "";
+      }
+    }
+  }
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+      e.preventDefault();
+      addTag(e);
+    }
+  });
+window.getSkills = function () {
+  let skills = [];
+
+  const ulSkills = document.getElementById("edit-profile-skills");
+  const skillList = ulSkills?.querySelectorAll("li");
+
+  skillList?.forEach((skill) => {
+    skills.push(skill.textContent.trim().replace(/X$/, ""));
+  });
+
+  return skills;
+};
+
+
+    saveBtn.addEventListener("click", async function (e) {
+      e.preventDefault();
+      console.log("save button clicked");
+
+      const location = document.getElementById("location").value;
+      const phone = document.getElementById("phone").value;
+      const gender = document.getElementById("gender").value;
+      const objective = document.getElementById("objective").value;
+      let skillsData = await window.getSkills();
+
+
+      // const rawSkills = skills.value.trim();
+
+      // const skillsArray = rawSkills
+      //   .split(",")
+      //   .map((skill) => (skill || "").trim())
+      //   .filter((skill) => skill !== "");
+      console.log({
+        location: location,
+        phone: phone,
+        gender: gender,
+        objective: objective,
+        skill: skillsData,
+      });
+
+      if (location === "" || phone === "" || gender === "") {
+        Toast.fire({
+          icon: "error",
+          title: "Please insert location, gender and phone",
+        });
+        return;
+      }
+
+      fetch("/users/userdashboard",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ location, phone, gender, objective, skills: skillsData }),
+
+      }).then((response)=>{
+        if(!response.ok){
+          throw new Error("Response was not 200 ok");
+        }
+        return response.json();
+      }).then((data)=>{
+        if(data.success == false || data.title == "failed"){
+            Toast.fire({
+              icon: "error",
+              title: data.message || "Failed to save experiences",
+            });
+        }else {
+            Toast.fire({
+              icon: "success",
+              title: data.message || "Experiences saved successfully!",
+            });
+          }
+      })  .catch((error) => {
+          console.log("Error while saving experience: ", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occuered while saving",
+          });
+        });
+    });
+  });
+</script>
