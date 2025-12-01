@@ -358,9 +358,12 @@ router.post("/users/UserExperience", checkuser, async (req, res) => {
 
   res.json({ success: true, message: "Experiences saved successfully" });
 });
+
 router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
+
+
 
 router.post("/users/login", async (req, res, next) => {
   console.log("user login route");
