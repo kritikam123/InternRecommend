@@ -1,6 +1,6 @@
 <%-include("../head.ejs")%>
 
-<link rel="stylesheet" href="/styles/user.css" />
+<link rel="stylesheet" href="/styles/usereducation.css" />
 
 <body>
   <div class="dashboard-container">
@@ -10,21 +10,45 @@
       <%-include("../topbar.ejs")%>
       <div class="main-contents">
         <div class="edit">
-          <p>Edit Profile</p>
+          <p>Education</p>
           <div class="tabs">
-            <a href="/users/UserDashboard" class="tab active"
-              >Personal Information</a
-            >
-            <a href="/users/UserExperience" class="tab">Experience</a>
-            <a href="/users/UserEducation" class="tab">Education</a>
-            <a href="/users/AdditionalInfo" class="tab"
-              >Additional Information</a
-            >
+            <a href="/users/education" class="tab active">Education Details</a>
+            <a href="/users/experience" class="tab">Experience Details</a>
           </div>
         </div>
 
         <div class="info-section">
-            
+          <div class="education-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Degree</th>
+                  <th>Field of Study</th>
+                  <th>University</th>
+                  <th>College</th>
+                  <th>Joined Year</th>
+                  <th>End Year</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <%if(education.length==0){%>
+                <tr>
+                  <td colspan="6">No education details available</td>
+                </tr>
+                <%} else{%> <%education.map((edu)=>{%>
+                <tr>
+                  <td><%=edu.degree%></td>
+                  <td><%=edu.fieldOfStudy%></td>
+                  <td><%=edu.university%></td>
+                  <td><%=edu.college%></td>
+                  <td><%=edu.joined%></td>
+                  <td><%=edu.passed%></td>
+                </tr>
+                <%})%> <%}%>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

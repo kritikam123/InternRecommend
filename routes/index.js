@@ -363,6 +363,24 @@ router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
 
+router.get("/users/education", checkuser, async (req, res) => {
+  const email = req.user.email;
+  console.log(email);
+  const user = await User.findOne({ where: { email: email } });
+  const education = user.education;
+  console.log("educationn for user: ",education)
+  res.render("users/educationdetails",{education: education});
+});
+
+router.get("/users/experience", checkuser, async (req, res) => {
+  const email = req.user.email;
+  console.log(email);
+  const user = await User.findOne({ where: { email: email } });
+  const experience = user.experience;
+  console.log("educationn for user: ", experience);
+  res.render("users/experiencedetails", { experience: experience });
+});
+
 
 
 router.post("/users/login", async (req, res, next) => {

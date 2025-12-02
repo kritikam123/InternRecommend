@@ -1,0 +1,308 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  color: #000;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 300px auto;
+  height: 100vh;
+}
+
+/* ===========
+   MAIN CONTENT
+   =========== */
+
+.main-contents {
+  border: 2px solid #d9d9d9;
+  margin-left: 22px;
+  margin-right: 104px;
+  margin-top: 24px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+
+.info-section {
+  /* border: 2px solid purple; */
+  margin-left: 25px;
+  margin-right: 17px;
+  overflow-y: auto;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.h2 {
+  font-size: 32px;
+}
+.logout-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 13px 41px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+}
+
+.logout-btn:hover {
+  background-color: #2563eb;
+}
+.photo {
+  display: flex;
+  align-items: center;
+}
+.photo img {
+  width: 150px;
+  height: 150px;
+}
+
+.profilebtn {
+  all: unset;
+  border: 2px solid #9ce7cf;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.profilebtn:hover {
+  background-color: #2563eb;
+  color: white;
+}
+/* ===========
+   PROFILE SECTION
+   =========== */
+.profile-section {
+  background: #fff;
+  margin-top: 46px;
+  border: 1px solid #e5e5e5;
+  border-radius: 48px;
+  padding: 49px;
+}
+
+.profile-section h3 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 38px;
+}
+
+.edit {
+  padding-left: 16px;
+}
+.edit p {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tab {
+  border: 1.5px solid #9ce7cf;
+  background: white;
+  border-radius: 8px;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.tab:hover {
+  background: #9ce7cf;
+}
+
+.tab.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  text-decoration: none;
+}
+.h1 {
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+
+/* Profile Box */
+.profile-box {
+  display: flex;
+  gap: 25px;
+}
+
+.photo-section {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 36px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.photo-placeholder {
+  width: 160px;
+  height: 160px;
+  background: #d9d9d9;
+  border-radius: 50%;
+}
+
+.select-btn {
+  background: #fff;
+  border: 1.5px solid #9ce7cf;
+  border-radius: 16px;
+  padding: 9px 44px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 23px;
+}
+
+.select-btn:hover {
+  background: #9ce7cf;
+}
+
+/* Form section */
+.form-section {
+  flex: 1;
+}
+
+.form-section label {
+  display: flex;
+  font-size: 21px;
+  margin-bottom: 20px;
+}
+
+.input {
+  background: #e4e4e4;
+  border-radius: 6px;
+  /* height: 50px; */
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+#objective {
+  min-height: 150px;
+  margin-bottom: 50px;
+}
+/* .input,
+.textarea {
+  background: #e4e4e4;
+  border-radius: 6px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+.input1,
+.textarea {
+  background: #e4e4e4;
+  border-radius: 6px;
+  height: 50px;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.textarea {
+  height: 289px;
+  width: 1000px;
+} */
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-row {
+  margin-top: 40px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 48px;
+  margin-left: 25px;
+}
+.save-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 9px 35px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+}
+.cancel-btn {
+  background: #fff;
+  border: 2px solid #9ce7cf;
+  border-radius: 10px;
+  padding: 9px 35px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+}
+
+.cancel-btn:hover {
+  background: #9ce7cf;
+}
+
+.skillul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+
+.education-table {
+  width: 100%;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.education-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.education-table th,
+.education-table td {
+  padding: 16px;
+  border: 1px solid #dcdcdc;
+  text-align: center; /* center horizontally */
+  vertical-align: middle; /* center vertically */
+  font-size: 18px;
+}
+
+.education-table th {
+  font-weight: 600;
+  background-color: #fafafa;
+}
+
+.education-table tbody tr {
+  height: 200px; /* Makes the bottom area tall like your screenshot */
+}

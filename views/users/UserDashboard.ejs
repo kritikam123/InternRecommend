@@ -107,7 +107,7 @@
 
       <div class="btn-row">
         <button class="save-btn" id="saveBtn">Save</button>
-        <button class="cancel-btn">Cancel</button>
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
       </div>
     </div>
   </div>
@@ -116,9 +116,42 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    let tags=[]
 
-    let ul = document.querySelector(".tags-wrapper ul");
+  const originalValues = {
+    location: "<%= data.user.location %>",
+    phone: "<%= data.user.phone %>",
+    gender: "<%= data.user.gender %>",
+    objective: "<%= data.user.objective %>",
+    skills: JSON.parse(`<%- JSON.stringify(data.user.skills || []) %>`)
+  };
+  document.getElementById("cancelBtn").addEventListener("click", () => {
+    console.log("cancel button clicked")
+    document.getElementById("location").value = originalValues.location;
+    document.getElementById("phone").value = originalValues.phone;
+    document.getElementById("gender").value = originalValues.gender;
+    document.getElementById("objective").value = originalValues.objective;
+
+    const ul = document.getElementById("edit-profile-skills");
+    if (ul) ul.innerHTML = "";
+
+    if (originalValues.skills.length > 0) {
+      originalValues.skills.forEach(skill => {
+        const li = document.createElement("li");
+        li.innerHTML = `${skill}<button type="button" onclick="removeSkill(this, '${skill}')">X</button>`;
+        ul.appendChild(li);
+      });
+    }
+
+    document.getElementById("tags").value = "";
+  });
+
+
+
+
+
+
+  let tags=[]
+  let ul = document.querySelector(".tags-wrapper ul");
 
 // Create ul if user has no existing skills
   if (!ul) {

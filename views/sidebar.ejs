@@ -8,11 +8,12 @@
   </div>
 
   <nav class="nav-links">
-    <a href="#" class="btns"
-      ><img src="/images/home.svg" alt="" />Dashboard</a
-    >
+    <a href="#" class="btns"><img src="/images/home.svg" alt="" />Dashboard</a>
     <a href="/users/UserDashboard" class="btns"
       ><img src="/images/edit.svg" alt="" />Edit Profile</a
+    >
+    <a href="/users/education" class="btns"
+      ><img src="/images/edit.svg" alt="" />View Details</a
     >
     <a href="/users/AdditionalInfo" class="btns"
       ><img src="/images/appliedjobs.svg" alt="" />Applied Jobs</a
@@ -32,11 +33,9 @@
   const currentPage = window.location.pathname;
   const links = document.querySelectorAll(".btns");
 
-  links.forEach(link => {
+  links.forEach((link) => {
     if (link.getAttribute("href") === currentPage) {
       link.classList.add("active");
     }
   });
 </script>
-
-

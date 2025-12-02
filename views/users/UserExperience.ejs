@@ -136,11 +136,29 @@
           <label>Roles and Responsibility</label>
           <textarea name="roles[]" id="roles" class="input1 roles"></textarea>
         </div>
+         <div class="btn-row">
+          <button class="cancel-btn">Remove</button>
+        </div>
         <hr style="margin: 20px 0; border: 1px solid #eee;">
       `;
       infoSection.appendChild(addMoreGroup);
     });
 
+    //remove button
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("cancel-btn")) {
+        const group = e.target.closest(".experience-group");
+        if (group) group.remove();
+      }
+    });
+
+    //     window.removeSkill = function (button, skillName) {
+    //   console.log("function clickeddd")
+    //   const li = button.closest("li");
+    //   if (li) {
+    //     li.remove();
+    //   }
+    // }
     // Save experiences
     saveBtn.addEventListener("click", function (e) {
       e.preventDefault();
