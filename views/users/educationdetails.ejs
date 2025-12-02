@@ -32,7 +32,7 @@
               </thead>
 
               <tbody>
-                <%if(education.length==0){%>
+                <%if(!education || education.length == 0){%>
                 <tr>
                   <td colspan="6">No education details available</td>
                 </tr>

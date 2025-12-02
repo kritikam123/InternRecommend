@@ -35,9 +35,9 @@
               </thead>
 
               <tbody>
-                <%if(experience.length==0){%>
+                <%if(!experience || experience.length==0){%>
                 <tr>
-                  <td colspan="6">No education details available</td>
+                  <td colspan="7">No experience details available</td>
                 </tr>
                 <%} else{%> <%experience.map((edu)=>{%>
                 <tr>
