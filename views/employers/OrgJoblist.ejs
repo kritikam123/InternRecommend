@@ -1,0 +1,61 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/Joblist.css" />
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar-box">
+      <%-include("OrgSidebar.ejs")%>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-wrapper">
+      <%-include("../topbar.ejs")%>
+
+      <div class="main-content">
+        <h2 class="title">Job Posted</h2>
+
+        <div class="jobs-grid">
+
+          <!-- Job Card -->
+          <div class="job-card">
+            <h3 class="job-title">Social Media & brand manager (internship)</h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Kathmandu
+            </p>
+            <button class="details-btn">Edit Details</button>
+          </div>
+
+          <div class="job-card">
+            <h3 class="job-title">Associate Operations Intern</h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Kumaripati,Lalitpur
+            </p>
+            <button class="details-btn">Edit Details</button>
+          </div>
+
+          <div class="job-card">
+            <h3 class="job-title">Account Intern</h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Kathmandu
+            </p>
+            <button class="details-btn">Edit Details</button>
+          </div>
+
+          <div class="job-card">
+            <h3 class="job-title">Sales and Marketing</h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Lalitpur
+            </p>
+            <button class="details-btn">Edit Details</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
