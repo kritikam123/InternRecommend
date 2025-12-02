@@ -1,0 +1,162 @@
+<%-include("../head.ejs")%>
+    <link rel="stylesheet" href="/styles/experience.css">
+<body>
+  <div class="dashboard-container">
+    <div class="box">
+      <%-include("OrgSidebar.ejs")%>
+    </div>
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+
+      <div class="main-contents">
+      <div class="edit">
+            <p>Post a Job</p>
+      
+
+      </div>
+
+      <div class="info-section" id="info-section">
+         <p>Company Logo</p>
+            <div class="photo">
+              <img src="/images/default.jpg" alt="img">
+              <button class="profilebtn">Select</button>
+            </div>
+           <div class="form-section"> 
+            
+             <div class="input-row">
+              <div>
+                <label>Job title</label>
+                <input type="text" class="input1" name="position" id="position">
+              </div>
+              <div>
+                <label>No of openings</label>
+                <input type="text" class="input1" name="org" id="org">
+              </div>
+              <div>
+                <label>Category</label>
+                <input type="text" class="input1" name="ind" id="ind">
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>Job type</label>
+                <input type="text" class="input1" name="level" id="level">
+              </div>
+              <div>
+                <label>Remote/on-site</label>
+                <input type="text" class="input1" name="org" id="org">
+              </div>
+              <div>
+                <label>Experience Required</label>
+                <input type="text" class="input1" name="end" id="end">
+              </div>
+            </div>
+             <div class="input-row">
+              <div>
+                <label>Education Required</label>
+                <input type="text" class="input1" name="level" id="level">
+              </div>
+              <div>
+                <label>Location</label>
+                <input type="text" class="input1" name="org" id="org">              </div>
+              <div>
+                <label>Expiery Date</label>
+                <input type="text" class="input1" name="end" id="end">
+              </div>
+            </div>
+            <div class="input-row">
+              <div>
+                <label>Salary</label>
+                <input type="text" class="input1" name="level" id="level">
+              </div>
+              <div>
+               <label>Select Skill</label>
+                <input type="text" class="input1" name="org" id="org">             </div>
+            
+            </div>
+
+            <label>Job Description</label>
+            <textarea name="roles" id="roles" class="input1"></textarea>
+
+            <label>Job Requirements</label>
+            <textarea name="roles" id="roles" class="input1"></textarea>
+
+            <label>Apply Instructions</label>
+            <textarea name="roles" id="roles" class="input1"></textarea>
+
+          </div>
+      </div>
+      
+      </div>
+
+       <div class="btn-row">
+         <button class="save-btn">Post</button>
+         <button class="cancel-btn">Cancel</button>
+         </div>
+      
+    </div>
+
+    </div>
+      <!-- Main Content -->
+    
+
+   
+
+  </div>
+
+
+</body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    const addMoreBtn = document.getElementById("add-more-btn");
+    const infoSection=document.getElementById("info-section")
+    addMoreBtn.addEventListener("click",function(){
+      console.log("add more button clicked")
+      const addMoreGroup = document.createElement("div")
+      addMoreGroup.className="link-input-group";
+      addMoreGroup.innerHTML=`
+       <div class="form-section"> 
+            
+             <div class="input-row">
+              <div>
+                <label>Position</label>
+                <input type="text" class="input1" name="position" id="position">
+              </div>
+              <div>
+                <label>Organization Name</label>
+                <input type="text" class="input1" name="org" id="org">
+              </div>
+              <div>
+                <label>Industry</label>
+                <input type="text" class="input1" name="ind" id="ind">
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>Job Level</label>
+                <input type="text" class="input1" name="level" id="level">
+              </div>
+              <div>
+                <label>Start Date</label>
+                <input type="date" class="input1" name="start" id="start">
+              </div>
+              <div>
+                <label>End Date</label>
+                <input type="text" class="input1" name="end" id="end">
+              </div>
+            </div>
+
+            <label>Roles and Responsibility</label>
+            <textarea name="roles" id="roles" class="input1"></textarea>
+          </div>
+      
+      
+      
+      `;
+      infoSection.appendChild(addMoreGroup)
+    })
+  })
+</script>

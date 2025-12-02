@@ -94,4 +94,34 @@ router.post("/employersRegister", async (req, res) => {
     title: "Registration Successful",
   });
 });
+
+
+
+router.get("/OrgSidebar", (req, res) => {
+  res.render("employers/OrgSidebar");
+});
+
+
+router.get("/OrgProfile", (req, res) => {
+  res.render("employers/OrgProfile");
+});
+
+router.get("/OrgJobpost", (req, res) => {
+  res.render("employers/OrgJobpost");
+});
+
+router.get("/OrgSettings", (req, res) => {
+  res.render("employers/OrgSettings");
+});
+
+router.get("/OrgJoblist", (req, res) => {
+  res.render("employers/OrgJoblist");
+});
+
+router.get("/OrgViewApplicants", (req, res) => {
+  res.render("employers/OrgViewApplicants");
+});
+
 module.exports = router;
+
+

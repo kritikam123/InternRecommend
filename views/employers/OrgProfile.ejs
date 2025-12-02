@@ -1,0 +1,68 @@
+<%-include("../head.ejs")%>
+
+    <link rel="stylesheet" href="/styles/user.css" />
+
+  <body>
+    <div class="dashboard-container">
+
+      <div class="box">
+        <%-include("OrgSidebar.ejs")%>
+      </div>
+
+      <div class="box1">
+        <%-include("../topbar.ejs")%>
+        <div class="main-contents">
+          <div class="edit">
+            <p>Edit Profile</p>
+
+          </div>
+          
+          <div class="info-section">
+            <p>Company Logo</p>
+            <div class="photo">
+              <img src="/images/default.jpg" alt="img">
+              <button class="profilebtn">Select</button>
+            </div>
+           <div class="form-section">
+              <label>Organization Name</label>
+              <input type="text" class="input" name="full_name" id="full_name">
+
+              <label>Email</label>
+              <input type="email" class="input" name="email" id="email">
+
+              <div class="input-row">
+                <div>
+                  <label>Location</label>
+                  <input type="text" class="input" name="location" id="location">
+                </div>
+                <div>
+                  <label>Phone</label>
+                  <input type="text" class="input" name="phone" id="phone">
+                </div>
+                <div>
+                  <label>Fax no:</label>
+                  <input type="text" class="input" name="gender" id="gender">
+                </div>
+              </div>
+
+              <label>Company Description</label>
+              <textarea name="objective" id="objective" class="input"></textarea>
+            </div>
+
+          </div>
+        </div>
+
+         <div class="btn-row">
+         <button class="save-btn">Save</button>
+         <button class="cancel-btn">Cancel</button>
+         </div>
+      </div>
+ 
+     
+    </div>
+  </body>
+</html>
+<script>
+  
+</script>
+

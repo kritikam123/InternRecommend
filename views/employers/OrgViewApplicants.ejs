@@ -1,0 +1,69 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/viewapplicants.css" />
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar-box">
+      <%-include("OrgSidebar.ejs")%>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-wrapper">
+      <%-include("../topbar.ejs")%>
+
+      <div class="main-content">
+        <h2 class="title">Applicants</h2>
+
+        <div class="jobs-grid">
+
+          <!-- Job Card -->
+          <div class="job-card">
+            <br class="job-title">Joey
+                <br> Software Engineer </br>
+            </h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Kathmandu
+            </p>
+            <button class="details-btn">View Details</button>
+          </div>
+
+          <div class="job-card">
+            <br class="job-title">Max 
+          </br> Student <br>
+            </h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Kumaripati,Lalitpur
+            </p>
+            <button class="details-btn">View Details</button>
+          </div>
+
+          <div class="job-card">
+            <br class="job-title">Ram 
+               <br> Student </br>
+            </h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Kathmandu
+            </p>
+            <button class="details-btn">View Details</button>
+          </div>
+
+          <div class="job-card">
+            <br class="job-title">Shayla 
+                <br> Python Developer </br>
+            </h3>
+            <p class="job-location">
+              <span class="location-icon">📍</span> Lalitpur
+            </p>
+            <button class="details-btn">View Details</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
