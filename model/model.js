@@ -101,7 +101,7 @@ const Organization = db.define("Organization", {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  size: {
+  fax: {
     type: DataTypes.STRING,
     allowNull: true,
   },
@@ -121,19 +121,7 @@ const Organization = db.define("Organization", {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  contactPerson: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  contactPersonNum: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  info: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  intro: {
+  description: {
     type: DataTypes.TEXT,
     allowNull: true,
   },

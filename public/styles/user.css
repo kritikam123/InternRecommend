@@ -203,9 +203,10 @@ body {
   padding: 10px;
   border: none;
   outline: none;
+  font-size: 18px;
 }
 
-#objective {
+#description {
   min-height: 150px;
   margin-bottom: 50px;
 }

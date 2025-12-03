@@ -22,15 +22,17 @@ console.log(
 var auth;
 var data;
 
-const ensureAuthenticated = function (req, res, next) {
+const checkuser = function (req, res, next) {
   if (req.isAuthenticated()) {
     auth = true;
     data = req.user;
+    if (req.user.role == "organization") return next();
+    res.redirect("/employers/OrgProfile");
   } else {
     auth = false;
     data = "";
+    res.redirect("/employers/employersLogin");
   }
-  next();
 };
 
 function generateCode() {
@@ -95,17 +97,141 @@ router.post("/employersRegister", async (req, res) => {
   });
 });
 
-
-
-router.get("/OrgSidebar", (req, res) => {
-  res.render("employers/OrgSidebar");
+router.get("/employersLogin", async (req, res) => {
+  res.render("employers/employersLogin");
 });
 
+router.post("/employersLogin", async (req, res, next) => {
+  console.log("emaployers login route");
+  const { email, password, remember } = req.body;
+  const organization = await Organization.findOne({ where: { email: email } });
+  if (!organization) {
+    return res.json({
+      status: 400,
+      title: "Invalid Credentials",
+      message: "User does not exist",
+    });
+  }
+  const passwordValidation = await bcrypt.compare(
+    password,
+    organization.password
+  );
+  if (passwordValidation == false) {
+    return res.json({
+      status: 400,
+      title: "Wrong password",
+      message: "Incorrect Password",
+    });
+  } else {
+    //authentication part
+    passport.authenticate("organizationn", (error, user) => {
+      // console.log("USERRRRRSSSSSSS", user);
 
-router.get("/OrgProfile", (req, res) => {
-  res.render("employers/OrgProfile");
+      if (error) {
+        return next(error);
+      }
+
+      if (!user) {
+        return res.json({
+          status: 400,
+          title: "Login Failed",
+          message: "Invalid email or password",
+        });
+      }
+
+      req.login(user, (loginErr) => {
+        if (loginErr) {
+          console.log("Login Error", loginErr);
+          return res.json({
+            status: 500,
+            title: "Server Error",
+            message: "Failed to log in",
+          });
+        }
+
+        if (req.body.remember) {
+          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+        } else {
+          req.session.cookie.expires = false;
+        }
+
+        console.log("Login successful, user ID:", user.user_id);
+
+        // Debug: check what's in session immediately after login
+        console.log("Session after login:", req.session);
+        console.log("User after login:", req.user);
+        res.json({
+          status: 200,
+          message: "You have successfully logged in as a user",
+          title: "login successful",
+          organization: {
+            id: organization.id,
+            email: organization.email,
+          },
+        });
+      });
+    })(req, res, next);
+    console.log("login successful");
+  }
 });
 
+router.get("/OrgProfile", checkuser, async (req, res) => {
+  const email = req.user.email;
+  console.log("org profile email", email);
+  const organization = await Organization.findOne({ where: { email: email } });
+
+  console.log("organizationnnnnnnnn dataaaaaaaaaaaaaaaa", organization);
+  res.render("employers/OrgProfile", { organization: organization });
+});
+
+router.post("/OrgProfile", checkuser, async (req, res) => {
+  console.log("POST REQUESSTTTT HITTTTTTTTTTTTTTT");
+  const location = req.body.location;
+  const phone = req.body.phone;
+  const fax = req.body.fax;
+  const web = req.body.web;
+  const fb = req.body.fb;
+  const linkedin = req.body.linkedin;
+  const description = req.body.description;
+  const email = req.user.email;
+  console.log(location, phone, fax, web, fb, linkedin, description);
+
+  try {
+    const organization = await Organization.findOne({
+      where: { email: email },
+    });
+    if (!organization) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+    await organization.update({
+      location: location,
+      phone: phone,
+      fax: fax,
+      website: web,
+      facebookLink: fb,
+      linkedin: linkedin,
+      description: description,
+    });
+
+    console.log("organizationnn updated successfullyyyyy");
+
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Organization Profile Updates Successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+});
 router.get("/OrgJobpost", (req, res) => {
   res.render("employers/OrgJobpost");
 });
@@ -123,5 +249,3 @@ router.get("/OrgViewApplicants", (req, res) => {
 });
 
 module.exports = router;
-
-

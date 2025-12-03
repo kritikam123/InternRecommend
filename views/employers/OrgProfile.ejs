@@ -1,68 +1,215 @@
 <%-include("../head.ejs")%>
 
-    <link rel="stylesheet" href="/styles/user.css" />
+<link rel="stylesheet" href="/styles/user.css" />
 
-  <body>
-    <div class="dashboard-container">
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("OrgSidebar.ejs")%></div>
 
-      <div class="box">
-        <%-include("OrgSidebar.ejs")%>
-      </div>
-
-      <div class="box1">
-        <%-include("../topbar.ejs")%>
-        <div class="main-contents">
-          <div class="edit">
-            <p>Edit Profile</p>
-
-          </div>
-          
-          <div class="info-section">
-            <p>Company Logo</p>
-            <div class="photo">
-              <img src="/images/default.jpg" alt="img">
-              <button class="profilebtn">Select</button>
-            </div>
-           <div class="form-section">
-              <label>Organization Name</label>
-              <input type="text" class="input" name="full_name" id="full_name">
-
-              <label>Email</label>
-              <input type="email" class="input" name="email" id="email">
-
-              <div class="input-row">
-                <div>
-                  <label>Location</label>
-                  <input type="text" class="input" name="location" id="location">
-                </div>
-                <div>
-                  <label>Phone</label>
-                  <input type="text" class="input" name="phone" id="phone">
-                </div>
-                <div>
-                  <label>Fax no:</label>
-                  <input type="text" class="input" name="gender" id="gender">
-                </div>
-              </div>
-
-              <label>Company Description</label>
-              <textarea name="objective" id="objective" class="input"></textarea>
-            </div>
-
-          </div>
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="edit">
+          <p>Edit Profile</p>
         </div>
 
-         <div class="btn-row">
-         <button class="save-btn">Save</button>
-         <button class="cancel-btn">Cancel</button>
-         </div>
-      </div>
- 
-     
-    </div>
-  </body>
-</html>
-<script>
-  
-</script>
+        <div class="info-section">
+          <p>Company Logo</p>
+          <div class="photo">
+            <img src="/images/default.jpg" alt="img" />
+            <button class="profilebtn">Select</button>
+          </div>
+          <div class="form-section">
+            <label>Organization Name</label>
+            <input
+              type="text"
+              class="input"
+              name="full_name"
+              id="full_name"
+              value="<%=organization.name%>"
+              disabled
+            />
 
+            <label>Email</label>
+            <input
+              type="email"
+              class="input"
+              name="email"
+              id="email"
+              value="<%=organization.email%>"
+              disabled
+            />
+
+            <div class="input-row">
+              <div>
+                <label>Location</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="location"
+                  id="location"
+                  value="<%=organization.location%>"
+                />
+              </div>
+              <div>
+                <label>Phone</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="phone"
+                  id="phone"
+                  value="<%=organization.phone%>"
+                />
+              </div>
+              <div>
+                <label>Fax no:</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="fax"
+                  id="fax"
+                  value="<%=organization.fax%>"
+                />
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>Website</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="location"
+                  id="website"
+                  value="<%=organization.website%>"
+                />
+              </div>
+              <div>
+                <label>Facebook Link</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="phone"
+                  id="fb"
+                  value="<%=organization.facebookLink%>"
+                />
+              </div>
+              <div>
+                <label>Linked In</label>
+                <input
+                  type="text"
+                  class="input"
+                  name="gender"
+                  id="linkedin"
+                  value="<%=organization.linkedin%>"
+                />
+              </div>
+            </div>
+
+            <label>Company Description</label>
+            <textarea name="objective" id="description" class="input">
+<%=organization.description%></textarea
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="save-btn" id="saveBtn">Save</button>
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("button clicked");
+      const location = document.getElementById("location").value;
+      const phone = document.getElementById("phone").value;
+      const fax = document.getElementById("fax").value;
+      const web = document.getElementById("website").value;
+      const fb = document.getElementById("fb").value;
+      const linkedin = document.getElementById("linkedin").value;
+      const description = document.getElementById("description").value;
+
+      console.log({
+        location: location,
+        phone: phone,
+        fax: fax,
+        web: web,
+        fb: fb,
+        linkedin: linkedin,
+        description: description,
+      });
+
+      // if (
+      //   location === "" ||
+      //   phone === "" ||
+      //   linkedin === "" ||
+      //   fb === "" ||
+      //   description == ""
+      // ) {
+      //   Toast.fire({
+      //     icon: "error",
+      //     title: "Please insert location, phone, facebook, linkedin and description",
+      //   });
+      //   return;
+      // }
+
+      const phonePattern = /^\d{10}$/;
+
+      if (!phonePattern.test(phone)) {
+        Toast.fire({
+          icon: "error",
+          title: "Phone number should contain only ten numbers",
+        });
+        return;
+      }
+      fetch("/employers/OrgProfile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          location,
+          phone,
+          fax,
+          web,
+          fb,
+          linkedin,
+          description,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Response was not 200 ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.success == false || data.title == "false") {
+            Toast.fire({
+              icon: "error",
+              title: data.message || "Failed to save experiences",
+            });
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: data.message || "Experiences saved successfully!",
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("Error while saving organization details: ", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occuered while saving",
+          });
+        });
+    });
+  });
+</script>
