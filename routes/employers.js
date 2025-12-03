@@ -122,6 +122,14 @@ router.get("/OrgViewApplicants", (req, res) => {
   res.render("employers/OrgViewApplicants");
 });
 
+router.get("/details1", (req, res) => {
+  res.render("employers/details");
+});
+
+router.get("/details2", (req, res) => {
+  res.render("employers/details2");
+});
+
 module.exports = router;
 
 
