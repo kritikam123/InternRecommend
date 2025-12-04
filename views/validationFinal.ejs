@@ -1,0 +1,30 @@
+<%-include("head.ejs")%>
+<link rel="stylesheet" href="/styles/forgotpassword.css" />
+<body>
+  <%-include("nav.ejs")%>
+
+  <section>
+    <div class="main-container">
+      <div class="text-conents">
+        <p class="forgot">Password Updated</p> 
+        <p>Your password has been successfully updated.</p> <br>
+        <div class="btn">
+          <a href="" id="verifyBtn">Login</a>
+        </div>
+      </div>
+      <div class="image">
+        <img src="/images/forgotpassword.svg" alt="" />
+      </div>
+    </div>
+  </section>
+  <%-include("footer.ejs")%> <%-include("components/foot.ejs")%>
+</body>
+<script>
+  document.getElementById("verifyBtn").addEventListener("click", function (e) {
+    e.preventDefault(); 
+    window.location.href = "users/login";  
+  });
+</script>
+
+
+         
