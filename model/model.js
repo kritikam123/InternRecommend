@@ -176,13 +176,10 @@ const Job = db.define("job", {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
   },
-  companyName: {
-    type: DataTypes.STRING,
-  },
   title: {
     type: DataTypes.STRING,
   },
-  noOfOpening: {
+  openings: {
     type: DataTypes.INTEGER,
     defaultValue: 1,
   },
@@ -195,10 +192,7 @@ const Job = db.define("job", {
   experience: {
     type: DataTypes.STRING,
   },
-  location: {
-    type: DataTypes.STRING,
-  },
-  expiryDate: {
+  expirey: {
     type: DataTypes.STRING,
   },
   salary: {
@@ -213,13 +207,6 @@ const Job = db.define("job", {
   requirements: {
     type: DataTypes.TEXT,
   },
-  instruction: {
-    type: DataTypes.TEXT,
-  },
-  banner: {
-    type: DataTypes.STRING,
-    defaultValue: "/images/default.jpg",
-  },
   featured: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
@@ -227,17 +214,9 @@ const Job = db.define("job", {
   jobType: {
     type: DataTypes.STRING,
   },
-  remoteOnsite: {
+  remote:{
     type: DataTypes.STRING,
-  },
-  suspended: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-  deleted: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
+  }
 });
 const AppliedJobs = db.define("appliedJobs", {
   id: {
@@ -330,3 +309,4 @@ module.exports = {
 };
 
 // db.sync({ alter: true });
+

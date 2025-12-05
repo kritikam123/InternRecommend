@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { User, VerificationCode } = require("../model/model.js");
-
+const { User, VerificationCode, Organization, Job } = require("../model/model.js");
+const axios = require("axios");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { where, Op } = require("sequelize");
@@ -363,13 +363,35 @@ router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
 
+// router.post("/users/AdditionalInfo", async (req, res) => {
+//   const email = req.body.email;
+
+//   const user = await User.findOne({ where: { email: email } });
+//   // console.log("Testttt userrrrrrrr", user);
+
+//   const data = user.skills;
+//   try {
+//     const response = await axios.post("http://localhost:8000/process-skills",
+//     {data: data})
+//     console.log("Response from Python:", response.data);
+//     res.json({
+//       message: "Data sent to Python!",
+//       pythonResponse: response.data,
+//     });
+//   } catch (error) {
+//     console.error("Error sending to Python:", error.message);
+//     res.status(500).send("Failed to send data to Python");
+//   }
+//   console.log("skill dataa:  ", data);
+// });
+
 router.get("/users/education", checkuser, async (req, res) => {
   const email = req.user.email;
   console.log(email);
   const user = await User.findOne({ where: { email: email } });
   const education = user.education;
-  console.log("educationn for user: ",education)
-  res.render("users/educationdetails",{education: education});
+  console.log("educationn for user: ", education);
+  res.render("users/educationdetails", { education: education });
 });
 
 router.get("/users/experience", checkuser, async (req, res) => {
@@ -380,8 +402,6 @@ router.get("/users/experience", checkuser, async (req, res) => {
   console.log("educationn for user: ", experience);
   res.render("users/experiencedetails", { experience: experience });
 });
-
-
 
 router.post("/users/login", async (req, res, next) => {
   console.log("user login route");
@@ -495,5 +515,14 @@ router.post("/users/registration", async (req, res) => {
     message: "Account registered successfully",
     title: "Registration Successful",
   });
+});
+
+router.get("/users/jobs", checkuser, async (req, res) => {
+  console.log("req userrrrrrrrrrrrrrrr", req.user.id);
+  Job.findAll().then((jobs) => {
+    console.log("THIS ORG JOBSSSSSSSSSSS", jobs);
+    res.render("users/joblist", { jobs: jobs, orginfo: req.user });
+  });
+
 });
 module.exports = router;

@@ -21,11 +21,17 @@
             <div class="input-row">
               <div>
                 <label>Job title</label>
-                <input type="text" class="input1" name="title" id="title" />
+                <input
+                  type="text"
+                  class="input1"
+                  name="title"
+                  id="title"
+                  value="<%=jobdetails.title%>"
+                />
               </div>
               <div>
                 <label>No of openings</label>
-                <input type="text" class="input1" name="org" id="openings" />
+                <input type="text" class="input1" name="org" id="openings" value="<%=jobdetails.openings%>"/>
               </div>
               <div>
                 <label>Category</label>
@@ -34,6 +40,7 @@
                   class="input1"
                   name="category"
                   id="category"
+                  <%=jobdetails.category%>
                 />
               </div>
             </div>
@@ -41,30 +48,31 @@
             <div class="input-row">
               <div>
                 <label>Job type</label>
-                <select name="" id="jobtype" class="input1">
-                  <option value="fulltime">Full Time</option>
-                  <option value="parttime">Part Time</option>
-                </select>
+            <select name="jobtype" id="jobtype" class="input1">
+                <option value="fulltime" <%= jobdetails.jobType === "Full Time" ? "selected" : "" %>>Full Time</option>
+                <option value="parttime" <%= jobdetails.jobType === "Part Time" ? "selected" : "" %>>Part Time</option>
+            </select>
+
               </div>
               <div>
                 <label>Remote/on-site</label>
                 <div>
                   <select name="remote" class="input1" id="remote">
-                    <option value="remote">Remote</option>
-                    <option value="onsite">On Site</option>
-                    <option value="hybrid">Hybrid</option>
+                    <option value="on site" <%=jobdetails.remote==="on site" ? "selected":""%>>On Site</option>
+                    <option value="remote" <%=jobdetails.remote==="remote" ? "selected":""%>>Remote</option>
+                    <option value="hybrid" <%=jobdetails.remote==="hybrid" ? "selected":""%>>Hybrid</option>
                   </select>
                 </div>
               </div>
               <div>
                 <label>Experience Required</label>
-                <input type="text" class="input1" name="exp" id="exp" />
+                <input type="text" class="input1" name="exp" id="exp" value="<%=jobdetails.experience%>" />
               </div>
             </div>
             <div class="input-row">
               <div>
                 <label>Education Required</label>
-                <input type="text" class="input1" name="level" id="education" />
+                <input type="text" class="input1" name="level" id="education" value="<%=jobdetails.education%>" />
               </div>
               <div>
                 <label>Location</label>
@@ -72,13 +80,13 @@
               </div>
               <div>
                 <label>Expiery Date</label>
-                <input type="text" class="input1" name="end" id="end" />
+                <input type="text" class="input1" name="end" id="end" value="<%=jobdetails.expirey%>"/>
               </div>
             </div>
             <div class="input-row input-row-1">
               <div class="salary">
                 <label>Salary</label>
-                <input type="text" class="input1" name="salary" id="salary" />
+                <input type="text" class="input1" name="salary" id="salary" value="<%=jobdetails.salary%>"/>
               </div>
 
               <div class="skill tags-wrapper" id="skills">
@@ -86,17 +94,27 @@
                   >Select Skill <span>(Press Enter After Each Tag)</span></label
                 >
                 <div class="tag-input-container">
-                  <ul id="edit-profile-skills" class="skillul"></ul>
+                    <%if(jobdetails.requiredskills!==null && JSON.stringify(jobdetails.requiredskills)!='[]' && jobdetails.requiredskills.length>0){%>
+                      <ul id="edit-profile-skills" class="skillul">
+                        <%for(let i=0; i<jobdetails.requiredskills.length;i++){%>
+                          <li>
+                            <%=jobdetails.requiredskills[i]%><button type="button" onclick="removeSkill(this, '<%=jobdetails.requiredskills[i]%>')">X</button>
+                          </li>
+                        <%}%>
+                      </ul>
+
+                        
+                    <%}%>
                   <input type="text" class="input1" name="org" id="tags" />
                 </div>
               </div>
             </div>
 
             <label>Job Description</label>
-            <textarea name="roles" id="description" class="input1"></textarea>
+            <textarea name="roles" id="description" class="input1" ><%=jobdetails.description%></textarea>
 
             <label>Job Requirements</label>
-            <textarea name="roles" id="requirements" class="input1"></textarea>
+            <textarea name="roles" id="requirements" class="input1"><%=jobdetails.requirements%></textarea>
           </div>
         </div>
       </div>
@@ -231,7 +249,7 @@
         return;
       }
 
-      fetch("/employers/OrgJobPost", {
+      fetch(`/employers/OrgJobList/EditJob?id=<%=jobdetails.id%>`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

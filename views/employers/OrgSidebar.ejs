@@ -8,20 +8,20 @@
   </div>
 
   <nav class="nav-links">
-    <a href="#" class="btns"
-      ><img src="/images/home.svg" alt="" />Dashboard</a
-    >
-    <a href="/users/UserDashboard" class="btns"
+    <a href="#" class="btns"><img src="/images/home.svg" alt="" />Dashboard</a>
+    <a href="/employers/OrgProfile" class="btns"
       ><img src="/images/edit.svg" alt="employers/OrgProfile" />Edit Profile</a
     >
-    <a href="/users/AdditionalInfo" class="btns"
-      ><img src="/images/appliedjobs.svg" alt="employers/OrgJoblist" />Job Posted</a
+    <a href="/employers/OrgJoblist" class="btns"
+      ><img src="/images/appliedjobs.svg" alt="employers/OrgJoblist" />Job
+      Posted</a
     >
-    <a href="#" class="btns"
+    <a href="/employers/OrgJobPost" class="btns"
       ><img src="/images/target.svg" alt="employers/OrgJobpost" />Post a Job</a
     >
     <a href="#" class="btns"
-      ><img src="/images/saved.svg" alt="employers/OrgViewApplicants" />View Applicants</a
+      ><img src="/images/saved.svg" alt="employers/OrgViewApplicants" />View
+      Applicants</a
     >
     <a href="#" class="btns"
       ><img src="/images/settings.svg" alt="" />Settings</a
@@ -32,11 +32,9 @@
   const currentPage = window.location.pathname;
   const links = document.querySelectorAll(".btns");
 
-  links.forEach(link => {
+  links.forEach((link) => {
     if (link.getAttribute("href") === currentPage) {
       link.classList.add("active");
     }
   });
 </script>
-
-

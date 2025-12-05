@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { User, VerificationCode, Organization } = require("../model/model.js");
+const {
+  User,
+  VerificationCode,
+  Organization,
+  Job,
+} = require("../model/model.js");
 
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -232,16 +237,145 @@ router.post("/OrgProfile", checkuser, async (req, res) => {
     });
   }
 });
-router.get("/OrgJobpost", (req, res) => {
+router.get("/OrgJobpost", checkuser, async (req, res) => {
+  const email = req.user.email;
+
   res.render("employers/OrgJobpost");
+});
+
+router.post("/OrgJobPost", checkuser, async (req, res) => {
+  const title = req.body.title;
+  const openeings = req.body.openeings;
+  const category = req.body.category;
+  const jobtype = req.body.jobtype;
+  const remote = req.body.remote;
+  const experience = req.body.experience;
+  const education = req.body.education;
+  const location = req.body.location;
+  const expirey = req.body.expirey;
+  const salary = req.body.salary;
+  const description = req.body.description;
+  const requirements = req.body.requirements;
+  const email = req.user.email;
+  const skills = req.body["skills"];
+  const parsedSkills = Array.isArray(skills) ? skills : skills ? [skills] : [];
+  console.log(
+    "job post data",
+    title,
+    openeings,
+    category,
+    jobtype,
+    remote,
+    experience,
+    education,
+    location,
+    expirey,
+    salary,
+    description,
+    requirements,
+    parsedSkills
+  );
+
+  try {
+    const job = await Job.create({
+      title: title,
+      openeings: openeings,
+      category: category,
+      jobType: jobtype,
+      remote: remote,
+      experience: experience,
+      education: education,
+      expirey: expirey,
+      salary: salary,
+      description: description,
+      requirements: requirements,
+      requiredskills: parsedSkills,
+      OrganizationId: req.user.id,
+    });
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Job Posted Successfully",
+    });
+  } catch (err) {
+    console.log("error while posting job", err);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
 });
 
 router.get("/OrgSettings", (req, res) => {
   res.render("employers/OrgSettings");
 });
 
-router.get("/OrgJoblist", (req, res) => {
-  res.render("employers/OrgJoblist");
+router.get("/OrgJoblist", async (req, res) => {
+  console.log("req userrrrrrrrrrrrrrrr", req.user.id);
+  Job.findAll({ where: { organizationId: req.user.id } }).then((jobs) => {
+    console.log("THIS ORG JOBSSSSSSSSSSS", jobs);
+    res.render("employers/OrgJoblist", { jobs: jobs, orginfo: req.user });
+  });
+});
+
+router.get("/OrgJoblist/EditJob", async (req, res) => {
+  const jobdetails = await Job.findOne({ where: { id: req.query.id } });
+  res.render("employers/editjob", { jobdetails: jobdetails });
+});
+
+router.post("/OrgJobList/EditJob", async (req, res) => {
+  const title = req.body.title;
+  const openeings = req.body.openeings;
+  const category = req.body.category;
+  const jobtype = req.body.jobtype;
+  const remote = req.body.remote;
+  const experience = req.body.experience;
+  const education = req.body.education;
+  const location = req.body.location;
+  const expirey = req.body.expirey;
+  const salary = req.body.salary;
+  const description = req.body.description;
+  const requirements = req.body.requirements;
+  const email = req.user.email;
+  const skills = req.body["skills"];
+  const parsedSkills = Array.isArray(skills) ? skills : skills ? [skills] : [];
+
+  console.log("====================================");
+  console.log("QUERYYYYYYYYYYYYYYYYYYYYYYYY", req.query.id);
+  console.log("====================================");
+  try {
+    const job = await Job.update(
+      {
+        title: title,
+        openeings: openeings,
+        category: category,
+        jobType: jobtype,
+        remote: remote,
+        experience: experience,
+        education: education,
+        expirey: expirey,
+        salary: salary,
+        description: description,
+        requirements: requirements,
+        requiredskills: parsedSkills,
+        OrganizationId: req.user.id,
+      },
+      {
+        where: { id: req.query.id },
+      }
+    );
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Job Updated Successfully",
+    });
+  } catch (err) {
+    console.log("error while updating job", err);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
 });
 
 router.get("/OrgViewApplicants", (req, res) => {

@@ -211,12 +211,17 @@ body {
   outline: none;
   background: #e4e4e4;
   border-radius: 6px;
-  height: 50px;
-  width: 300px;
+  width: 100%;
   margin-bottom: 15px;
   padding: 10px;
 }
+#description {
+  height: 250px;
+}
 
+#requirements {
+  height: 250px;
+}
 .textarea {
   height: 289px;
   width: 1000px;
@@ -226,6 +231,19 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 15px;
+}
+
+.input-row-1 {
+  display: flex;
+  gap: 15px;
+}
+
+.skill {
+  width: 100%;
+}
+
+.skill input {
+  width: 100%;
 }
 #roles {
   width: 100%;
@@ -274,4 +292,66 @@ body {
   padding: 15px;
   margin-bottom: 15px;
   background: #fafafa;
+}
+/* The full outer box that acts like one input field */
+.tag-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #e4e4e4; /* <-- Makes it look like input */
+}
+
+/* Remove margin/padding from UL */
+.tag-input-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Tag styling */
+.tag-input-container ul li {
+  list-style: none;
+  background: #444;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* Remove button */
+.tag-input-container ul li button {
+  margin-left: 6px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* The actual input field INSIDE the box */
+.tag-input-container input {
+  border: none;
+  outline: none;
+
+  background: transparent; /* <-- Removes the grey bar */
+  flex: 1; /* <-- Takes remaining space */
+
+  min-width: 80px; /* prevents collapse */
+  padding: 10px; /* <-- remove padding */
+  margin: 0; /* <-- remove margin */
+}
+
+#jobtype {
+  width: 285px;
+}
+
+#remote {
+  width: 285px;
 }
