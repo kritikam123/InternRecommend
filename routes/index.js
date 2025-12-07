@@ -190,7 +190,7 @@ router.post("/verify", async (req, res) => {
     await VerificationCode.destroy({ where: { id: vcode.id } });
     const data = {
       status: 200,
-      message: "You have been verified as a user, you can login back",
+      message: "You have been verified as a user, please change your password",
       title: "success",
     };
 
@@ -202,6 +202,14 @@ router.post("/verify", async (req, res) => {
       title: "error",
     });
   }
+});
+
+router.get("/validation", (req, res) => {
+  res.render("validation");
+});
+
+router.get("/validationFinal", (req, res) => {
+  res.render("validationFinal");
 });
 
 router.get("/users/userIndex", (req, res) => {
@@ -539,15 +547,16 @@ router.get("/users/jobdetails/viewdetails", checkuser, async (req, res) => {
   console.log("====================================");
 
   const job = await Job.findOne({
-  where: { id: query },
-  include: [
-    {
-      model: Organization,
-      attributes: ["id", "name","location"]
-    }
-  ]});
+    where: { id: query },
+    include: [
+      {
+        model: Organization,
+        attributes: ["id", "name", "location"],
+      },
+    ],
+  });
   console.log("THEEEE JOBBBBBBBBB DATAAAAAA", job);
   console.log("THEEEE ORRGGGGGGGGGGGGGG DATAAAAAA", job.Organization.name);
-  res.render("users/jobdetails",{job: job});
+  res.render("users/jobdetails", { job: job });
 });
 module.exports = router;
