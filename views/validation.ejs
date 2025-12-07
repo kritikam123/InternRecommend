@@ -1,0 +1,131 @@
+<%-include("head.ejs")%>
+<link rel="stylesheet" href="/styles/validation.css" />
+<body>
+  <%-include("nav.ejs")%>
+
+  <section>
+    <div class="main-container">
+      <div class="wrapper">
+        <h1>Change your password</h1>
+        <ul>
+            <li id="eightCharacters">Password must be at least 8 characters long. </li>
+            <li id="lowerCase">Password must contain at least one lower case. </li>
+            <li id="upperCase">Password must contain at least one upper case. </li>
+            <li id="containNumber">Password must contain numbers. </li>
+            <li id="specialCharacters">Password must contain special characters. </li>
+        </ul>
+        <h3>New Password</h3>
+        <input type="text" id="passInput">
+        <h3>Confirm Password</h3>
+        <input type="text" id="confirmInput">
+        <div class="btn">
+          <a href="" id="verifyBtn">Submit</a>
+        </div>
+         
+       </div>
+       
+
+      <div class="image">
+        <img src="/images/forgotpassword.svg" alt="" />
+      </div>
+    </div>
+  </section>
+  <%-include("footer.ejs")%> <%-include("components/foot.ejs")%>
+</body>
+<script>
+        var passInput = document.getElementById('passInput');
+        var eightCharacters = document.getElementById('eightCharacters');
+        var lowerCase = document.getElementById('lowerCase');
+        var upperCase = document.getElementById('upperCase');
+        var containNumber = document.getElementById('containNumber');
+        var specialCharacters = document.getElementById('specialCharacters');
+        var confirmInput = document.getElementById('confirmInput');
+
+        passInput.onkeyup = () => {
+            var userPassword = passInput.value;
+            var confPassword = confirmInput.value;
+
+            //Check lowercase Letters
+            var lowerCaseLetters = /[a-z]/g;
+
+            if(userPassword.match(lowerCaseLetters)){
+                lowerCase.classList.add('valid');
+                lowerCase.classList.remove('invalid');
+            }
+            else{
+                lowerCase.classList.remove('valid');
+                lowerCase.classList.add('invalid');
+
+            }
+
+              //Check uppercase Letters
+            var upperCaseLetters = /[A-Z]/g;
+
+            if(userPassword.match(upperCaseLetters)){
+                upperCase.classList.add('valid');
+                upperCase.classList.remove('invalid');
+            }
+            else{
+                upperCase.classList.remove('valid');
+                upperCase.classList.add('invalid');
+
+            }
+
+              //Check numbers
+            var pattern = /[0-9]/g;
+
+            if(userPassword.match(pattern)){
+                containNumber.classList.add('valid');
+                containNumber.classList.remove('invalid');
+            }
+            else{
+                containNumber.classList.remove('valid');
+                containNumber.classList.add('invalid');
+
+            }
+
+              //Check Length of password
+
+            if(userPassword.length > 8 ){
+                eightCharacters.classList.add('valid');
+                eightCharacters.classList.remove('invalid');
+            }
+            else{
+                eightCharacters.classList.remove('valid');
+                eightCharacters.classList.add('invalid');
+
+            }
+              //Check special characters
+            var pattern = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+            if(userPassword.match(pattern)){
+                specialCharacters.classList.add('valid');
+                specialCharacters.classList.remove('invalid');
+            }
+            else{
+                specialCharacters.classList.remove('valid');
+                specialCharacters.classList.add('invalid');
+
+            }
+            document.getElementById('verifyBtn').addEventListener('click', function (e) {
+    e.preventDefault(); // prevent anchor refresh
+
+    const userPassword = passInput.value;
+    const confPassword = confirmInput.value;
+
+    if (userPassword === "" || confPassword === "") {
+        alert("Please fill both password fields.");
+        return;
+    }
+
+    if (userPassword === confPassword) {
+        window.location.href = "validationFinal";  // redirect page
+    } else {
+        alert("Passwords do not match!");
+    }
+});
+            
+        }
+        
+
+       </script>

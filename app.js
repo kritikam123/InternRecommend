@@ -71,6 +71,16 @@ app.get("/internship", (req, res) => {
   res.render("internship");
 });
 
+app.get("/validation", (req, res) => {
+  res.render("validation");
+});
+
+app.get("/validationFinal", (req, res) => {
+  res.render("validationFinal");
+});
+
+
+
 // app.get("/sidebar", (req, res) => {
 //   res.render("sidebar");
 // });
