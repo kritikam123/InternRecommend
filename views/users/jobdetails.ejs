@@ -1,0 +1,85 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/jobdetails.css" />
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="top1">
+          <div class="logo1">
+            <img src="/images/complogo.svg" alt="" />
+            <div class="text">
+              <p><%=job.title%></p>
+              <p><%=job.Organization.name%></p>
+              <p><%=job.Organization.location%></p>
+            </div>
+          </div>
+          <div class="btn">
+            <button id="apply">Apply now</button>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <p>Offered Salary</p>
+            <p><%=job.salary%></p>
+          </div>
+
+          <div class="card">
+            <p>Location</p>
+            <p><%=job.Organization.location%></p>
+          </div>
+
+          <div class="card">
+            <p>Job Type</p>
+            <p><%=job.jobType%></p>
+          </div>
+        </div>
+
+        <div class="cont-parent">
+          <div class="descripton">
+            <p class="title">Job Description</p>
+            <p><%=job.description%> <br /></p>
+          </div>
+
+          <div class="res">
+            <p class="title">Requirements</p>
+
+            <p>Education</p>
+            <li><%=job.education%></li>
+            <p>Skills</p>
+            <li><%=job.requiredskills%></li>
+            <p>Experience</p>
+            <li><%=job.experience%></li>
+            <p>Additional Requirements</p>
+            <li><%=job.requirements%></li>
+          </div>
+
+          <div class="res">
+            <p class="title">Roles and Responsibilities</p>
+            <p>
+              <li>
+                Develop and maintain user interfaces using React.js and related
+                libraries.
+              </li>
+              <li>
+                Develop and maintain user interfaces using React.js and related
+                libraries.
+              </li>
+              <li>
+                Develop and maintain user interfaces using React.js and related
+                libraries.
+              </li>
+              <li>
+                Develop and maintain user interfaces using React.js and related
+                libraries.
+              </li>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

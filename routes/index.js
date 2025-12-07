@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { User, VerificationCode, Organization, Job } = require("../model/model.js");
+const {
+  User,
+  VerificationCode,
+  Organization,
+  Job,
+} = require("../model/model.js");
 const axios = require("axios");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -523,6 +528,26 @@ router.get("/users/jobs", checkuser, async (req, res) => {
     console.log("THIS ORG JOBSSSSSSSSSSS", jobs);
     res.render("users/joblist", { jobs: jobs, orginfo: req.user });
   });
+});
 
+router.get("/users/jobdetails/viewdetails", checkuser, async (req, res) => {
+  const email = req.user.email;
+  console.log("The email for job details issssssssssssssssssss", email);
+  const query = req.query.id;
+  console.log("====================================");
+  console.log("The queryy isssssssssss", query);
+  console.log("====================================");
+
+  const job = await Job.findOne({
+  where: { id: query },
+  include: [
+    {
+      model: Organization,
+      attributes: ["id", "name","location"]
+    }
+  ]});
+  console.log("THEEEE JOBBBBBBBBB DATAAAAAA", job);
+  console.log("THEEEE ORRGGGGGGGGGGGGGG DATAAAAAA", job.Organization.name);
+  res.render("users/jobdetails",{job: job});
 });
 module.exports = router;
