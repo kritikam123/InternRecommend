@@ -6,6 +6,13 @@ var MySQLStore = require("express-mysql-session")(session);
 const passport = require("passport");
 const app = express();
 require("./config/passport")(passport);
+const multer = require("multer")
+
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
+const storage = multer.diskStorage({});
+
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");

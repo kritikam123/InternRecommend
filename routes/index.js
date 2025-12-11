@@ -11,6 +11,21 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { where, Op } = require("sequelize");
 const nodemailer = require("nodemailer");
+const multer = require("multer");
+const path = require("path");
+
+//defining storage to upload file-------------------
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    cb(null, uniqueSuffix + ext);
+  },
+});
+
+const upload = multer({ storage: storage });
+//--------------------------------------------
 
 //mailer credentials:
 const mailer = {
