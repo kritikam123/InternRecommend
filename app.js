@@ -5,14 +5,14 @@ const session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 const passport = require("passport");
 const app = express();
+const fs = require("fs");
 require("./config/passport")(passport);
-const multer = require("multer")
+const multer = require("multer");
 
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
 const storage = multer.diskStorage({});
-
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -56,7 +56,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.use((req, res, next) => {
   console.log("=== DEBUG MIDDLEWARE ===");
   console.log("Session ID:", req.sessionID);
@@ -77,9 +76,6 @@ app.get("/about", (req, res) => {
 app.get("/internship", (req, res) => {
   res.render("internship");
 });
-
-
-
 
 // app.get("/sidebar", (req, res) => {
 //   res.render("sidebar");

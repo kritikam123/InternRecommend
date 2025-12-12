@@ -69,6 +69,11 @@ body {
   width: 742px; */
 }
 
+.job-card a{
+  text-decoration: none;
+  text-align: center;
+}
+
 .job-title {
   font-size: 20px;
   font-weight: 700;

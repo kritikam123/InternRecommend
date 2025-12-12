@@ -1,42 +1,39 @@
-//importing libaries/ dependencies
 const multer = require("multer");
 const path = require("path");
 
 function checkFileType(file, cb) {
-  //allowed type
-  const filetypes = /jpeg|jpg|png/;
-  //check type
+  const filetypes = /pdf|doc|docx|jpeg|jpg|png/;
+
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  //check mime
-  const mimetype = filetypes.test(file.mimetype);
-  if (mimetype && extname) {
+
+  const mimetype = filetypes.test(file.mimetype.toLowerCase());
+
+  if (extname && mimetype) {
     return cb(null, true);
   } else {
-    cb("Error: Image Only!");
+    cb("Error: Only PDF, DOC, DOCX, JPG, PNG files allowed!");
   }
 }
 
-//store destination
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads"); //destination foldder
+    cb(null, "./uploads");
   },
-
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
-    const baseName = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, baseName + ext);
+    const filename = Date.now() + "-" + Math.round(Math.random() * 1e9) + ext;
+    cb(null, filename);
   },
 });
-//initialization
+
 const uploadFile = multer({
-  storage: storage,
+  storage,
   limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
 });
-const resume = uploadFile.fields([{ name: "pdfFile" }]);
-module.exports = {
-  resume,
-};
+
+const resume = uploadFile.single("resume");
+
+module.exports = { resume };

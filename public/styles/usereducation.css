@@ -36,6 +36,7 @@ body {
   /* border: 2px solid purple; */
   margin-left: 25px;
   margin-right: 17px;
+  margin-bottom: 20px;
   overflow-y: auto;
 }
 
@@ -305,4 +306,8 @@ body {
 
 .education-table tbody tr {
   height: 200px; /* Makes the bottom area tall like your screenshot */
+}
+.resume {
+  height: 100%;
+  width: 100%;
 }

@@ -1,0 +1,34 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/usereducation.css" />
+
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="edit">
+          <p>Education</p>
+          <div class="tabs">
+            <a href="/users/education" class="tab">Education Details</a>
+            <a href="/users/experience" class="tab">Experience Details</a>
+            <a href="/users/socials" class="tab">Social Details</a>
+            <a href="/users/viewresume" class="tab active">View Resume</a>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <p>Your Resume</p>
+          <%if(resumeURL){%>
+          <embed src="<%=resumeURL%>" type="application/pdf" class="resume" />
+          <%}else{%>
+          <p>No resume uploaded yet</p>
+          <%}%>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>

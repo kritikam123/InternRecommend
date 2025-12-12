@@ -7,6 +7,11 @@
   padding: 0;
 }
 
+button {
+  all: unset; /* removes all default styles */
+  cursor: pointer; /* optional: still looks clickable */
+}
+
 .dashboard-container {
   display: grid;
   grid-template-columns: 300px auto;
@@ -21,9 +26,27 @@
   border-radius: 10px;
   margin-bottom: 20px;
 }
-
+.info-container {
+  margin: 20px;
+}
 .logo1 {
   display: flex;
+  gap: 10px;
+}
+
+.org {
+  color: #91dec3;
+  font-weight: bold;
+}
+
+#apply {
+  background-color: #91dec3;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
 }
 .top1 {
   display: flex;
@@ -42,7 +65,7 @@
   border-radius: 10px;
   padding: 20px;
   background-color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   width: 350px;
   text-align: center;
 }

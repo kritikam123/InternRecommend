@@ -1,0 +1,50 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/usereducation.css" />
+
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="edit">
+          <p>Experience</p>
+          <div class="tabs">
+            <a href="/users/education" class="tab">Education Details</a>
+            <a href="/users/experience" class="tab">Experience Details</a>
+            <a href="/users/socials" class="tab active">Social Details</a>
+
+            <a href="/users/viewresume" class="tab">View Resume</a>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="education-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Social Media</th>
+                  <th>Linkedin</th>
+                  <th>Github</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td><%=data.social || "No social Media Uploaded yet"%></td>
+                  <td>
+                    <%=data.linkedin || "No linkedin profile Uploaded yet"%>
+                  </td>
+                  <td><%=data.github|| "No github url Uploaded yet"%></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>

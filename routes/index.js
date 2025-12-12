@@ -13,6 +13,8 @@ const { where, Op } = require("sequelize");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
 const path = require("path");
+const { resume } = require("../config/multer.js");
+const { title } = require("process");
 
 //defining storage to upload file-------------------
 const storage = multer.diskStorage({
@@ -391,6 +393,9 @@ router.get("/users/AdditionalInfo", (req, res) => {
   res.render("users/AdditionalInfo");
 });
 
+// console.log('====================================');
+//PYTHON AND NODE JS CONNECTION TEST
+
 // router.post("/users/AdditionalInfo", async (req, res) => {
 //   const email = req.body.email;
 
@@ -412,6 +417,95 @@ router.get("/users/AdditionalInfo", (req, res) => {
 //   }
 //   console.log("skill dataa:  ", data);
 // });
+
+// console.log("====================================");
+
+router.post("/users/additionalinfo", checkuser, resume, async (req, res) => {
+  const { social, linkedin, git } = req.body;
+  // console.log(social)
+  const email = req.user.email;
+
+  const resumeFile = req.file ? req.file.filename : null;
+
+  console.log("Uploaded file:", req.file);
+
+  console.log("Received:", social, linkedin, git, resumeFile);
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+    await user.update({
+      resume: resumeFile,
+      social_media: social,
+      linkedin: linkedin,
+      github: git,
+    });
+    console.log("userr updated successfullyyyyy");
+
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "User profile updated successfully",
+    });
+  } catch (error) {
+    console.log("ERRRRRRRRRRRORRRRRRRRRRRRRRRRRRRRRRRRRRRR", error);
+    return res.json({
+      status: 404,
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+});
+
+router.get("/users/viewresume", checkuser, async (req, res) => {
+  try {
+    const email = req.user.email;
+
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+    const resumeURL = user.resume ? `/uploads/${user.resume}` : null;
+    console.log("====================================");
+    console.log("User Resume Url", resumeURL);
+    console.log("====================================");
+
+    res.render("users/view-resume", { resumeURL: resumeURL });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/users/socials", checkuser, async (req, res) => {
+  const email = req.user.email;
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: failed,
+        message: "user not found",
+      });
+    }
+    const data = {
+      social: user.social_media,
+      github: user.github,
+      linkedin: user.linkedin,
+    };
+
+    res.render("users/social-details", { data: data });
+  } catch (error) {}
+});
 
 router.get("/users/education", checkuser, async (req, res) => {
   const email = req.user.email;

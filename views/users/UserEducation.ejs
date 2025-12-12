@@ -150,12 +150,16 @@
       `;
       infoSection.appendChild(addMoreGroup);
     });
+    
+    
     document.addEventListener("click", function (e) {
       if (e.target.classList.contains("cancel-btn")) {
         const group = e.target.closest(".link-input-group");
         if (group) group.remove();
       }
     });
+
+
     //save education
     saveBtn.addEventListener("click", function (e) {
       e.preventDefault();

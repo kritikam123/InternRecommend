@@ -34,8 +34,8 @@ const User = db.define("User", {
   experience: { type: DataTypes.JSON, allowNull: true },
   education: { type: DataTypes.JSON, allowNull: true },
   language: { type: DataTypes.JSON, allowNull: true },
-  awards: { type: DataTypes.JSON, allowNull: true },
-  certifications: { type: DataTypes.JSON, allowNull: true },
+  linkedin: { type: DataTypes.JSON, allowNull: true },
+  github: { type: DataTypes.JSON, allowNull: true },
   resume: { type: DataTypes.STRING, allowNull: true },
   social_media: { type: DataTypes.JSON, allowNull: true },
   location: { type: DataTypes.STRING, allowNull: true },
@@ -214,9 +214,9 @@ const Job = db.define("job", {
   jobType: {
     type: DataTypes.STRING,
   },
-  remote:{
+  remote: {
     type: DataTypes.STRING,
-  }
+  },
 });
 const AppliedJobs = db.define("appliedJobs", {
   id: {
@@ -309,4 +309,3 @@ module.exports = {
 };
 
 // db.sync({ alter: true });
-

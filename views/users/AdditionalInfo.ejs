@@ -1,163 +1,154 @@
 <%-include("../head.ejs")%>
-  
-    <link rel="stylesheet" href="/styles/additionalInfo.css">
 
+<link rel="stylesheet" href="/styles/additionalInfo.css" />
 
 <body>
   <div class="dashboard-container">
-    
-      <div class="box">
-        <%-include("../sidebar.ejs")%>
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <main class="main-contents">
+        <div class="edit">
+          <p>Edit Profile</p>
+          <div class="tabs">
+            <a href="/users/UserDashboard" class="tab">Personal Information</a>
+            <a href="/users/UserExperience" class="tab">Experience</a>
+            <a href="/users/UserEducation" class="tab">Education</a>
+            <a href="/users/AdditionalInfo" class="tab active"
+              >Additional Information</a
+            >
+          </div>
+        </div>
+
+        <div class="photo">
+          <img src="/images/default.jpg" alt="img" />
+          <button class="profilebtn">Select</button>
+        </div>
+
+        <div class="form-group w-3/4">
+          <div class="info-section" id="info-section">
+            <div class="form-section">
+              <label>Upload Resume</label>
+
+              <input type="file" id="resume" name="resume" class="input1" />
+
+              <label>Socails</label>
+
+              <div class="input-row">
+                <div>
+                  <label>Social Media Name</label>
+                  <input type="text" class="input1" id="social" name="social" />
+                </div>
+                <div>
+                  <label>Linkedin URL</label>
+                  <input
+                    type="text"
+                    class="input1"
+                    id="linkedin"
+                    name="linkedin"
+                  />
+                </div>
+                <div>
+                  <label>Github URL</label>
+                  <input type="text" class="input1" id="git" name="git" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="btn-row">
+        <button class="save-btn" id="save-btn">Save</button>
+        <button class="cancel-btn">Cancel</button>
       </div>
+    </div>
 
-      <div class="box1">
-         <%-include("../topbar.ejs")%>
-         <main class="main-contents">
-             <div class="edit">
-                 <p>Edit Profile</p>
-                 <div class="tabs">
-                    <a href="/users/UserDashboard" class="tab">Personal Information</a>
-              <a href="/users/UserExperience" class="tab">Experience</a>
-              <a href="/users/UserEducation" class="tab">Education</a>
-              <a href="/users/AdditionalInfo" class="tab  active">Additional Information</a>
-                 </div>
-     
-               </div>
-     
-               <div class="info-section" id="info-section">
-                  <p>Additional Information</p>
-                 <div class="photo">
-                   <img src="/images/default.jpg" alt="img">
-                   <button class="profilebtn">Select</button>
-                 </div>
-     
-               <div class="form-section"> 
-     
-                 <label>Skills</label>
-                 <input type="text" id="skills" name="skills">
-     
-                 <label>Award & Certification</label>
-                 
-                  <div class="input-row">
-                   <div>
-                     <label>Award Title</label>
-                     <input type="text" class="input1" id="award" name="award">
-                   </div>
-                   <div>
-                     <label>Associated Institution</label>
-                     <input type="text" class="input1" id="institute" name="institute">
-     
-                   </div>
-                   <div>
-                     <label>Date</label>
-                     <input type="date" class="input1" id="completedate" name="completedate">
-     
-                   </div>
-                 </div>
-                 <label>Socails</label>
-     
-                 <div class="input-row">
-                   <div>
-                     <label>Social Media Name</label>
-                     <input type="date" class="input1" id="social" name="socail">
-                   </div>
-                   <div>
-                     <label>Linkedin URL</label>
-                     <input type="date" class="input1" id="linkedin" name="linkedin">
-                   </div>
-                   <div>
-                     <label>Github URL</label>
-                     <input type="date" class="input1" id="git" name="git">
-                   </div>
-                 </div>
-     
-                
-                 
-               </div>
-               </div>
-
-                <button class="select-btn" id="add-more-btn">Add Additional Information</button>
-     
-           
-       
-         </main>
-         <div class="btn-row">
-         <button class="save-btn">Save</button>
-         <button class="cancel-btn">Cancel</button>
-         </div>
-      </div>
-      </div>
-     
-      <!-- Main Content -->
-
-   
-
+    <!-- Main Content -->
   </div>
-
-
-
-
-
 </body>
-</html>
-
+<%-include("../components/foot")%>
 <script>
-  document.addEventListener("DOMContentLoaded",function(){
-    const addMoreBtn = document.getElementById("add-more-btn");
-    const infoSection=document.getElementById("info-section")
-    addMoreBtn.addEventListener("click",function(){
-      console.log("add more button clicked")
-      const addMoreGroup = document.createElement("div")
-      addMoreGroup.className="link-input-group";
-      addMoreGroup.innerHTML=`
-       <div class="form-section"> 
-     
-                 <label>Skills</label>
-                 <input type="text" id="skills" name="skills">
-     
-                 <label>Award & Certification</label>
-                 
-                  <div class="input-row">
-                   <div>
-                     <label>Award Title</label>
-                     <input type="text" class="input1" id="award" name="award">
-                   </div>
-                   <div>
-                     <label>Associated Institution</label>
-                     <input type="text" class="input1" id="institute" name="institute">
-     
-                   </div>
-                   <div>
-                     <label>Date</label>
-                     <input type="date" class="input1" id="completedate" name="completedate">
-     
-                   </div>
-                 </div>
-                 <label>Socails</label>
-     
-                 <div class="input-row">
-                   <div>
-                     <label>Social Media Name</label>
-                     <input type="date" class="input1" id="social" name="socail">
-                   </div>
-                   <div>
-                     <label>Linkedin URL</label>
-                     <input type="date" class="input1" id="linkedin" name="linkedin">
-                   </div>
-                   <div>
-                     <label>Github URL</label>
-                     <input type="date" class="input1" id="git" name="git">
-                   </div>
-                 </div>
-     
-                
-                 
-               </div>
-      
-      
-      
-      `;
-      infoSection.appendChild(addMoreGroup)
-    })
-  })
+  document.addEventListener("DOMContentLoaded", function () {
+    const infoSection = document.getElementById("info-section");
+    const saveBtn = document.getElementById("save-btn");
+
+    saveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("save button clicked");
+
+      const resume = document.getElementById("resume").value;
+      const social = document.getElementById("social").value;
+      const linkedin = document.getElementById("linkedin").value;
+      const git = document.getElementById("git").value;
+
+      console.log(resume, social, linkedin, git);
+
+      if (resume === "" || social === "" || linkedin === "" || git === "") {
+        Toast.fire({
+          icon: "error",
+          title: "Please fill all the fields",
+        });
+        return;
+      }
+
+      /*
+      const linkedinPattern = /^https:\/\/(www\.)?linkedin\.com\/.+$/;
+      const githubPattern = /^https:\/\/(www\.)?github\.com\/[A-Za-z0-9_-]+$/;
+      if (!linkedinPattern.test(linkedin) || !githubPattern.test(git)) {
+        Toast.fire({
+          icon: "error",
+          title: "Please enter correct url for linkedin and github",
+        });
+        return;
+      }
+      if (!linkedinPattern.test(linkedin)) {
+        Toast.fire({
+          icon: "error",
+          title: "Please enter correct url for linkedin",
+        });
+        return;
+      }
+
+      if (!githubPattern.test(git)) {
+        Toast.fire({
+          icon: "error",
+          title: "Please enter correct url for github",
+        });
+        return;
+      }*/
+
+      const formData = new FormData();
+      formData.append("resume", document.getElementById("resume").files[0]);
+      formData.append("social", social);
+      formData.append("linkedin", linkedin);
+      formData.append("git", git);
+
+      return fetch("/users/additionalinfo", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.title == "failed") {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: data.message,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("resume upload failed", error);
+          Toast.fire({
+            icon: "error",
+            title: "Something went wrong while registration",
+          });
+        });
+    });
+  });
 </script>
