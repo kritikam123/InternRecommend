@@ -91,6 +91,47 @@
     </div>
   </div>
 </body>
+<%-include("../components/foot")%>
 <script>
+  const apply = document.getElementById("apply");
+  apply.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log("button clicked");
+    const jobId = apply.dataset.jobId;
+    const orgId = apply.dataset.orgId;
 
+    console.log(jobId, orgId);
+
+    fetch("/users/apply", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        jobId: jobId,
+        orgId: orgId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.title == "success") {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          });
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("registration unsuccessful", error);
+        Toast.fire({
+          icon: "error",
+          title: "Something went wrong while registration",
+        });
+      });
+  });
 </script>

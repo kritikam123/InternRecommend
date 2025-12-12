@@ -5,6 +5,7 @@ const {
   VerificationCode,
   Organization,
   Job,
+  AppliedJobs,
 } = require("../model/model.js");
 const axios = require("axios");
 const bcrypt = require("bcrypt");
@@ -667,5 +668,50 @@ router.get("/users/jobdetails/viewdetails", checkuser, async (req, res) => {
   console.log("THEEEE JOBBBBBBBBB DATAAAAAA", job);
   console.log("THEEEE ORRGGGGGGGGGGGGGG DATAAAAAA", job.Organization.name);
   res.render("users/jobdetails", { job: job });
+});
+
+router.post("/users/apply", checkuser, async (req, res) => {
+  const userId = req.user.user_id;
+  console.log("====================================");
+  console.log(userId);
+  console.log("====================================");
+  const { jobId, orgId } = req.body;
+  try {
+    const alreadyApplied = await AppliedJobs.findOne({
+      where: { UserUserId: userId, jobId: jobId },
+    });
+    if (alreadyApplied) {
+      const data = {
+        message: "Job already applied",
+        status: 400,
+        title: "failed",
+      };
+      return res.json(data);
+    }
+    const user = await User.findOne({ where: { user_id: userId } });
+
+    const resume = user.resume;
+    const resumeURL = user.resume ? `/uploads/${user.resume}` : null;
+    let date = new Date().toISOString().split("T")[0];
+    const appliedJob = await AppliedJobs.create({
+      UserUserId: userId,
+      jobId: jobId,
+      OrganizationId: orgId,
+      cvUrl: resumeURL,
+      applicationDate: date,
+    });
+    return res.json({
+      status: 200,
+      message: "Job Applied Successfully",
+      title: "success",
+    });
+  } catch (error) {
+    console.log("error: ", error);
+    return res.json({
+      status: 200,
+      message: "Something Went Wrong",
+      title: "failed",
+    });
+  }
 });
 module.exports = router;
