@@ -218,6 +218,7 @@ const Job = db.define("job", {
     type: DataTypes.STRING,
   },
 });
+
 const AppliedJobs = db.define("appliedJobs", {
   id: {
     allowNull: false,
@@ -233,26 +234,15 @@ const AppliedJobs = db.define("appliedJobs", {
     type: DataTypes.ENUM("Pending", "Accepted", "Rejected"),
     defaultValue: "Pending",
   },
-  userId: {
-    type: DataTypes.UUID,
-  },
   cvUrl: {
     type: DataTypes.STRING,
   },
   coverLetter: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
 });
 
-const SavedJobs = db.define("savedJobs", {
-  id: {
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: false,
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-  },
-});
 
 const Contact = db.define("contact", {
   id: {
@@ -294,8 +284,6 @@ Job.belongsTo(Organization);
 Organization.hasMany(AppliedJobs);
 AppliedJobs.belongsTo(Organization);
 
-User.hasMany(SavedJobs);
-SavedJobs.belongsTo(User);
 
 module.exports = {
   User,
@@ -303,7 +291,6 @@ module.exports = {
   Job,
   VerificationCode,
   AppliedJobs,
-  SavedJobs,
   Contact,
   Admin,
 };
