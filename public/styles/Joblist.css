@@ -18,18 +18,6 @@ body {
   height: 100vh;
 }
 
-/* Sidebar area */
-
-/* MAIN WRAPPER */
-/* .main-wrapper {
-  flex: 1;
-  background: #f8fafc;
-  padding: 20px 40px;
-} */
-
-/* Topbar already handled in your include */
-
-/* MAIN CONTENT BOX */
 .main-content {
   border: 2px solid #d9d9d9;
   margin-left: 22px;

@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+/* Layout */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 300px auto;
+  height: 100vh;
+}
+
+.main-content {
+  border: 2px solid #d9d9d9;
+  margin-left: 22px;
+  margin-right: 104px;
+  margin-top: 24px;
+
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+/* Title */
+.title {
+  margin-bottom: 10px;
+}
+.title p {
+  font-weight: bold;
+  font-size: 24px;
+}
+.education-table {
+  width: 100%;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.education-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.education-table th,
+.education-table td {
+  padding: 16px;
+  border: 1px solid #dcdcdc;
+  text-align: center; /* center horizontally */
+  vertical-align: middle; /* center vertically */
+  font-size: 18px;
+}
+
+.education-table th {
+  font-weight: 600;
+  background-color: #fafafa;
+}
+
+.education-table tbody tr {
+  height: 200px; /* Makes the bottom area tall like your screenshot */
+}
+.resume {
+  height: 100%;
+  width: 100%;
+}
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+}
+.tab {
+  border: 1.5px solid #9ce7cf;
+  background: white;
+  border-radius: 8px;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.btn-row {
+  margin-top: 40px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 48px;
+  margin-left: 25px;
+}
+
+.save-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 9px 35px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+}
+.cancel-btn {
+  background: #fff;
+  border: 2px solid #9ce7cf;
+  border-radius: 10px;
+  padding: 9px 35px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+}
+
+.cancel-btn:hover {
+  background: #9ce7cf;
+}
+
+.detail span {
+  font-weight: bold;
+}
+
+.dr span {
+  font-weight: bold;
+}
+
+.detail {
+  margin-bottom: 10px;
+}
+
+.dr {
+  margin-bottom: 10px;
+}

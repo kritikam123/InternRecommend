@@ -413,6 +413,22 @@ router.get("/OrgViewApplicants", checkuser, async (req, res) => {
   }
 });
 
+router.get("/applicants/details", checkuser, async (req, res) => {
+  const userId = req.query.id;
+
+  try {
+    const user = await User.findOne({ where: { user_id: userId } });
+    const resumeURL = user.resume ? `/uploads/${user.resume}` : null;
+    console.log("====================================");
+    console.log("the user for job details: ", user);
+    console.log("====================================");
+    res.render("employers/applicants-details", {
+      user: user,
+      resumeURL: resumeURL,
+    });
+  } catch (error) {}
+});
+
 router.get("/details1", (req, res) => {
   res.render("employers/details");
 });
