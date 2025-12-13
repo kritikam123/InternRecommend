@@ -5,11 +5,12 @@ const {
   VerificationCode,
   Organization,
   Job,
+  AppliedJobs,
 } = require("../model/model.js");
 
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { where, Op } = require("sequelize");
+const { where, Op, InvalidConnectionError } = require("sequelize");
 const nodemailer = require("nodemailer");
 
 //mailer credentials:
@@ -378,8 +379,38 @@ router.post("/OrgJobList/EditJob", async (req, res) => {
   }
 });
 
-router.get("/OrgViewApplicants", (req, res) => {
-  res.render("employers/OrgViewApplicants");
+router.get("/OrgViewApplicants", checkuser, async (req, res) => {
+  const orgid = req.user.id;
+  // console.log("====================================");
+  // console.log(orgid);
+  // console.log("====================================");
+  try {
+    const applicants = await AppliedJobs.findAll({
+      where: { OrganizationId: orgid },
+      include: [
+        {
+          model: Organization,
+        },
+        {
+          model: Job,
+        },
+        {
+          model: User,
+        },
+      ],
+    });
+    console.log("====================================");
+    // console.log(applicants);
+    applicants.forEach((app) => {
+      console.log("job: ", app.job);
+      console.log("Organization : ", app.Organization);
+      console.log("user", app.User);
+    });
+    console.log("====================================");
+    res.render("employers/OrgViewApplicants", { applicants: applicants });
+  } catch (error) {
+    console.log("errorr: ", error);
+  }
 });
 
 router.get("/details1", (req, res) => {

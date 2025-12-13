@@ -243,7 +243,6 @@ const AppliedJobs = db.define("appliedJobs", {
   },
 });
 
-
 const Contact = db.define("contact", {
   id: {
     allowNull: false,
@@ -274,8 +273,12 @@ User.hasMany(AppliedJobs);
 AppliedJobs.belongsTo(User);
 
 // job and applied-job
-Job.hasMany(AppliedJobs);
-AppliedJobs.belongsTo(Job);
+Job.hasMany(AppliedJobs, {
+  foreignKey: "jobId",
+});
+AppliedJobs.belongsTo(Job, {
+  foreignKey: "jobId",
+});
 
 //Organization and jobs relation
 Organization.hasMany(Job);
@@ -283,7 +286,6 @@ Job.belongsTo(Organization);
 
 Organization.hasMany(AppliedJobs);
 AppliedJobs.belongsTo(Organization);
-
 
 module.exports = {
   User,

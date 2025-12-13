@@ -1,0 +1,43 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/Joblist.css" />
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar-box">
+      <%-include("../sidebar.ejs")%>
+    </div>
+
+    <!-- MAIN CONTENT -->
+     <div class="box2">
+       <%-include("../topbar.ejs")%>
+       <div class="main-wrapper">
+   
+         <div class="main-content">
+          <div class="title">
+            <p>Job Posted</p>
+          </div>
+      
+   
+           <div class="jobs-grid">
+             <% if(jobs.length === 0) { %>
+               <p>No jobs posted yet.</p>
+             <% } else {jobs.forEach((job)=> { %>
+               <div class="job-card" key="<%= job.id %>">
+                 <h3 class="job-title"><%=job.title%></h3>
+               
+                 <a href="/users/jobdetails/viewdetails?id=<%=job.id%>" class="details-btn">View Details</a>
+               </div>
+             <% })} %>
+             
+             
+   
+        </div>
+   
+       </div>
+     </div>
+  </div>
+</body>
+</html>

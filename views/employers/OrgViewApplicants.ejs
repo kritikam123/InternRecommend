@@ -1,69 +1,37 @@
 <%-include("../head.ejs")%>
 
-<link rel="stylesheet" href="/styles/viewapplicants.css" />
+<link rel="stylesheet" href="/styles/Joblist.css" />
 
 <body>
   <div class="dashboard-container">
-
     <!-- Sidebar -->
-    <div class="sidebar-box">
-      <%-include("OrgSidebar.ejs")%>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
+    <div class="sidebar-box"><%-include("OrgSidebar.ejs")%></div>
+    <div class="box2">
       <%-include("../topbar.ejs")%>
-
-      <div class="main-content">
-        <h2 class="title">Applicants</h2>
-
-        <div class="jobs-grid">
-
-          <!-- Job Card -->
-          <div class="job-card">
-            <br class="job-title">Joey
-                <br> Software Engineer </br>
-            </h3>
-            <p class="job-location">
-              <span class="location-icon">📍</span> Kathmandu
-            </p>
-            <button class="details-btn">View Details</button>
+      <div class="main-wrapper">
+        <div class="main-content">
+          <div class="title">
+            <p>Applicants</p>
           </div>
 
-          <div class="job-card">
-            <br class="job-title">Max 
-          </br> Student <br>
-            </h3>
-            <p class="job-location">
-              <span class="location-icon">📍</span> Kumaripati,Lalitpur
-            </p>
-            <button class="details-btn">View Details</button>
+          <div class="jobs-grid">
+            <% if (applicants.length === 0) { %>
+            <p>No Applicants Yet</p>
+            <% } else { %> <% applicants.forEach(function(app) { %>
+            <div class="job-card">
+              <h3 class="job-title"><%= app.User.username %></h3>
+              <p class="job-subtitle">Position: <%=app.job.title%></p>
+              <a
+                href="/applicants/details?id=<%=app.User.user_id%>"
+                class="details-btn"
+                >View Details</a
+              >
+            </div>
+            <% }) %> <% } %>
           </div>
-
-          <div class="job-card">
-            <br class="job-title">Ram 
-               <br> Student </br>
-            </h3>
-            <p class="job-location">
-              <span class="location-icon">📍</span> Kathmandu
-            </p>
-            <button class="details-btn">View Details</button>
-          </div>
-
-          <div class="job-card">
-            <br class="job-title">Shayla 
-                <br> Python Developer </br>
-            </h3>
-            <p class="job-location">
-              <span class="location-icon">📍</span> Lalitpur
-            </p>
-            <button class="details-btn">View Details</button>
-          </div>
-
         </div>
       </div>
-
     </div>
+    <!-- MAIN CONTENT -->
   </div>
 </body>
-</html>
