@@ -311,3 +311,15 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.accepted {
+  color: green;
+}
+
+.rejected {
+  color: red;
+}
+
+.pending {
+  color: orange;
+}

@@ -116,8 +116,22 @@
             </div>
 
             <div class="btn-row">
-              <button class="save-btn" id="save-btn">Accept</button>
-              <button class="cancel-btn">Decline</button>
+              <button
+                type="button"
+                class="save-btn"
+                id="save-btn"
+                data-application-id="<%=applicants.id%>"
+              >
+                Accept
+              </button>
+              <button
+                type="button"
+                class="cancel-btn"
+                id="cancel-btn"
+                data-application-id="<%=applicants.id%>"
+              >
+                Decline
+              </button>
             </div>
           </div>
         </div>
@@ -125,3 +139,90 @@
     </div>
   </div>
 </body>
+<%-include("../components/foot")%>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const saveBtn = document.getElementById("save-btn");
+    const cancelBtn = document.getElementById("cancel-btn");
+
+    saveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("save button clickedd");
+      const applicationId = this.dataset.applicationId;
+      console.log(applicationId);
+      fetch("/employers/applicants/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ applicationId }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.title == "success") {
+            Toast.fire({
+              icon: "success",
+              title: data.message,
+            });
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occurred while posting the job",
+          });
+        });
+    });
+
+    cancelBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("cancel button clickedd");
+      const applicationId = this.dataset.applicationId;
+
+      fetch("/employers/applicants/cancel", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ applicationId }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.title == "success") {
+            Toast.fire({
+              icon: "success",
+              title: data.message,
+            });
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occurred while posting the job",
+          });
+        });
+    });
+  });
+</script>

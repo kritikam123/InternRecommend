@@ -714,4 +714,36 @@ router.post("/users/apply", checkuser, async (req, res) => {
     });
   }
 });
+
+router.get("/users/appliedjobs", checkuser, async (req, res) => {
+  const user_id = req.user.user_id;
+  console.log(user_id);
+
+  try {
+    const user_applied = await AppliedJobs.findAll({
+      where: { UserUserId: user_id },
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Job,
+        },
+        {
+          model: Organization,
+        },
+      ],
+    });
+    console.log("====================================");
+    user_applied.forEach((user) => {
+      console.log("job", user.job);
+      console.log("job", user.Organization);
+      console.log("userrrrrr", user.User);
+    });
+    console.log("====================================");
+    res.render("users/applied-jobs", { users: user_applied });
+  } catch (error) {
+    console.log("errorr: ", error);
+  }
+});
 module.exports = router;

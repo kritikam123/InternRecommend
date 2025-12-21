@@ -415,18 +415,80 @@ router.get("/OrgViewApplicants", checkuser, async (req, res) => {
 
 router.get("/applicants/details", checkuser, async (req, res) => {
   const userId = req.query.id;
-
+  const org_id = req.user.id;
+  console.log("organizaaaaaaaaaaaaaaaa", org_id);
   try {
     const user = await User.findOne({ where: { user_id: userId } });
     const resumeURL = user.resume ? `/uploads/${user.resume}` : null;
+    // console.log("====================================");
+    // console.log("the user for job details: ", user);
+    // console.log("====================================");
+
+    const applicants = await AppliedJobs.findOne({
+      where: { Organizationid: org_id, UserUserId: userId },
+    });
     console.log("====================================");
-    console.log("the user for job details: ", user);
+    console.log("theeeeeeeeee apllicantsss areeeee", applicants);
     console.log("====================================");
     res.render("employers/applicants-details", {
       user: user,
       resumeURL: resumeURL,
+
+      applicants: applicants,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log("errorr: ", error);
+  }
+});
+
+router.post("/applicants/save", checkuser, async (req, res) => {
+  const { applicationId } = req.body;
+  console.log(applicationId);
+  try {
+    await AppliedJobs.update(
+      { status: "accepted" },
+      {
+        where: { id: applicationId },
+      }
+    );
+    console.log("job statusss updatedddddd");
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Applicant accepted successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+});
+
+router.post("/applicants/cancel", checkuser, async (req, res) => {
+  const { applicationId } = req.body;
+  console.log(applicationId);
+  try {
+    await AppliedJobs.update(
+      { status: "rejected" },
+      {
+        where: { id: applicationId },
+      }
+    );
+    console.log("job statusss updatedddddd");
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Applicant rejected successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
 });
 
 router.get("/details1", (req, res) => {

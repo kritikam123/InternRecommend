@@ -1,0 +1,55 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/usereducation.css" />
+
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="edit">
+          <p>Applied Jobs</p>
+        </div>
+
+        <div class="info-section">
+          <div class="education-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Organization</th>
+                  <th>Job Title</th>
+                  <th>Status</th>
+                  <!-- <th>Joined Year</th>
+                  <th>End Year</th> -->
+                </tr>
+              </thead>
+
+              <tbody>
+                <%if(users.length == 0){%>
+                <tr>
+                  <td colspan="4">No Jobs Applied Yet</td>
+                </tr>
+                <%} else{%> <%users.map((user)=>{%>
+                <tr>
+                  <td><%=user.User.username%></td>
+                  <td><%=user.Organization.name%></td>
+                  <td><%=user.job.title%></td>
+                  <td
+                    class="<%= user.status.toLowerCase() === 'accepted' ? 'accepted' : user.status.toLowerCase() === 'rejected' ? 'rejected' : 'pending' %>"
+                  >
+                    <%= user.status %>
+                  </td>
+                </tr>
+                <%})%> <%}%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>
