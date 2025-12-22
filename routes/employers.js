@@ -10,7 +10,7 @@ const {
 
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { where, Op, InvalidConnectionError } = require("sequelize");
+const { where, Op, Sequelize, InvalidConnectionError } = require("sequelize");
 const nodemailer = require("nodemailer");
 
 //mailer credentials:
@@ -313,10 +313,28 @@ router.get("/OrgSettings", (req, res) => {
 
 router.get("/OrgJoblist", async (req, res) => {
   console.log("req userrrrrrrrrrrrrrrr", req.user.id);
-  Job.findAll({ where: { organizationId: req.user.id } }).then((jobs) => {
-    console.log("THIS ORG JOBSSSSSSSSSSS", jobs);
-    res.render("employers/OrgJoblist", { jobs: jobs, orginfo: req.user });
-  });
+  const date = new Date();
+  date.setHours(0, 0, 0, 0);
+  const [affectedRows] = await Job.update(
+    { status: "expired" },
+    {
+      where: {
+        organizationId: req.user.id,
+        expirey: {
+          [Op.lt]: Sequelize.literal("CURDATE()"),
+        },
+      },
+    }
+  );
+
+  console.log("Expired jobs updated:", affectedRows);
+  await Job.findAll({ where: { organizationId: req.user.id } }).then(
+    async (jobs) => {
+      console.log("THIS ORG JOBSSSSSSSSSSS", jobs);
+
+      res.render("employers/OrgJoblist", { jobs: jobs, orginfo: req.user });
+    }
+  );
 });
 
 router.get("/OrgJoblist/EditJob", async (req, res) => {

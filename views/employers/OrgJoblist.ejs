@@ -4,42 +4,43 @@
 
 <body>
   <div class="dashboard-container">
-
     <!-- Sidebar -->
-    <div class="sidebar-box">
-      <%-include("OrgSidebar.ejs")%>
-    </div>
+    <div class="sidebar-box"><%-include("OrgSidebar.ejs")%></div>
 
     <!-- MAIN CONTENT -->
-     <div class="box2">
-       <%-include("../topbar.ejs")%>
-       <div class="main-wrapper">
-   
-         <div class="main-content">
+    <div class="box2">
+      <%-include("../topbar.ejs")%>
+      <div class="main-wrapper">
+        <div class="main-content">
           <div class="title">
             <p>Job Posted</p>
           </div>
-      
-   
-           <div class="jobs-grid">
-             <% if(jobs.length === 0) { %>
-               <p>No jobs posted yet.</p>
-             <% } else {jobs.forEach((job)=> { %>
-               <div class="job-card" key="<%= job.id %>">
-                 <h3 class="job-title"><%=job.title%></h3>
-                 <p class="job-location">
-                   <span class="location-icon">📍</span> <%=orginfo.location%>
-                 </p>  
-                 <a href="/employers/OrgJoblist/EditJob?id=<%=job.id%>" class="details-btn">Edit Details</a>
-               </div>
-             <% })} %>
-             
-             
-   
+
+          <div class="jobs-grid">
+            <% if(jobs.length === 0) { %>
+            <p>No jobs posted yet.</p>
+            <% } else {jobs.forEach((job)=> { %>
+            <div class="job-card" key="<%= job.id %>">
+              <h3 class="job-title"><%=job.title%></h3>
+              <%if(job.status==="expired"){%>
+              <p style="color: red"><%=job.status%></p>
+              <%} else{%>
+              <p style="color: green"><%=job.status%></p>
+
+              <%}%>
+              <p class="job-location">
+                <span class="location-icon">📍</span> <%=orginfo.location%>
+              </p>
+              <a
+                href="/employers/OrgJoblist/EditJob?id=<%=job.id%>"
+                class="details-btn"
+                >Edit Details</a
+              >
+            </div>
+            <% })} %>
+          </div>
         </div>
-   
-       </div>
-     </div>
+      </div>
+    </div>
   </div>
 </body>
-</html>

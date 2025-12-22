@@ -193,6 +193,9 @@ const Job = db.define("job", {
     type: DataTypes.STRING,
   },
   expirey: {
+    type: DataTypes.DATEONLY,
+  },
+  status: {
     type: DataTypes.STRING,
   },
   salary: {
