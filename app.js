@@ -87,6 +87,9 @@ app.use("/", indexRoute);
 const employersRoute = require("./routes/employers.js");
 app.use("/employers", employersRoute);
 
+const adminRoute = require("./routes/admin.js");
+app.use("/admin", adminRoute);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
