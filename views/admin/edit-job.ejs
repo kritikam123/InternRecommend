@@ -1,0 +1,312 @@
+<%-include("../head.ejs")%>
+<link rel="stylesheet" href="/styles/experience.css" />
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("admin-sidebar.ejs")%></div>
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+
+      <div class="main-contents">
+        <div class="edit">
+          <p>Post a Job</p>
+        </div>
+
+        <div class="info-section" id="info-section">
+          <p>Company Logo</p>
+          <div class="photo">
+            <img src="/images/default.jpg" alt="img" />
+            <button class="profilebtn">Select</button>
+          </div>
+          <div class="form-section">
+            <div class="input-row">
+              <div>
+                <label>Job title</label>
+                <input
+                  type="text"
+                  class="input1"
+                  name="title"
+                  id="title"
+                  value="<%=jobdetails.title%>"
+                />
+              </div>
+              <div>
+                <label>No of openings</label>
+                <input type="text" class="input1" name="org" id="openings" value="<%=jobdetails.openings%>"/>
+              </div>
+              <div>
+                <label>Category</label>
+                <input
+                  type="text"
+                  class="input1"
+                  name="category"
+                  id="category"
+                  <%=jobdetails.category%>
+                />
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div>
+                <label>Job type</label>
+            <select name="jobtype" id="jobtype" class="input1">
+                <option value="fulltime" <%= jobdetails.jobType === "Full Time" ? "selected" : "" %>>Full Time</option>
+                <option value="parttime" <%= jobdetails.jobType === "Part Time" ? "selected" : "" %>>Part Time</option>
+            </select>
+
+              </div>
+              <div>
+                <label>Remote/on-site</label>
+                <div>
+                  <select name="remote" class="input1" id="remote">
+                    <option value="on site" <%=jobdetails.remote==="on site" ? "selected":""%>>On Site</option>
+                    <option value="remote" <%=jobdetails.remote==="remote" ? "selected":""%>>Remote</option>
+                    <option value="hybrid" <%=jobdetails.remote==="hybrid" ? "selected":""%>>Hybrid</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label>Experience Required</label>
+                <input type="text" class="input1" name="exp" id="exp" value="<%=jobdetails.experience%>" />
+              </div>
+            </div>
+            <div class="input-row">
+              <div>
+                <label>Education Required</label>
+                <input type="text" class="input1" name="level" id="education" value="<%=jobdetails.education%>" />
+              </div>
+              <div>
+                <label>Location</label>
+                <input type="text" class="input1" name="org" id="location" />
+              </div>
+              <div>
+                <label>Expiery Date</label>
+                <input type="text" class="input1" name="end" id="end" value="<%=jobdetails.expirey%>"/>
+              </div>
+            </div>
+            <div class="input-row input-row-1">
+              <div class="salary">
+                <label>Salary</label>
+                <input type="text" class="input1" name="salary" id="salary" value="<%=jobdetails.salary%>"/>
+              </div>
+
+              <div class="skill tags-wrapper" id="skills">
+                <label
+                  >Select Skill <span>(Press Enter After Each Tag)</span></label
+                >
+                <div class="tag-input-container">
+                    <%if(jobdetails.requiredskills!==null && JSON.stringify(jobdetails.requiredskills)!='[]' && jobdetails.requiredskills.length>0){%>
+                      <ul id="edit-profile-skills" class="skillul">
+                        <%for(let i=0; i<jobdetails.requiredskills.length;i++){%>
+                          <li>
+                            <%=jobdetails.requiredskills[i]%><button type="button" onclick="removeSkill(this, '<%=jobdetails.requiredskills[i]%>')">X</button>
+                          </li>
+                        <%}%>
+                      </ul>
+
+                        
+                    <%}%>
+                  <input type="text" class="input1" name="org" id="tags" />
+                </div>
+              </div>
+            </div>
+
+            <label>Job Description</label>
+            <textarea name="roles" id="description" class="input1" ><%=jobdetails.description%></textarea>
+
+            <label>Job Requirements</label>
+            <textarea name="roles" id="requirements" class="input1"><%=jobdetails.requirements%></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="save-btn" id="saveBtn">Post</button>
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+  </div>
+</body>
+<%-include("../components/foot")%>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const addMoreBtn = document.getElementById("add-more-btn");
+    const infoSection = document.getElementById("info-section");
+    let ul = document.querySelector(".tag-input-container ul");
+    const input = document.querySelector(".tag-input-container input");
+    const saveBtn = document.getElementById("saveBtn");
+
+    let tags = [];
+
+    if (!ul) {
+      ul = document.createElement("ul");
+      ul.id = "edit-profile-skills";
+      ul.classList.add("skillul");
+
+      const wrapper = document.querySelector(".tags-wrapper");
+      wrapper.insertBefore(ul, wrapper.querySelector("#tags"));
+    }
+
+    window.createTag = function (newTag) {
+      newTag.forEach((tag) => {
+        let liTag = `<li>${tag}<button onclick="removeSkill(this,'${tag}')">X</button></li>`;
+        ul.insertAdjacentHTML("afterbegin", liTag);
+      });
+    };
+
+    window.removeSkill = function (button, tag) {
+      let index = tags.indexOf(tag);
+      tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+      button.parentElement.remove();
+    };
+
+    window.addTag = function (e) {
+      if (e.key === "Enter") {
+        let tag = e.target.value.replace(/\s+/g, " ");
+        if (tag.length > 1 && !tags.includes(tag)) {
+          if (tags.length < 10) {
+            tag.split(",").forEach((tag) => tags.push(tag));
+            createTag(tag.split(","));
+          }
+        }
+        e.target.value = "";
+      }
+    };
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addTag(e);
+      }
+    });
+
+    window.getSkills = function () {
+      let skills = [];
+
+      const ulSkills = document.getElementById("edit-profile-skills");
+      const skillList = ulSkills?.querySelectorAll("li");
+
+      skillList?.forEach((skill) => {
+        skills.push(skill.textContent.trim().replace(/X$/, ""));
+      });
+
+      return skills;
+    };
+
+    saveBtn.addEventListener("click", async function (e) {
+      e.preventDefault();
+      console.log("save button clicked");
+
+      const title = document.getElementById("title").value;
+      const openings = document.getElementById("openings").value;
+      const category = document.getElementById("category").value;
+      const jobtype = document.getElementById("jobtype").value;
+      const remote = document.getElementById("remote").value;
+      const experience = document.getElementById("exp").value;
+      const education = document.getElementById("education").value;
+      const location = document.getElementById("location").value;
+      const expirey = document.getElementById("end").value;
+      const salary = document.getElementById("salary").value;
+      const description = document.getElementById("description").value;
+      const requirements = document.getElementById("requirements").value;
+
+      let skills = await window.getSkills();
+
+      console.log({
+        title: title,
+        category: category,
+        openings: openings,
+        remote: remote,
+        experience: experience,
+        education: education,
+        location: location,
+        expirey: expirey,
+        salary: salary,
+        description: description,
+        requirements: requirements,
+        skills: skills,
+        jobtype: jobtype,
+      });
+
+      if (
+        title === "" ||
+        openings === "" ||
+        remote === "" ||
+        experience == "" ||
+        education === "" ||
+        expirey === "" ||
+        salary === "" ||
+        description === "" ||
+        requirements === "" ||
+        skills === "" ||
+        jobtype === ""
+      ) {
+        Toast.fire({
+          icon: "error",
+          title: "Please insert all fields",
+        });
+        return;
+      }
+
+      fetch(`/employers/OrgJobList/EditJob?id=<%=jobdetails.id%>`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          openings,
+          category,
+          jobtype,
+          remote,
+          experience,
+          education,
+          expirey,
+          salary,
+          description,
+          requirements,
+          skills,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.title === "success") {
+            Toast.fire({
+              icon: "success",
+              title: "Job posted successfully",
+            }).then(() => {
+              setTimeout(() => {
+                window.location.reload();
+              }, 2000);
+            });
+          }
+          console.log(data);
+          if (data.success == false || data.title == "failed") {
+            Toast.fire({
+              icon: "error",
+              title: "Failed to post the job",
+            });
+            return;
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: "Job posted successfully",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+          Toast.fire({
+            icon: "error",
+            title: "An error occurred while posting the job",
+          });
+        });
+    });
+  });
+</script>

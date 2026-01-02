@@ -110,6 +110,15 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+router.get("/job-list", async (req, res) => {
+  console.log("JOB LIST FOR ADMINNNN");
+  const jobs = await Job.findAll({ include: [{ model: Organization }] });
+  console.log(jobs);
+  res.render("admin/admin-view-job", { jobs: jobs });
+});
 
-
+router.get("/job-list/edit-job", async (req, res) => {
+  const jobDetails = await Job.findOne({ where: { id: req.query.id } });
+  res.render("admin/edit-job", { jobdetails: jobDetails });
+});
 module.exports = router;

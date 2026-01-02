@@ -337,12 +337,12 @@ router.get("/OrgJoblist", async (req, res) => {
   );
 });
 
-router.get("/OrgJoblist/EditJob", async (req, res) => {
+router.get("/OrgJoblist/EditJob", checkuser, async (req, res) => {
   const jobdetails = await Job.findOne({ where: { id: req.query.id } });
   res.render("employers/editjob", { jobdetails: jobdetails });
 });
 
-router.post("/OrgJobList/EditJob", async (req, res) => {
+router.post("/OrgJobList/EditJob", checkuser, async (req, res) => {
   const title = req.body.title;
   const openeings = req.body.openeings;
   const category = req.body.category;
