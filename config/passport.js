@@ -80,7 +80,7 @@ module.exports = function (passport) {
       async (email, password, done) => {
         console.log("ADDDMINNNNN"); //debugging
         console.log("EMAIL ADMIN: ", email);
-        console.log("PASSWORD ADMIN:", password);
+        // console.log("PASSWORD ADMIN:", password);
         await Admin.findOne({ where: { email: email, role: "admin" } })
           .then((admin) => {
             if (!admin) {
@@ -114,44 +114,46 @@ module.exports = function (passport) {
 
   //serelization and deserelization
   passport.serializeUser(function (user, done) {
+    console.log("serelize userss");
     const userInfo = {
       id: user.id || user.user_id,
+      role: user.role,
       type: user.constructor.name, // 'User', 'Organization', or 'Admin'
     };
     return done(null, userInfo);
   });
 
- passport.deserializeUser(async function (user, done) {
-   try {
-     // If no user data exists, return false (no error)
-     if (!user) {
-       return done(null, false);
-     }
+  passport.deserializeUser(async function (user, done) {
+    try {
+      // If no user data exists, return false (no error)
+      if (!user) {
+        return done(null, false);
+      }
 
-     // Try to find user in each table
-     let foundUser = await User.findByPk(user.id || user.user_id);
-     if (foundUser) {
-       return done(null, foundUser);
-     }
+      // Try to find user in each table
+      let foundUser = await User.findByPk(user.id || user.user_id);
+      if (foundUser) {
+        return done(null, foundUser);
+      }
 
-     foundUser = await Organization.findByPk(user.id || user.org_id);
-     if (foundUser) {
-       return done(null, foundUser);
-     }
+      foundUser = await Organization.findByPk(user.id || user.org_id);
+      if (foundUser) {
+        return done(null, foundUser);
+      }
 
-     foundUser = await Admin.findByPk(user.id || user.admin_id);
-     if (foundUser) {
-       return done(null, foundUser);
-     }
+      foundUser = await Admin.findByPk(user.id || user.admin_id);
+      if (foundUser) {
+        return done(null, foundUser);
+      }
 
-     // If no user found in any table, return false (not an error)
-     console.log(
-       "No user found during deserialization, but this is normal for unauthenticated users"
-     );
-     return done(null, false);
-   } catch (error) {
-     console.log("Deserialization error:", error);
-     return done(error);
-   }
- });
+      // If no user found in any table, return false (not an error)
+      console.log(
+        "No user found during deserialization, but this is normal for unauthenticated users"
+      );
+      return done(null, false);
+    } catch (error) {
+      console.log("Deserialization error:", error);
+      return done(error);
+    }
+  });
 };

@@ -12,11 +12,14 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 
 const checkuser = function (req, res, next) {
+  console.log("REQ IS AUTHENTICATEDD", req.isAuthenticated());
   if (req.isAuthenticated()) {
     auth = true;
     data = req.user;
-    if (req.user.role == "admin") return next();
-    res.redirect("/admin/profile");
+    if (req.user.role == "admin") {
+      res.redirect("/admin/job-list");
+    }
+    next();
   } else {
     auth = false;
     data = "";
@@ -25,95 +28,77 @@ const checkuser = function (req, res, next) {
 };
 
 router.get("/login", async (req, res) => {
+  console.log("admin login");
   res.render("admin/admin-login");
 });
 
 router.post("/login", async (req, res, next) => {
-  console.log("====================================");
-  console.log("ADDDMINNNNN LOGINN ROUTE HITT");
-  console.log("====================================");
-  const { email, password } = req.body;
-  const remember = req.body.remember;
-  const admin = await Admin.findOne({ where: { email: email } });
-  console.log("ADMINNNNNNNNNNNNNNN: ", admin);
+  console.log("admin login hit");
 
-  if (!admin) {
-    return res.json({
-      status: 400,
-      title: "Invalid Credentials",
-      message: "Admin not found",
-    });
-  }
+  const { email, password, remember } = req.body;
 
-  const passwordValidation = await bcrypt.compare(password, admin.password);
+  //<------------------AUTHENTICATION--------------------------------->
+  passport.authenticate("admin", (error, user, info) => {
+    if (error) {
+      console.error("Authentication error:", error);
+      return res.json({
+        status: 400,
+        title: "Login Failed",
+        message: error.message || "Authentication failed",
+      });
+    }
 
-  if (passwordValidation == false) {
-    return res.json({
-      status: 400,
-      title: "Password Incorrect",
-      message: "Incorrect Password",
-    });
-  } else {
-    //<------------------AUTHENTICATION--------------------------------->
-    passport.authenticate("admin", (error, user) => {
-      if (error) {
-        return next(error);
-      }
-
-      if (!user) {
+    if (!user) {
+      return res.json({
+        status: 400,
+        title: "Login Failed",
+        message: "Cannot authenticate admin, invalid email or password",
+      });
+    }
+    console.log("Login successful, user ID:", user.id);
+    req.login(user, (loginErr) => {
+      if (loginErr) {
+        console.log("login error", loginErr);
         return res.json({
-          status: 400,
-          title: "Login Failed",
-          message: "Cannot authenticate admin, invalid email or password",
+          status: 500,
+          title: "Server Error",
+          message: "Admin Login Failed",
         });
       }
 
-      req.login(user, (loginErr) => {
-        if (loginErr) {
-          console.log("====================================");
-          console.log("login erorr", loginErr);
-          console.log("====================================");
-
-          return res.json({
-            status: 500,
-            title: "Server Error",
-            message: "Admin Login Failed",
-          });
-        }
-      });
-
-      console.log("====================================");
-      console.log(remember);
-      console.log("====================================");
-
+      console.log("Remember me:", remember);
       if (remember) {
         req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
       } else {
         req.session.cookie.expires = false;
       }
-      console.log("Login successful, user ID:", user.user_id);
 
       //<--------------------DEBUGGING SESSION---------------------->
       console.log("Session after login: ", req.session);
+      console.log("Passport in session:", req.session.passport);
       console.log("User after login:", req.user);
       res.json({
         status: 200,
         message: "You have successfully logged in as a Admin",
         title: "login successful",
         admin: {
-          id: admin.id,
-          email: admin.email,
+          id: user.id,
+          email: user.email,
         },
       });
-    })(req, res, next);
-    console.log("login successful");
-  }
+    });
+    // req.session.save((err) => {
+    //   if (err) console.log("Session save error:", err);
+    //   console.log("Session saved successfully");
+    // });
+  })(req, res, next);
+  console.log("login successful");
 });
 
 router.get("/job-list", checkuser, async (req, res) => {
   console.log("JOB LIST FOR ADMINNNN");
   const jobs = await Job.findAll({ include: [{ model: Organization }] });
-  console.log(jobs);
+  // console.log(jobs);2004
   res.render("admin/admin-view-job", { jobs: jobs });
 });
 

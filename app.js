@@ -55,6 +55,18 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+// Add after app.use(passport.session())
+// app.use((req, res, next) => {
+//   console.log("\n=== PASSPORT DEBUG ===");
+//   console.log("Path:", req.path);
+//   console.log("Session ID:", req.sessionID);
+//   console.log("Session:", req.session);
+//   console.log("Passport data in session:", req.session.passport);
+//   console.log("req.user:", req.user);
+//   console.log("req.isAuthenticated():", req.isAuthenticated());
+//   console.log("====================\n");
+//   next();
+// });
 
 app.use((req, res, next) => {
   console.log("=== DEBUG MIDDLEWARE ===");
