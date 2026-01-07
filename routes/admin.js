@@ -10,6 +10,7 @@ const {
 
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const { where } = require("sequelize");
 
 const checkuser = function (req, res, next) {
   console.log("REQ IS AUTHENTICATEDD", req.isAuthenticated());
@@ -168,5 +169,51 @@ router.get("/organization", checkuser, async (req, res) => {
   //   console.log("organization are: ", o);
   // });
   res.render("admin/view-organization", { org: org });
+});
+
+router.post("/organization/accept", checkuser, async (req, res) => {
+  const { organizationId } = req.body;
+  console.log("ORGANIZATIONNN IDDD ISSSS", organizationId);
+  try {
+    await Organization.update(
+      { verified: 1 },
+      { where: { id: organizationId } }
+    );
+    console.log("job status updated");
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Organization accepted successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
+});
+
+router.post("/organization/cancel", checkuser, async (req, res) => {
+  const { organizationId } = req.body;
+  console.log("ORGANIZATIONNN IDDD ISSSS", organizationId);
+  try {
+    await Organization.update(
+      { verified: 0 },
+      { where: { id: organizationId } }
+    );
+    console.log("job status updated");
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Organization declined successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.json({
+      title: "failed",
+      message: "something went wrong while updating",
+    });
+  }
 });
 module.exports = router;
