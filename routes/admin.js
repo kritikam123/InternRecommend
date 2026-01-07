@@ -162,4 +162,11 @@ router.post("/job-list/edit-job", checkuser, async (req, res) => {
   }
 });
 
+router.get("/organization", checkuser, async (req, res) => {
+  const org = await Organization.findAll();
+  // org.forEach((o) => {
+  //   console.log("organization are: ", o);
+  // });
+  res.render("admin/view-organization", { org: org });
+});
 module.exports = router;

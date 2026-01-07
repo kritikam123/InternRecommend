@@ -64,9 +64,6 @@ body {
   background-color: #fafafa;
 }
 
-.education-table tbody tr {
-  height: 200px; /* Makes the bottom area tall like your screenshot */
-}
 .resume {
   height: 100%;
   width: 100%;
@@ -145,4 +142,18 @@ body {
   align-items: center;
   justify-content: center;
   border: none;
+  cursor: pointer;
+}
+#accept {
+  all: unset;
+  background-color: #2563eb;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+#decline {
+  all: unset;
+  border: 2px solid #9ce7cf;
+  border-radius: 10px;
+  padding: 5px;
 }
