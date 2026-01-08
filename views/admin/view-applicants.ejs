@@ -11,17 +11,18 @@
       <div class="main-wrapper">
         <div class="main-content">
           <div class="title">
-            <p>Users</p>
+            <p>Applicants</p>
           </div>
 
           <div class="jobs-grid">
-            <% if (users.length === 0) { %>
-            <p>No Users Yet</p>
-            <% } else { %> <% users.forEach(function(user) { %>
+            <% if (applicants.length === 0) { %>
+            <p>No Applicants Yet</p>
+            <% } else { %> <% applicants.forEach(function(app) { %>
             <div class="job-card">
-              <h3 class="job-title"><%= user.username %></h3>
+              <h3 class="job-title"><%= app.User.username %></h3>
+              <p class="job-subtitle">Position: <%=app.job.title%></p>
               <a
-                href="/admin/users/details?id=<%=user.user_id%>"
+                href="/admin/applicants/details?id=<%=app.User.user_id%>"
                 class="details-btn"
                 >View Details</a
               >

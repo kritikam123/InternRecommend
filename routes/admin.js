@@ -230,8 +230,8 @@ router.get("/users", checkuser, async (req, res) => {
   }
 });
 
-//fetching users 
-router.get("/applicants/details", checkuser, async (req, res) => {
+//fetching users
+router.get("/users/details", checkuser, async (req, res) => {
   console.log("get paramter hittt");
   const userId = req.query.id;
   console.log(userId);
@@ -249,7 +249,7 @@ router.get("/applicants/details", checkuser, async (req, res) => {
 //for deleting users
 router.post("/applicants/cancel", checkuser, async (req, res) => {
   const { userId } = req.body;
-  console.log(userId); 
+  console.log(userId);
 
   try {
     await User.destroy({
@@ -273,6 +273,39 @@ router.post("/applicants/cancel", checkuser, async (req, res) => {
 });
 //deleting users part completed
 
+//fetching applicants
+router.get("/applicants", checkuser, async (req, res) => {
+  try {
+    const applicants = await AppliedJobs.findAll({
+      include: [{ model: Organization }, { model: Job }, { model: User }],
+    });
+    applicants.forEach((app) => {
+      console.log("jobssssss: ", app.job);
+      console.log("Organization : ", app.Organization);
+      console.log("user", app.User);
+    });
+    res.render("admin/view-applicants", { applicants: applicants });
+  } catch (error) {
+    console.log("errorr: ", error);
+  }
+});
+//fetching applicants completed
 
+//applicants details for admin:
+router.get("/applicants/details", checkuser, async (req, res) => {
+  const userId = req.query.id;
+  console.log("user id isss:  ", userId);
+  try {
+    const user = await User.findOne({ where: { user_id: userId } });
+    const resumeURL = user.resume ? `/uploads/${user.resume}` : null;
+
+    res.render("admin/applicants-detail", {
+      user: user,
+      resumeURL: resumeURL,
+    });
+  } catch (error) {
+    console.log("errorr: ", error);
+  }
+});
 
 module.exports = router;
