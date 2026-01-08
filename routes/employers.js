@@ -445,9 +445,9 @@ router.get("/applicants/details", checkuser, async (req, res) => {
     const applicants = await AppliedJobs.findOne({
       where: { Organizationid: org_id, UserUserId: userId },
     });
-    console.log("====================================");
-    console.log("theeeeeeeeee apllicantsss areeeee", applicants);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log("theeeeeeeeee apllicantsss areeeee", applicants);
+    // console.log("====================================");
     res.render("employers/applicants-details", {
       user: user,
       resumeURL: resumeURL,

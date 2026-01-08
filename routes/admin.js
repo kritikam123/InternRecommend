@@ -216,4 +216,63 @@ router.post("/organization/cancel", checkuser, async (req, res) => {
     });
   }
 });
+
+router.get("/users", checkuser, async (req, res) => {
+  console.log("user route hitt");
+  try {
+    const users = await User.findAll();
+    users.forEach((user) => {
+      console.log(user);
+    });
+    res.render("admin/view-users", { users: users });
+  } catch (error) {
+    console.log("An error occured while fetching users", error);
+  }
+});
+
+//fetching users 
+router.get("/applicants/details", checkuser, async (req, res) => {
+  console.log("get paramter hittt");
+  const userId = req.query.id;
+  console.log(userId);
+  try {
+    const user = await User.findOne({ where: { user_id: userId } });
+    const resumeURL = user.resume ? `/uploads/${user.resume}` : null;
+    res.render("admin/user-details", {
+      user: user,
+      resumeURL: resumeURL,
+    });
+  } catch (error) {}
+});
+//fetching users completed
+
+//for deleting users
+router.post("/applicants/cancel", checkuser, async (req, res) => {
+  const { userId } = req.body;
+  console.log(userId); 
+
+  try {
+    await User.destroy({
+      where: { user_id: userId },
+    });
+
+    console.log("user deleted from database");
+
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error("An error occurred while deleting user", error);
+    return res.json({
+      title: "failed",
+      message: "Something went wrong while deleting user",
+    });
+  }
+});
+//deleting users part completed
+
+
+
 module.exports = router;
