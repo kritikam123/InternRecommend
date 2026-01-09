@@ -1,0 +1,82 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/settings.css" />
+
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("admin-sidebar.ejs")%></div>
+
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="edit">
+          <p>Settings</p>
+        </div>
+
+        <div class="form-section">
+          <label>Current Password</label>
+          <input type="password" class="input" name="pass" id="pass" />
+
+          <label>New Password</label>
+          <input type="password" class="input" name="newpass" id="newpass" />
+
+          <label>Confirm Password</label>
+          <input type="password" class="input" name="conpass" id="conpass" />
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="save-btn" id="saveBtn">Save</button>
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const password = document.getElementById("pass").value;
+      const newpassword = document.getElementById("newpass").value;
+      const conpassword = document.getElementById("conpass").value;
+
+      console.log("button clickedd");
+      fetch("/admin/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password, newpassword, conpassword }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.title == "success") {
+            Toast.fire({
+              icon: "success",
+              title: "Your password has been updated successfully",
+            });
+          }
+          if (data.title == "mismatch") {
+            Toast.fire({
+              icon: "error",
+              title: "New Password and Confirm password does not match",
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("something went wrong while updating", error);
+          Toast.fire({
+            icon: "error",
+            title: "Cannot update password",
+          });
+        });
+    });
+  });
+</script>

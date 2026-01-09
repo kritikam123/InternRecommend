@@ -63,7 +63,6 @@ body {
   background-color: #2563eb;
 }
 
-
 /* ===========
    PROFILE SECTION
    =========== */
@@ -123,8 +122,6 @@ body {
   margin-bottom: 25px;
 }
 
-
-
 .select-btn {
   background: #fff;
   border: 1.5px solid #9ce7cf;
@@ -149,8 +146,6 @@ body {
 .form-section label {
   display: flex;
   font-size: 21px;
-  margin-bottom: 20px;
-  margin-top: 20px;
   padding: 20px;
 }
 
@@ -159,7 +154,6 @@ body {
   border-radius: 6px;
   /* height: 50px; */
   margin-bottom: 15px;
-  width: 30%;
   padding: 10px;
   margin: 10px;
   border: none;

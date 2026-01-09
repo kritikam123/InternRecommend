@@ -96,6 +96,8 @@ router.post("/login", async (req, res, next) => {
   console.log("login successful");
 });
 
+
+
 router.get("/job-list", checkuser, async (req, res) => {
   console.log("JOB LIST FOR ADMINNNN");
   const jobs = await Job.findAll({ include: [{ model: Organization }] });
@@ -305,6 +307,74 @@ router.get("/applicants/details", checkuser, async (req, res) => {
     });
   } catch (error) {
     console.log("errorr: ", error);
+  }
+});
+
+router.get("/settings", checkuser, async (req, res) => {
+  res.render("admin/admin-settings");
+});
+
+router.post("/settings", checkuser, async (req, res) => {
+  const id = req.user.user_id;
+  console.log(id);
+  const { password, newpassword, conpassword } = req.body;
+  console.log(password);
+  console.log(newpassword);
+  console.log(conpassword);
+  if (newpassword !== conpassword) {
+    return res.json({
+      status: 400,
+      title: "mismatch",
+      message: "Passwords do not match. Please try again.",
+    });
+  }
+  console.log("hellp");
+
+  try {
+    //Fetch admin from DB
+    const admin = await Admin.findOne({
+      where: { id: id },
+    });
+
+    console.log("Admin INFORMATION", admin);
+
+    if (!admin) {
+      return res.json({
+        status: 404,
+        title: "not found",
+        message: "Admin not found",
+      });
+    }
+
+    //Compare old password
+    const passValidation = await bcrypt.compare(password, admin.password);
+    console.log(passValidation);
+
+    if (!passValidation) {
+      return res.json({
+        status: 400,
+        title: "Wrong password",
+        message: "Incorrect Password",
+      });
+    }
+
+    //Hash new password
+    const hash = await bcrypt.hash(newpassword, 10);
+
+    //Update password
+    await Admin.update({ password: hash }, { where: { id: id } });
+    console.log("passwordd updatedddd");
+    return res.json({
+      status: 200,
+      title: "success",
+      message: "Password Updated Successfully",
+    });
+  } catch (error) {
+    console.error("error while updating password", error);
+    return res.status(500).json({
+      title: "failed",
+      message: "Something went wrong while updating password",
+    });
   }
 });
 
