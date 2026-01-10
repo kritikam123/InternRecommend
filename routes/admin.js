@@ -96,7 +96,9 @@ router.post("/login", async (req, res, next) => {
   console.log("login successful");
 });
 
-
+router.get("/dashboard", checkuser, async (req, res) => {
+  res.render("admin/admin-dashboard");
+});
 
 router.get("/job-list", checkuser, async (req, res) => {
   console.log("JOB LIST FOR ADMINNNN");

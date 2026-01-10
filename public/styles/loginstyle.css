@@ -110,7 +110,11 @@
   width: 100%;
   margin-top: 15px;
 }
-.forgot p {
+.forgot a{
+  text-decoration: none;
+  
+}
+.forgot a p {
   text-align: center;
   color: #8a909c;
 }

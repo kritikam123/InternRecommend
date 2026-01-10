@@ -16,7 +16,8 @@
   padding-bottom: 20px;
   position: sticky;
   top: 0px;
-  z-index: -100;
+  position: sticky;
+  top: 0;
 }
 
 .bar span {
@@ -34,7 +35,9 @@
   padding-bottom: 10px;
 }
 
-.logoutbtn a {
+#logoutbtn {
+  all: unset;
+  cursor: pointer;
   text-decoration: none;
   color: white;
 }

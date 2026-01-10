@@ -1,11 +1,52 @@
-<head>
-  <link rel="stylesheet" href="/styles/topbar.css" />
-</head>
+<link rel="stylesheet" href="/styles/topbar.css" />
 <nav class="top">
   <div class="bar">
     <span>Dashboard</span>
     <div class="logoutbtn">
-      <a href="">Logout</a>
+      <button id="logoutbtn">Logout</button>
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "logoutbtn") {
+      e.preventDefault();
+      console.log("logout button clicked");
+
+      fetch("/auth/logout", {
+        method: "POST",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Logout failed");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.title === "success") {
+            Toast.fire({
+              icon: "success",
+              title: data.message,
+            });
+
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 1200);
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("Logout error:", error);
+          Toast.fire({
+            icon: "error",
+            title: "Logout failed",
+          });
+        });
+    }
+  });
+</script>

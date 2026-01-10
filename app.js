@@ -102,6 +102,9 @@ app.use("/employers", employersRoute);
 const adminRoute = require("./routes/admin.js");
 app.use("/admin", adminRoute);
 
+const authRoute = require("./routes/auth.js");
+app.use("/auth", authRoute);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
