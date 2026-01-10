@@ -118,7 +118,18 @@ router.post("/employersLogin", async (req, res, next) => {
       message: "User does not exist",
     });
   }
-  
+  if (organization.verified != true) {
+    return res.json({
+      status: 400,
+      title: "unverified",
+      message: "Organization not verified by admin",
+    });
+  }
+  console.log(
+    "organizaaaaaaaaaaaaaaaa verification status",
+    organization.verified
+  );
+
   const passwordValidation = await bcrypt.compare(
     password,
     organization.password
@@ -169,7 +180,7 @@ router.post("/employersLogin", async (req, res, next) => {
         console.log("User after login:", req.user);
         res.json({
           status: 200,
-          message: "You have successfully logged in as a user",
+          message: "You have successfully logged in as an organization",
           title: "login successful",
           organization: {
             id: organization.id,

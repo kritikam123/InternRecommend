@@ -74,7 +74,7 @@
             title: "Please fill all the fields",
           });
         }
-        
+
         return fetch("/employers/employersLogin", {
           method: "POST",
           headers: {
@@ -84,8 +84,12 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            
-            if (data.title == "Invalid Credentials") {
+            if (data.title == "unverified") {
+              Toast.fire({
+                icon: "error",
+                title: data.message,
+              });
+            } else if (data.title == "Invalid Credentials") {
               Toast.fire({
                 icon: "error",
                 title: data.message,
@@ -105,11 +109,10 @@
                 window.location.href = "/employers/OrgProfile";
               }, 1500);
             } else {
-              Toast.
-                fire({
-                  icon: "error",
-                  title: "something went wrong",
-                });
+              Toast.fire({
+                icon: "error",
+                title: "something went wrong",
+              });
             }
           })
           .catch((error) => {
