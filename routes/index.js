@@ -78,6 +78,18 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
+router.get("/contactus", (req, res) => {
+  res.render("contactus");
+});
+
+router.get("/about", (req, res) => {
+  res.render("about");
+});
+
+router.get("/internship", (req, res) => {
+  res.render("internship");
+});
+
 router.get("/forgotpassword", (req, res) => {
   res.render("forgotpassword");
 });

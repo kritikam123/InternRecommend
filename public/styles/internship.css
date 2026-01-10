@@ -8,50 +8,46 @@ body {
   color: #111;
   justify-content: center;
   align-items: center;
-  
 }
 /* NAVBAR */
-
 
 /* Internship Section */
 .internship-section {
   display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 450px;
-    padding: 80px 100px 80px;
-    margin-bottom: 100px;
-    margin-top: 100px;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  gap: 100px;
+  padding: 80px 100px 80px;
+  margin-bottom: 100px;
+  margin-top: 100px;
 }
 
 .blue-bg {
   background-color: #3d74f4;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  padding: 200px 100px 180px;
-
-  
+  /* margin-top: 100px; */
+  /* margin-bottom: 100px; */
+  /* padding: 200px 100px 180px;*/
 }
+
 .internship-section3 {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 450px;
+  /* flex-wrap: wrap; */
+  gap: 100px;
   padding: 80px 100px 80px;
   margin-bottom: 100px;
 }
 
 /* Card Style */
 .card {
-        background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 392px;
-    height: 380px;
-    padding: 76px;
-    text-align: left;
-    transition: transform 0.3s 
-ease;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 392px;
+  height: 380px;
+  padding: 76px;
+  text-align: left;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
@@ -107,9 +103,13 @@ button {
   font-size: 18px;
 }
 
+.btn a {
+  text-decoration: none;
+  color: white;
+}
+
 button:hover {
   background-color: #2f5ed3;
 }
-
 
 /* FOOTER */

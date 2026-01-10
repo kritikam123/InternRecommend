@@ -77,17 +77,6 @@ app.use((req, res, next) => {
   console.log("=== END DEBUG ===");
   next();
 });
-app.get("/contactus", (req, res) => {
-  res.render("contactus");
-});
-
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("/internship", (req, res) => {
-  res.render("internship");
-});
 
 // app.get("/sidebar", (req, res) => {
 //   res.render("sidebar");

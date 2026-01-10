@@ -44,7 +44,7 @@
           </div>
 
           <div class="signup">
-            <p>or signup</p>
+            <a href="/users/registration"><p>or Signup</p></a>
           </div>
 
           <div class="forgot">
@@ -104,11 +104,10 @@
                 window.location.href = "/users/userIndex";
               }, 1500);
             } else {
-              Toast.
-                fire({
-                  icon: "error",
-                  title: "something went wrong",
-                });
+              Toast.fire({
+                icon: "error",
+                title: "something went wrong",
+              });
             }
           })
           .catch((error) => {

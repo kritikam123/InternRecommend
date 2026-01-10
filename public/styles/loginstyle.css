@@ -101,7 +101,11 @@
   width: 100%;
   margin-top: 15px;
 }
-.signup p {
+
+.signup a {
+  text-decoration: none;
+}
+.signup a p {
   text-align: center;
   color: #447df0;
 }
@@ -110,9 +114,8 @@
   width: 100%;
   margin-top: 15px;
 }
-.forgot a{
+.forgot a {
   text-decoration: none;
-  
 }
 .forgot a p {
   text-align: center;
