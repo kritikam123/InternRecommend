@@ -118,6 +118,7 @@ router.post("/employersLogin", async (req, res, next) => {
       message: "User does not exist",
     });
   }
+  
   const passwordValidation = await bcrypt.compare(
     password,
     organization.password
