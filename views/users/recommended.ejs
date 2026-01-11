@@ -1,0 +1,26 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/jobdetails.css" />
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <% if(jobs.length === 0){ %>
+        <p>No recommendations available</p>
+        <% } %> <% jobs.forEach(job => { %>
+        <div class="job-card">
+          <h3><%= job.title %></h3>
+          <p><%= job.description %></p>
+          <p>
+            <strong>Skills:</strong> <%= (job.requiredskills || []).join(", ")
+            %>
+          </p>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</body>
+<%-include("../components/foot")%>

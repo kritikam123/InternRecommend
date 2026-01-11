@@ -250,6 +250,78 @@ router.get("/users/login", (req, res) => {
   res.render("users/login");
 });
 
+router.post("/users/login", async (req, res, next) => {
+  console.log("user login route");
+  const { email, password, remember } = req.body;
+  // console.log("jobseeker user email and password", email, password);
+  const user = await User.findOne({ where: { email: email } });
+  if (!user) {
+    return res.json({
+      status: 400,
+      title: "Invalid Credentials",
+      message: "User does not exist",
+    });
+  }
+  const passwordValidation = await bcrypt.compare(password, user.password);
+  if (passwordValidation == false) {
+    return res.json({
+      status: 400,
+      title: "Wrong password",
+      message: "Incorrect Password",
+    });
+  } else {
+    //authentication part
+    passport.authenticate("users", (error, user) => {
+      // console.log("USERRRRRSSSSSSS", user);
+
+      if (error) {
+        return next(error);
+      }
+
+      if (!user) {
+        return res.json({
+          status: 400,
+          title: "Login Failed",
+          message: "Invalid email or password",
+        });
+      }
+
+      req.login(user, (loginErr) => {
+        if (loginErr) {
+          console.log("Login Error", loginErr);
+          return res.json({
+            status: 500,
+            title: "Server Error",
+            message: "Failed to log in",
+          });
+        }
+
+        if (req.body.remember) {
+          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+        } else {
+          req.session.cookie.expires = false;
+        }
+
+        console.log("Login successful, user ID:", user.user_id);
+
+        // Debug: check what's in session immediately after login
+        console.log("Session after login:", req.session);
+        console.log("User after login:", req.user);
+        res.json({
+          status: 200,
+          message: "You have successfully logged in as a user",
+          title: "login successful",
+          user: {
+            id: user.user_id,
+            email: user.email,
+          },
+        });
+      });
+    })(req, res, next);
+    console.log("login successful");
+  }
+});
+
 router.get("/users/userdashboard", checkuser, async (req, res) => {
   const email = req.user.email;
   console.log(
@@ -538,78 +610,6 @@ router.get("/users/experience", checkuser, async (req, res) => {
   res.render("users/experiencedetails", { experience: experience });
 });
 
-router.post("/users/login", async (req, res, next) => {
-  console.log("user login route");
-  const { email, password, remember } = req.body;
-  // console.log("jobseeker user email and password", email, password);
-  const user = await User.findOne({ where: { email: email } });
-  if (!user) {
-    return res.json({
-      status: 400,
-      title: "Invalid Credentials",
-      message: "User does not exist",
-    });
-  }
-  const passwordValidation = await bcrypt.compare(password, user.password);
-  if (passwordValidation == false) {
-    return res.json({
-      status: 400,
-      title: "Wrong password",
-      message: "Incorrect Password",
-    });
-  } else {
-    //authentication part
-    passport.authenticate("users", (error, user) => {
-      // console.log("USERRRRRSSSSSSS", user);
-
-      if (error) {
-        return next(error);
-      }
-
-      if (!user) {
-        return res.json({
-          status: 400,
-          title: "Login Failed",
-          message: "Invalid email or password",
-        });
-      }
-
-      req.login(user, (loginErr) => {
-        if (loginErr) {
-          console.log("Login Error", loginErr);
-          return res.json({
-            status: 500,
-            title: "Server Error",
-            message: "Failed to log in",
-          });
-        }
-
-        if (req.body.remember) {
-          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-        } else {
-          req.session.cookie.expires = false;
-        }
-
-        console.log("Login successful, user ID:", user.user_id);
-
-        // Debug: check what's in session immediately after login
-        console.log("Session after login:", req.session);
-        console.log("User after login:", req.user);
-        res.json({
-          status: 200,
-          message: "You have successfully logged in as a user",
-          title: "login successful",
-          user: {
-            id: user.user_id,
-            email: user.email,
-          },
-        });
-      });
-    })(req, res, next);
-    console.log("login successful");
-  }
-});
-
 router.get("/users/registration", (req, res) => {
   res.render("users/registration");
 });
@@ -757,5 +757,42 @@ router.get("/users/appliedjobs", checkuser, async (req, res) => {
   } catch (error) {
     console.log("errorr: ", error);
   }
+});
+
+//recommendation system
+router.get("/users/recommended", checkuser, async (req, res) => {
+  const userId = req.user.user_id;
+
+  const user = await User.findOne({ where: { user_id: userId } });
+  console.log("user infoo", user);
+
+  const job = await Job.findAll();
+
+  const response = await fetch("http://127.0.0.1:5001/recommended", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_skills: user.skills,
+      jobs: job.map((job) => ({
+        job_id: job.id,
+        skills: job.requiredskills,
+      })),
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    console.error("Python error:", text);
+    throw new Error("Python API failed");
+  }
+
+  const recommended = await response.json();
+  const recommendedJobs = recommended
+    .map((r) => job.find((j) => j.id === r.job_id)) // find job object
+    .filter(Boolean); // remove undefined if any job not found
+
+  res.render("users/recommended", { jobs: recommendedJobs });
 });
 module.exports = router;
