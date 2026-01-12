@@ -10,7 +10,7 @@ const {
 
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { where } = require("sequelize");
+const { where, Sequelize } = require("sequelize");
 
 const checkuser = function (req, res, next) {
   console.log("REQ IS AUTHENTICATEDD", req.isAuthenticated());
@@ -97,7 +97,17 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.get("/dashboard", checkuser, async (req, res) => {
-  res.render("admin/admin-dashboard");
+  try {
+    const jobCount = await Job.count();
+    console.log("job count", jobCount);
+
+    const orgCount = await Organization.count();
+
+    const userCount = await User.count();
+    res.render("admin/admin-dashboard", { jobCount: jobCount, orgCount: orgCount, userCount: userCount});
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 router.get("/job-list", checkuser, async (req, res) => {
