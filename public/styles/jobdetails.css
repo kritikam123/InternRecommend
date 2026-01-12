@@ -86,3 +86,12 @@ button {
 .res {
   margin-bottom: 10px;
 }
+.chart-parent{
+  display: flex;
+}
+#acquisitions{
+  height: 400px !important;
+  width: 600px !important;
+}
+#acquisitions-pie{
+  width: 400px !important}
