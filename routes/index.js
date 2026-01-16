@@ -795,4 +795,11 @@ router.get("/users/recommended", checkuser, async (req, res) => {
 
   res.render("users/recommended", { jobs: recommendedJobs });
 });
+
+router.get("/users/notifications", checkuser, async (req, res) => {
+  const role = req.user.role;
+  console.log("user role", role);
+
+  res.render("users/notification",{role: role});
+});
 module.exports = router;

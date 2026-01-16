@@ -272,22 +272,24 @@ router.post("/OrgJobPost", checkuser, async (req, res) => {
   const email = req.user.email;
   const skills = req.body["skills"];
   const parsedSkills = Array.isArray(skills) ? skills : skills ? [skills] : [];
-  console.log(
-    "job post data",
-    title,
-    openeings,
-    category,
-    jobtype,
-    remote,
-    experience,
-    education,
-    location,
-    expirey,
-    salary,
-    description,
-    requirements,
-    parsedSkills
-  );
+
+  //debugging
+  // console.log(
+  //   "job post data",
+  //   title,
+  //   openeings,
+  //   category,
+  //   jobtype,
+  //   remote,
+  //   experience,
+  //   education,
+  //   location,
+  //   expirey,
+  //   salary,
+  //   description,
+  //   requirements,
+  //   parsedSkills
+  // );
 
   try {
     const job = await Job.create({
@@ -305,6 +307,14 @@ router.post("/OrgJobPost", checkuser, async (req, res) => {
       requiredskills: parsedSkills,
       OrganizationId: req.user.id,
     });
+
+    //socket implementation
+    const io = req.app.get("io");
+    io.emit("new-job-posted", {
+      title: job.title,
+      category: job.title,
+    });
+
     return res.json({
       status: 200,
       title: "success",
