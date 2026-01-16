@@ -15,18 +15,15 @@ const { raw } = require("mysql2");
 
 const checkuser = function (req, res, next) {
   console.log("REQ IS AUTHENTICATEDD", req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    auth = true;
-    data = req.user;
-    if (req.user.role == "admin") {
-      res.redirect("/admin/job-list");
-    }
-    next();
-  } else {
-    auth = false;
-    data = "";
-    res.redirect("/admin/login");
+    if (!req.isAuthenticated()) {
+    return res.redirect("/admin/login");
   }
+
+  if (req.user.role !== "admin") {
+    return res.status(403).send("Access denied");
+  }
+
+  next();
 };
 
 router.get("/login", async (req, res) => {
