@@ -5,15 +5,39 @@ const session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 const passport = require("passport");
 const app = express();
-const fs = require("fs");
-require("./config/passport")(passport);
-const multer = require("multer");
-
+const { Server } = require("socket.io");
 const uploadDir = path.join(__dirname, "uploads");
+const { createServer } = require("node:http");
+const server = createServer(app);
+const io = new Server(server);
+require("./config/passport")(passport);
+
+const fs = require("fs");
+const multer = require("multer");
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
 const storage = multer.diskStorage({});
+app.set("io", io);
 
+io.on("connection", (socket) => {
+  console.log("user connected: ", socket.id);
+  socket.on("join-role", (role) => {
+    if (role === "jobseeker") {
+      socket.join("jobseeker");
+      console.log("jobseeker joined the room");
+    }
+
+    if (role === "organization") {
+      socket.join("organization");
+      console.log("organization joined the room");
+    }
+  });
+  socket.on("disconnect", () => {
+    console.log("users disconnected");
+  });
+});
+
+//using middlewares
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -33,6 +57,7 @@ app.use(
   })
 );
 
+//for sessions
 var options = {
   host: process.env.HOST,
   port: 3306,
@@ -55,6 +80,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
 // Add after app.use(passport.session())
 // app.use((req, res, next) => {
 //   console.log("\n=== PASSPORT DEBUG ===");
@@ -92,9 +118,10 @@ const adminRoute = require("./routes/admin.js");
 app.use("/admin", adminRoute);
 
 const authRoute = require("./routes/auth.js");
+const { Socket } = require("node:dgram");
 app.use("/auth", authRoute);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

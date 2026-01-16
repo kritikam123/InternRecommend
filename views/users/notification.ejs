@@ -1,0 +1,37 @@
+<%-include("../head.ejs")%>
+
+<link rel="stylesheet" href="/styles/user.css" />
+
+<body>
+  <div class="dashboard-container">
+    <div class="box"><%-include("../sidebar.ejs")%></div>
+
+    <div class="box1">
+      <%-include("../topbar.ejs")%>
+      <div class="main-contents">
+        <div class="info-section">
+          <div id="notification-area" class="notification-area"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const role = "<%=role%>";
+    socket.emit("join-role", role);
+
+    socket.on("new-job-posted", (data) => {
+      showNotification(data.title);
+    });
+
+    function showNotification(title) {
+      const container = document.getElementById("notification-area");
+      const div = document.createElement("div");
+      div.className = "notification";
+      div.innerText = "New Job Posted: " + title;
+      container.appendChild(div);
+    }
+  </script>
+</body>
+<%-include("../components/foot")%>
