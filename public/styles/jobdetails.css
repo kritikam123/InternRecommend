@@ -86,12 +86,21 @@ button {
 .res {
   margin-bottom: 10px;
 }
-.chart-parent{
+.chart-parent {
   display: flex;
 }
-#acquisitions{
+#acquisitions {
   height: 400px !important;
   width: 600px !important;
 }
-#acquisitions-pie{
-  width: 400px !important}
+#acquisitions-pie {
+  width: 400px !important;
+}
+
+.job-card {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.job-card p{
+  text-align: justify;
+}

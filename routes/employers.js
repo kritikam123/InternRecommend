@@ -22,7 +22,7 @@ const mailer = {
 console.log(
   "Mailer credentials: ",
   mailer.mail,
-  mailer.pass ? "*****" : "Missing"
+  mailer.pass ? "*****" : "Missing",
 );
 
 var auth;
@@ -49,7 +49,7 @@ async function updateVerification(code, email) {
   try {
     await VerificationCode.update(
       { code, updatedAt: new Date() },
-      { where: { email } }
+      { where: { email } },
     );
     console.log("Verification code updated for email:", email);
   } catch (error) {
@@ -127,12 +127,12 @@ router.post("/employersLogin", async (req, res, next) => {
   }
   console.log(
     "organizaaaaaaaaaaaaaaaa verification status",
-    organization.verified
+    organization.verified,
   );
 
   const passwordValidation = await bcrypt.compare(
     password,
-    organization.password
+    organization.password,
   );
   if (passwordValidation == false) {
     return res.json({
@@ -346,16 +346,27 @@ router.get("/OrgJoblist", async (req, res) => {
           [Op.lt]: Sequelize.literal("CURDATE()"),
         },
       },
-    }
+    },
+  );
+  const [affectedActiveRows] = await Job.update(
+    { status: "ongoing" },
+    {
+      where: {
+        organizationId: req.user.id,
+        expirey: {
+          [Op.gte]: Sequelize.literal("CURDATE()"),
+        },
+      },
+    },
   );
 
-  console.log("Expired jobs updated:", affectedRows);
+  console.log("Expired jobs updated:", affectedActiveRows);
   await Job.findAll({ where: { organizationId: req.user.id } }).then(
     async (jobs) => {
       console.log("THIS ORG JOBSSSSSSSSSSS", jobs);
 
       res.render("employers/OrgJoblist", { jobs: jobs, orginfo: req.user });
-    }
+    },
   );
 });
 
@@ -403,7 +414,7 @@ router.post("/OrgJobList/EditJob", checkuser, async (req, res) => {
       },
       {
         where: { id: req.query.id },
-      }
+      },
     );
     return res.json({
       status: 200,
@@ -489,7 +500,7 @@ router.post("/applicants/save", checkuser, async (req, res) => {
       { status: "accepted" },
       {
         where: { id: applicationId },
-      }
+      },
     );
     console.log("job statusss updatedddddd");
     return res.json({
@@ -514,7 +525,7 @@ router.post("/applicants/cancel", checkuser, async (req, res) => {
       { status: "rejected" },
       {
         where: { id: applicationId },
-      }
+      },
     );
     console.log("job statusss updatedddddd");
     return res.json({

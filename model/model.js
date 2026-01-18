@@ -51,7 +51,7 @@ const VerificationCode = db.define(
     code: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false },
   },
-  { tableName: "verification_codes" }
+  { tableName: "verification_codes" },
 );
 //----------------------------------------------------------------------------------------
 
@@ -207,7 +207,7 @@ const Job = db.define("job", {
   description: {
     type: DataTypes.TEXT,
   },
-  requirements: {
+  rolesandresponsibilities: {
     type: DataTypes.TEXT,
   },
   featured: {

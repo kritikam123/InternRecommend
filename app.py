@@ -35,7 +35,7 @@ def recommended_jobs():
             })
 
         results.sort(key=lambda x: x["score"], reverse=True) #sorts by highest first
-        return jsonify(results[:2])
+        return jsonify(results[:3])
 
     except Exception as e:
         print("Python error:", e)

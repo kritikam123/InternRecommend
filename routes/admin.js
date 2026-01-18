@@ -19,7 +19,7 @@ const checkuser = function (req, res, next) {
     auth = true;
     data = req.user;
     if (req.user.role == "admin") {
-      res.redirect("/admin/job-list");
+      res.redirect("/admin/dashboard");
     }
     next();
   } else {
