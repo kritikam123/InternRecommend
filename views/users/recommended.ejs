@@ -1,26 +1,56 @@
 <%-include("../head.ejs")%>
-
 <link rel="stylesheet" href="/styles/jobdetails.css" />
+
 <body>
   <div class="dashboard-container">
-    <div class="box"><%-include("../sidebar.ejs")%></div>
-    <div class="box1">
+    <aside class="sidebar-box">
+      <%-include("../sidebar.ejs")%>
+    </aside>
+
+    <main class="main-wrapper">
       <%-include("../topbar.ejs")%>
+
       <div class="main-contents">
-        <% if(jobs.length === 0){ %>
-        <p>No recommendations available</p>
-        <% } %> <% jobs.forEach(job => { %>
-        <div class="job-card">
-          <h3><%= job.title %></h3> <br>
-          <p><%= job.description %></p> <br>
-          <p>
-            <strong>Skills:</strong> <%= (job.requiredskills || []).join(", ")
-            %>
-          </p>
-        </div> <br>
-        <% }) %>
+        <header class="content-header">
+          <h2>Recommended for You</h2>
+          <p>Jobs based on your profile and preferences</p>
+        </header>
+
+        <div class="job-grid">
+          <% if(jobs.length === 0){ %>
+            <div class="empty-state">
+              <p>No recommendations available right now. Check back later!</p>
+            </div>
+          <% } %> 
+          
+          <% jobs.forEach(job => { %>
+            <article class="job-card">
+              <div class="job-card-header">
+                <h3><%= job.title %></h3>
+                <span class="job-badge">New</span>
+              </div>
+              
+              <p class="job-description"><%= job.description %></p>
+              
+              <div class="job-tags">
+                <strong>Skills:</strong>
+                <div class="tag-container">
+                  <% (job.requiredskills || []).forEach(skill => { %>
+                    <span class="skill-tag"><%= skill %></span>
+                  <% }) %>
+                </div>
+              </div>
+
+              <div class="job-card-footer">
+             <a href="/users/jobdetails/viewdetails?id=<%= job.id %>" class="btn-primary-link">
+             View Details
+              </a>
+             </div>
+            </article>
+          <% }) %>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 </body>
 <%-include("../components/foot")%>

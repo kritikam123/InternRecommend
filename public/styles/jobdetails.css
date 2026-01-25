@@ -1,97 +1,161 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+:root {
+  --primary-color: #91dec3;
+  --text-dark: #333;
+  --text-light: #666;
+  --bg-light: #f8f9fa;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-radius: 12px;
+}
 
 * {
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
 }
 
-button {
-  all: unset; /* removes all default styles */
-  cursor: pointer; /* optional: still looks clickable */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
 }
 
 .dashboard-container {
   display: grid;
-  grid-template-columns: 300px auto;
-  height: 100vh;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
 }
 
+.main-wrapper {
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+/* Content Layout */
 .main-contents {
-  border: 2px solid #d9d9d9;
-  margin-left: 22px;
-  margin-right: 104px;
-  margin-top: 24px;
-  border-radius: 10px;
+  margin: 24px 40px;
+}
+
+.content-header {
+  margin-bottom: 24px;
+}
+
+.content-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.content-header p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Job Grid */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Job Card Styling */
+.job-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+  border: 1px solid #eee;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.job-card h3 {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.job-badge {
+  background: #e8f7f2;
+  color: #27ae60;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.job-description {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  /* Limits description to 3 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Skills Tags */
+.job-tags {
   margin-bottom: 20px;
 }
-.info-container {
-  margin: 20px;
-}
-.logo1 {
+
+.tag-container {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
 }
 
-.org {
-  color: #91dec3;
-  font-weight: bold;
+.skill-tag {
+  background: #f0f2f5;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--text-dark);
 }
 
-#apply {
-  background-color: #91dec3;
+/* Button */
+.btn-primary-link {
+  display: block; /* Makes the whole area clickable */
+  background-color: var(--primary-color);
   color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 10px;
-}
-.top1 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.cards {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.card {
-  border-radius: 10px;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  width: 350px;
+  text-decoration: none; /* Removes underline */
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
   text-align: center;
-}
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.descripton {
-  margin-bottom: 20px;
+.btn-primary-link:hover {
+  background-color: #7bcbb0; /* Slightly darker shade for hover */
+  color: white;
 }
 
-.cont-parent {
-  padding: 20px;
+.btn-primary-link:active {
+  transform: scale(0.98); /* Slight click effect */
 }
 
-.res {
-  margin-bottom: 10px;
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  background: #fff;
+  border-radius: var(--border-radius);
+  color: var(--text-light);
 }
-.chart-parent{
-  display: flex;
-}
-#acquisitions{
-  height: 400px !important;
-  width: 600px !important;
-}
-#acquisitions-pie{
-  width: 400px !important}
