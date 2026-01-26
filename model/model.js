@@ -209,6 +209,7 @@ const Job = db.define("job", {
   },
   requirements: {
     type: DataTypes.TEXT,
+    allowNull: true,
   },
   featured: {
     type: DataTypes.BOOLEAN,
@@ -300,4 +301,4 @@ module.exports = {
   Admin,
 };
 
-// db.sync({ alter: true });
+db.sync({ alter: true });
