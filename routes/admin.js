@@ -13,21 +13,41 @@ const passport = require("passport");
 const { where, Sequelize } = require("sequelize");
 const { raw } = require("mysql2");
 
+// const checkuser = function (req, res, next) {
+//   console.log("REQ IS AUTHENTICATEDD", req.isAuthenticated());
+//   if (req.isAuthenticated()) {
+//     auth = true;
+//     data = req.user;
+//     if (req.user.role == "admin") {
+//       res.redirect("/admin/dashboard");
+//     }
+//     next();
+//   } else {
+//     auth = false;
+//     data = "";
+//     res.redirect("/admin/login");
+//   }
+// };
+
 const checkuser = function (req, res, next) {
   console.log("REQ IS AUTHENTICATEDD", req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     auth = true;
     data = req.user;
-    if (req.user.role == "admin") {
-      res.redirect("/admin/dashboard");
+
+    if (req.user.role === "admin") {
+      return next(); // ✅ STOP here
     }
-    next();
+
+    return next(); // ✅ allow request to continue
   } else {
     auth = false;
     data = "";
-    res.redirect("/admin/login");
+    return res.redirect("/admin/login"); // ✅ STOP here
   }
 };
+
 
 router.get("/login", async (req, res) => {
   console.log("admin login");
@@ -40,7 +60,7 @@ router.post("/login", async (req, res, next) => {
   const { email, password, remember } = req.body;
 
   //<------------------AUTHENTICATION--------------------------------->
-  passport.authenticate("admin", (error, user, info) => {
+  return passport.authenticate("admin", (error, user, info) => {
     if (error) {
       console.error("Authentication error:", error);
       return res.json({
@@ -94,7 +114,6 @@ router.post("/login", async (req, res, next) => {
     //   console.log("Session saved successfully");
     // });
   })(req, res, next);
-  console.log("login successful");
 });
 
 router.get("/dashboard", checkuser, async (req, res) => {
