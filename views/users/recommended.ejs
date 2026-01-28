@@ -1,56 +1,59 @@
 <%-include("../head.ejs")%>
-<link rel="stylesheet" href="/styles/jobdetails.css" />
+<link rel="stylesheet" href="/styles/recommended.css" />
 
 <body>
   <div class="dashboard-container">
-    <aside class="sidebar-box">
+    <div class="sidebar-box">
       <%-include("../sidebar.ejs")%>
-    </aside>
+    </div>
 
-    <main class="main-wrapper">
+    <div class="box1">
       <%-include("../topbar.ejs")%>
 
       <div class="main-contents">
-        <header class="content-header">
-          <h2>Recommended for You</h2>
-          <p>Jobs based on your profile and preferences</p>
-        </header>
-
-        <div class="job-grid">
-          <% if(jobs.length === 0){ %>
-            <div class="empty-state">
-              <p>No recommendations available right now. Check back later!</p>
-            </div>
-          <% } %> 
-          
-          <% jobs.forEach(job => { %>
-            <article class="job-card">
-              <div class="job-card-header">
-                <h3><%= job.title %></h3>
-                <span class="job-badge">New</span>
+        <div class="info-container">
+          <header class="content-header">
+            <h2>Recommended for You</h2>
+            <p>Jobs based on your profile and preferences</p>
+          </header>
+  
+          <div class="job-grid">
+            <% if(jobs.length === 0){ %>
+              <div class="empty-state">
+                <p>No recommendations available right now. Check back later!</p>
               </div>
-              
-              <p class="job-description"><%= job.description %></p>
-              
-              <div class="job-tags">
-                <strong>Skills:</strong>
-                <div class="tag-container">
-                  <% (job.requiredskills || []).forEach(skill => { %>
-                    <span class="skill-tag"><%= skill %></span>
-                  <% }) %>
+            <% } %> 
+            
+            <% jobs.forEach(job => { %>
+              <article class="job-card">
+                <div class="job-card-header">
+                  <h3><%= job.title %></h3>
+                  <span class="job-badge">New</span>
                 </div>
-              </div>
+                
+                <p class="job-description"><%= job.description %></p>
+                
+                <div class="job-tags">
+                  <strong>Skills:</strong>
+                  <div class="tag-container">
+                    <% (job.requiredskills || []).forEach(skill => { %>
+                      <span class="skill-tag"><%= skill %>,</span>
+                    <% }) %>
+                  </div>
+                </div>
+  
+                <div class="job-card-footer">
+               <a href="/users/jobdetails/viewdetails?id=<%= job.id %>" class="btn-primary-link">
+               View Details
+                </a>
+               </div>
+              </article>
+            <% }) %>
+          </div>
 
-              <div class="job-card-footer">
-             <a href="/users/jobdetails/viewdetails?id=<%= job.id %>" class="btn-primary-link">
-             View Details
-              </a>
-             </div>
-            </article>
-          <% }) %>
         </div>
       </div>
-    </main>
+    </div>
   </div>
 </body>
 <%-include("../components/foot")%>

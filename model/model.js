@@ -301,4 +301,4 @@ module.exports = {
   Admin,
 };
 
-db.sync({ alter: true });
+// db.sync({ alter: true });
